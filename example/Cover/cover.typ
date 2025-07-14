@@ -8,7 +8,7 @@
 
 #titlepage(
   author: [The Student],
-  title: [Thesis Title #lorem(10)], 
+  title: [Thesis Title -- #lorem(10)], 
   faculty: "EA", 
   date: [Month Year], 
   description: [Doctoral dissertation submitted to obtain the academic degree of Doctor of Engineering],
