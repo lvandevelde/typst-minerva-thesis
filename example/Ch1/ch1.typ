@@ -65,7 +65,7 @@ table(
 [3], [8.4],
 columns:2),
 caption: [A simple table with a long caption -- #lorem(20)],
-outline-caption: [A short caption for a siple table],
+outline-caption: [A short caption for a simple table],
 label: <tbl:table2>
 )
 
