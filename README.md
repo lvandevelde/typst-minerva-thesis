@@ -1,12 +1,12 @@
 # Typst thesis
 
-A package for writing a thesis in Typst.
+A package for writing a thesis in Typst based on guidelines at [Ghent University](https://www.ugent.be/en).
 
-- Improved layout of outlines 
+- Improved layout of outlines (compared to standard outlines in Typst 0.13)
 - Support of Parts and Appendices
 - Figure and equation numbers including the chapter/appendix number
 - Customised captions and references
-- Possibility of (short) captions for outlines
+- Possibility of (short) captions of figures and tables for outlines
 - Support of subfigures (via subpar.grid)
 - Possibility to set background colour (`fill`) and `breakable` feature of figures
-- Possibility of left-aligned equations
+- Possibility of left-aligned equations (with a settable left margin)
