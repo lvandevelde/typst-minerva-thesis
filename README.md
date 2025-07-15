@@ -47,3 +47,6 @@ The function `titlepage()` used in `titlepage.typ` is specific for Ghent Univers
 In the folder `example` a basic example of a PhD thesis is given. It uses [option 1](#workingtree) for importing the modules, but you can switch to [option 2](#localpackage) by commenting the first line and uncommenting the second line in the files.
 
 In `example/Ch1/ch1.typ` some examples of figures with a short version of the captions for the outline (List of Figures) by using `m̀yfigure` and `mysubpargrid` are given.
+
+# License
+The logos and icons of Ghent University in folder `ìmg` are copyrighted. Use them only when there is a direct link to Ghent University.
