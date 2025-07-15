@@ -1,5 +1,5 @@
 #import "../lib/lib.typ": ugentthesis
-// #import "@local/ugentthesis:0.1.0": ugentthesis
+// #import "@local/ugentthesis:0.1.1": ugentthesis
 #import ugentthesis: *
 
 

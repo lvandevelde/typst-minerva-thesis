@@ -1,11 +1,12 @@
 [package]
 name="ugentthesis"
-version="0.1.0"
+version="0.1.1"
 authors=["Lieven Vandevelde"]
 entrypoint="lib/lib.typ"
-description="A package for theses"
+description="Package and template for theses"
 repository="https://github.com/lvandevelde/Typst-UGent-thesis"
 categories=["thesis","model","layout"]
+keywords = ["template", "thesis"]
 
 [template]
 path = "template"

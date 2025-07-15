@@ -190,10 +190,12 @@
     let ispgnumshow = pgnumshown.at(<enddocument>).contains(loc.page())
     link(loc, block(
       width: 100%,
-      block(width: 100% - pgwidth, if it.prefix() == none {
-        box(par(
-          justify: true,
-          it.body()
+      block(
+        width: 100% - pgwidth, 
+        if it.prefix() == none {
+          box(par(
+            justify: true,
+            it.body()
             + [ ]
             + if ispgnumshow {
               box(
@@ -206,16 +208,16 @@
                 }
               )
             },
-        ))
-      } else {
-        it.indented(box(text(weight: "semibold", it.prefix())), box(par(
-          justify: true,
-          it.body()
+          ))
+        } else {
+          it.indented(box(text(weight: "semibold", it.prefix())), box(par(
+            justify: true,
+            it.body()
             + [ ]
             + { if ispgnumshow { box(baseline: 0%, width: 1fr, it.fill) } },
-        )))
-      })
-        + if ispgnumshow { place(bottom + right, it.page()) },
+          )))
+        })
+      + if ispgnumshow { place(bottom + right, it.page()) },
     ))
   }
 

@@ -1,5 +1,5 @@
 #import "../../lib/lib.typ": titlepage
-// #import "@local/ugentthesis:0.1.0": titlepage
+// #import "@local/ugentthesis:0.1.1": titlepage
 #import titlepage: *
 
 #let showperson(person) = [
