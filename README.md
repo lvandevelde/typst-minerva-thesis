@@ -13,7 +13,9 @@ A template for writing (PhD) theses with [Typst](https://typst.app/) based on gu
 
 # Installation and usage
 
-There are 2 options for importing the modules:
+## Modules
+
+There are 2 options for importing the package modules:
 
 1. <a name="workingtree"></a> Using modules in the working tree 
 
@@ -29,6 +31,10 @@ There are 2 options for importing the modules:
         cd ugentthesis
         typst watch thesis.typ
  
+## Ghent University specific features
+
+The function `titlepage()` used in `titlepage.typ` is specific for Ghent University theses as it uses logos of Ghent University and its faculties (stored in folder `img`) for building the titlepage. You can modify this function or build your titlepage manually for usage at other institutions.
+
  
 # Example
 
