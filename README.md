@@ -15,11 +15,11 @@ A template for writing (PhD) theses with Typst based on guidelines at [Ghent Uni
 
 There are 2 options for importing the modules:
 
-1. Using modules in the working tree <a name="workingtree"></a>
+1. <a name="workingtree"></a> Using modules in the working tree 
 
     The main modules are installed in folder `lib`. You can import these modules via their path in the local working tree.
 
-2. Using a local Typst package <a name="localpackage"></a>
+2. <a name="localpackage"></a> Using a local Typst package 
 
     You can install the package and template as a local Typst package. Using  `M̀akefile` you can install the local package (on a Linux system) by executing `make install`. For other systems you can copy the files `typst.toml`and the folders `lib`, `ìmg` and `template` manually to the proper location on your local drive. More explanation on local packages can be found in the "Local packages" section on [this page](https://github.com/typst/packages/#).
 
