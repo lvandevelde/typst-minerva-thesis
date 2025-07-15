@@ -1,5 +1,5 @@
 <h1>
-<img width="2146" height="302" alt="Typst-UGent-thesis-banner" src="https://github.com/user-attachments/assets/918006a2-6d2f-4734-ac0d-db8760952db2" />
+<img width="2146" height="302" alt="Typst-UGent-thesis-banner" src="https://github.com/user-attachments/assets/4d31ee26-9639-4566-9142-68ef41a2a19f" />
 </h1>
 
 # Typst thesis
