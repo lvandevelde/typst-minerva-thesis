@@ -1,6 +1,6 @@
 # Typst thesis
 
-A template for writing (PhD) theses with Typst based on guidelines at [Ghent University](https://www.ugent.be/en).
+A template for writing (PhD) theses with [Typst](https://typst.app/) based on guidelines at [Ghent University](https://www.ugent.be/en).
 
 - Improved layout of outlines (compared to standard outlines in Typst 0.13)
 - Support of Parts and Appendices
