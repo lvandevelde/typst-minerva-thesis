@@ -49,4 +49,5 @@ In the folder `example` a basic example of a PhD thesis is given. It uses [optio
 In `example/Ch1/ch1.typ` some examples of figures with a short version of the captions for the outline (List of Figures) by using `m̀yfigure` and `mysubpargrid` are given.
 
 # License
-The logos and icons of Ghent University in folder `ìmg` are copyrighted. Use them only when there is a direct link to Ghent University.
+This template is licensed under the MIT license.
+The logos and icons of Ghent University in folder `ìmg` are copyrighted and are not covered by the MIT license. Use them only when there is a direct link to Ghent University. 
