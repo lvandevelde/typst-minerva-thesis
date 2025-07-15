@@ -7,6 +7,7 @@ description="Package and template for theses"
 repository="https://github.com/lvandevelde/Typst-UGent-thesis"
 categories=["thesis","model","layout"]
 keywords = ["template", "thesis"]
+license = "MIT"
 
 [template]
 path = "template"
