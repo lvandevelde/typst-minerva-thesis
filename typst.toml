@@ -7,3 +7,8 @@ description="A package for theses"
 repository="https://github.com/lvandevelde/Typst-UGent-thesis"
 categories=["thesis","model","layout"]
 
+[template]
+path = "template"
+entrypoint = "thesis.typ"
+
+
