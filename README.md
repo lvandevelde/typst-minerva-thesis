@@ -6,14 +6,16 @@
 
 A template for writing (PhD) theses with [Typst](https://typst.app/) based on guidelines at [Ghent University](https://www.ugent.be/en).
 
-- Improved layout of outlines (compared to standard outlines in Typst 0.13)
+- Improved layout of outlines (compared to standard outlines in Typst 0.13, in particular for outline entries spanning multiple lines)
 - Support of Parts and Appendices
 - Figure and equation numbers including the chapter/appendix number
+- Automatic omission of page numbers on blank pages (e.g. blank page before a chapter)
 - Customised captions and references
-- Possibility of (short) captions of figures and tables for outlines
-- Support of subfigures (via subpar.grid)
-- Possibility to set background colour (`fill`) and `breakable` feature of figures
-- Possibility of left-aligned equations (with a settable left margin)`
+- Support of subfigures (via package [subpar](https://typst.app/universe/package/subpar))
+- Optional (short) versions of figure captions for outlines (List of Figures, List of Tables)
+- Possibility of left-aligned equations (with a settable left margin)
+- Possibility to set background colour (`fill`) and `breakable` feature of figures (experimental)
+`
 
 # Installation and usage
 
@@ -43,3 +45,5 @@ The function `titlepage()` used in `titlepage.typ` is specific for Ghent Univers
 # Example
 
 In the folder `example` a basic example of a PhD thesis is given. It uses [option 1](#workingtree) for importing the modules, but you can switch to [option 2](#localpackage) by commenting the first line and uncommenting the second line in the files.
+
+In `example/Ch1/ch1.typ` some examples of figures with a short version of the captions for the outline (List of Figures) by using `m̀yfigure` and `mysubpargrid` are given.
