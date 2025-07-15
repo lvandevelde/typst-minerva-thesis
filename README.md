@@ -1,3 +1,7 @@
+<h1>
+<img width="2146" height="302" alt="Typst-UGent-thesis-banner" src="https://github.com/user-attachments/assets/918006a2-6d2f-4734-ac0d-db8760952db2" />
+</h1>
+
 # Typst thesis
 
 A template for writing (PhD) theses with [Typst](https://typst.app/) based on guidelines at [Ghent University](https://www.ugent.be/en).
