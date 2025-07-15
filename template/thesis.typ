@@ -21,12 +21,12 @@
 #set page(numbering: "i") 
 #set heading(numbering: none)
 
-// BEGIN Cover & Jury
+// BEGIN Titlepage & Jury
 
 #[
 #set text(font: "UGent Panno Text", size: 10pt) 
 
-#include "Cover/cover.typ"
+#include "Titlepage/titlepage.typ"
 
 #startatoddpage()
 
@@ -34,7 +34,7 @@
 
 ]
 
-// END Cover/Jury
+// END Titlepage & Jury
 
 // BEGIN Acknowledgement, Summaries, Table of Content, List of Figures & Tables etc.  
  
