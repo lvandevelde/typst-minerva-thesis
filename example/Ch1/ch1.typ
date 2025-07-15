@@ -54,7 +54,7 @@ table(
 [1], [2.4],
 [2], [3.6],
 columns:2),
-caption: [A simple table],
+caption: [A simple table with a long caption -- #lorem(30)],
 label: <tbl:table1>
 )
 
@@ -64,8 +64,8 @@ table(
 [2], [10.6],
 [3], [8.4],
 columns:2),
-caption: [A simple table with a long caption -- #lorem(20)],
-outline-caption: [A short caption for a simple table],
+caption: [A simple table with a long caption, but a short caption in the List of Figures -- #lorem(20)],
+outline-caption: [A short caption for the outline],
 label: <tbl:table2>
 )
 

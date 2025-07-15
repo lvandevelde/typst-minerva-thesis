@@ -1,4 +1,4 @@
- #import "../../lib/lib.typ": chapterdefs
+#import "../../lib/lib.typ": chapterdefs
 // #import "@local/ugentthesis:0.1.0": chapterdefs
 #import chapterdefs: *
 

@@ -16,7 +16,7 @@
   )
 
 
-#set figure(placement: auto)
+// #set figure(placement: auto) // puts figures at the top or bottom of pages
 
 #set page(numbering: "i") 
 #set heading(numbering: none)

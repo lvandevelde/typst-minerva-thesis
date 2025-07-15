@@ -6,6 +6,9 @@
 #person.prefix #person.given-name #person.surname#{if person.suffix!=none [, #person.suffix]}
 ]
 
+// titlepage() can (for now) be used for Ghent University theses only, but you can build a title page manually.
+// The supervisors are listed in ../Jury/jury.yaml, but you can also set them manually.
+
 #titlepage(
   author: [The Student],
   title: text(hyphenate:false,[Thesis Title -- #lorem(10)]), 
