@@ -4,7 +4,7 @@
 
 
 #show: thesis.with(
-  font:"UGent Panno Text",
+  font:"UGent Panno Text", // For Ghent University theses only. Use another font otherwise.
   fontsize: 11pt,
   figurefont: "Libertinus Sans",
   equation-left-margin: 5%,
@@ -21,7 +21,7 @@
 // BEGIN Titlepage & Jury
 
 #[
-#set text(font: "UGent Panno Text", size: 10pt) 
+#set text(font: "UGent Panno Text", size: 10pt) // For Ghent University theses only. Use another font otherwise.
 
 #include "Titlepage/titlepage.typ"
 

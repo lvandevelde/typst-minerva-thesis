@@ -1,4 +1,4 @@
-#import "chapterdefs.typ": *
+#import "chapterdefs.typ": addchapternumber, default-figure-fill
 
 #let contentswitch = state("content.switch", false)
 #let contentpages = state("content.pages", ())

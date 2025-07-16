@@ -2,7 +2,7 @@
 #import ugentthesis: *
 
 
-#show: thesis.with(
+#show: thesis.with( // Here the default arguments are used for your reference. 
   font: "Libertinus Sans", 
   fontsize: 10pt,
   mathfont: "Libertinus Math",
@@ -24,7 +24,7 @@
 // BEGIN Titlepage & Jury
 
 #[
-#set text(font: "UGent Panno Text", size: 10pt) 
+// #set text(font: "UGent Panno Text", size: 10pt) // For Ghent University theses only. Use another font otherwise.
 
 #include "Titlepage/titlepage.typ"
 
