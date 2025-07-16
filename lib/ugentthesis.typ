@@ -221,7 +221,8 @@
     ))
   }
 
-  
+ // First-level headings are set in bold and without fill in the Table of Contents
+ // Selection via outline.where(target: heading) does not work for some reason. Therefore selection via repr(it.target)
   show outline: it => {
     if repr(it.target) == "heading" {
       show outline.entry.where(level: 1): set text(weight: "semibold")
