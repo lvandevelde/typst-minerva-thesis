@@ -56,4 +56,4 @@ The example uses [option 1](#workingtree) for importing the modules, but you can
 
 # License
 This template is licensed under the MIT license.
-The logos and icons of Ghent University in folder `ìmg` are copyrighted and are not covered by the MIT license. Use them only when there is a direct link to Ghent University. 
+The logos and icons of Ghent University in folder `img` are copyrighted and are not covered by the MIT license. Use them only when there is a direct link to Ghent University. 
