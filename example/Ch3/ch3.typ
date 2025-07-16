@@ -6,3 +6,9 @@
 
 
 = The Third Chapter <ch:thirdchapter>
+
+== A Section 
+
+=== A Subsection 
+
+== Another Section

@@ -31,12 +31,12 @@
     if not pagenumber { nopagenumber() }
   }
   context heading[Part #partnumber.display("I") -- #title]
-  counter(heading).update(counter(heading).get())
+  counter(heading).update(counter(heading).get()) // restores the heading counter to value before calling part()
 }
 
 
 // filledoutline stores page numbers of headings of level 1 which should appear in the table of contents with dots between the title and the page number (contrary to other level 1 headings)
-// chapters within filledoutlined() will be set this way in the table of contents and have no numbering in their heading
+// level 1 headings within filledoutlined() will be set this way in the table of contents and have no numbering in their heading
 #let filledoutline = state("filledoutline", ()) 
 #let filledoutlined(body, showheading: true) = {
   show heading.where(level: 1): it =>  context {
@@ -221,7 +221,7 @@
     ))
   }
 
-
+  
   show outline: it => {
     if repr(it.target) == "heading" {
       show outline.entry.where(level: 1): set text(weight: "semibold")

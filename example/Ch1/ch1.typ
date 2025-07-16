@@ -2,14 +2,17 @@
 // #import "@local/ugentthesis:0.1.1": chapterdefs
 #import chapterdefs: *
 
-#import "../defs.typ": *
+// Module chapterdefs contains some functions to be used in files with chapters, appendices, etc. 
+// Currently, these functions are only related to extra features for figures & tables, compared to the standard figure() function.
+
+#import "../defs.typ": * // import your own definitions
 
 
 = The First Chapter <ch:firstchapter>
 
 #lorem(50)
 
-== Section 1 <sctn:firstsection>
+== The First Section  <sctn:firstsection>
 
 $ cos^2alpha = frac(1+cos 2 alpha,2) $ <eq:cos2alpha>
 
@@ -17,10 +20,15 @@ $ cos^2alpha = frac(1+cos 2 alpha,2) $ <eq:cos2alpha>
 In @eq:cos2alpha a well-known trigonometry formula is given.
 In @app:A you find some more, in particular in @sctn:Aformulas, e.g. @eq:sin2alpha. 
 
-=== Subsection 1 <sbsctn:firstsubsection>
+=== The First Subsection <sbsctn:firstsubsection>
 
 See @AaBbb2025 and @EeFff2025 for some more explanation.
 
+// Use myfigure() instead of the standard figure() function for:
+//    - setting an outline-caption: a (mostly shorter) caption used in the outline (List of Tables / List of Figures)
+//    - figures/tables with a coloured background 
+// When using the myfigure() function, the (optional) label should be passed as an argument and not be put behind the function call.
+// The standard figure() function can still be used.
 #myfigure(
 image("img/figure_1.svg"),
 caption: [A long figure caption -- #lorem(30)],
@@ -29,6 +37,8 @@ label: <fig:examplefigure1>
 )
 
 
+// mysubpargrid() is based on subpar.grid() (of package subpar) but with analogue extra features as myfigure()
+// Use the standard figure() function for the subfigures within mysubpargrid()
 #mysubpargrid(
 figure(image("img/subfigure_a.svg"), caption: [Subfigure a]),<subfiga>,
 figure(image("img/subfigure_b.svg"), caption: [Subfigure b]),<subfigb>,
@@ -39,6 +49,14 @@ caption: [A long caption for a figure with subfigures -- #lorem(30)],
 outline-caption: [A short caption for a figure with subfigures],
 label: <fig:examplefigure2>
 )
+
+// list of extra named arguments of myfigure() / mysubpargrid() and their default values: 
+//   outline-caption: auto,
+//   label: none,
+//   breakable: false, // if true, the figure is able to span multiple pages (experimental)
+//   fill: auto, // auto =  the value of argument figure-fill in thesis(), see thesis.typ
+//   inset: auto // inset of the coloured outer block, auto = 0.5em
+// The standard arguments of figure() / subpar.grid() are still valid.
 
 #lorem(30)
 
@@ -71,3 +89,8 @@ label: <tbl:table2>
 
 @tbl:table1 and @tbl:table2 are very basic tables.
 
+== The Second Section
+
+=== A Subsection
+
+=== Another Subsection

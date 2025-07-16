@@ -2,22 +2,45 @@
 // #import "@local/ugentthesis:0.1.1": titlepage
 #import titlepage: *
 
+// Module titlepage contains:
+//   - the titlepage() function (see below)
+//   - functions for loading the Ghent University and faculty logos:
+//       - UGentlogo(language: <language code>) creates an image with the Ghent University logo 
+//       - facultylogo(<faculty code>, language: <language code>) creates an image with a faculty logo 
+//   
+// <language code>:
+//     English: "EN"
+//     Nederlands: "NL"
+//  <faculty code>:
+//     Arts and Philosophy: "LW"
+//     Law and Criminology: "RE"
+//     Sciences: "WE"
+//     Medicine and Health Sciences: "GE"
+//     Engineering and Architecture: "EA"
+//     Economics and Business Administration: "EB"
+//     Veterinary Medicine: "DI"
+//     Psychology and Educational Sciences: "PP"
+//     Bioscience Engineering: "BW"
+//     Pharmaceutical Sciences: "FW"
+//     Political and Social Sciences: "PS"
+
 #let showperson(person) = [
 #person.prefix #person.given-name #person.surname#{if person.suffix!=none [, #person.suffix]}
 ]
 
 // titlepage() can (for now) be used for Ghent University theses only, but you can build a title page manually.
-// The supervisors are listed in ../Jury/jury.yaml, but you can also set them manually.
+// In this example, the names of the supervisors are extracted from ../Jury/jury.yaml, but you can also create the supervisors argument of the titlepage function manually.
 
 #titlepage(
   author: [The Student],
   title: text(hyphenate:false,[Thesis Title -- #lorem(10)]), 
-  faculty: "EA", // faculty code, only used for selecting the proper faculty icon in folder "img" 
+  faculty: "EA", // Ghent University faculty code (see comment above), only used for selecting the proper faculty icon 
   date: [Month Year], 
   description: [Doctoral dissertation submitted to obtain the academic degree of Doctor of Engineering],
   supervisors: [#(for member in yaml("../Jury/jury.yaml").at("supervisors") {(showperson(member),)}).join([ -- ])\  Department of X, Y and Z],
   ids: ([ISBN vvv-uu-zzzz-yyy-x], [NUR XXX], [Wettelijk depot: D/YYYY/aa.bbb/cc]), 
   language: "EN"
 )
+
 
 
