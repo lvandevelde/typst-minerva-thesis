@@ -17,7 +17,6 @@ Some features are added in comparison to standard functions of Typst 0.13:
 - Optional (short) versions of figure captions for outlines (List of Figures, List of Tables)
 - Possibility of left-aligned equations (with a settable left margin)
 - Possibility to set background colour (`fill`) and `breakable` feature of figures (experimental)
-`
 
 # Installation and usage
 
