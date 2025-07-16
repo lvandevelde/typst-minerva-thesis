@@ -27,14 +27,14 @@ members:
     
 supervisors:
   - 
-    given-name: Iiiiiii
-    surname: Jjjjjjjjjj
+    given-name: Aa 
+    surname: Supervisor A
     prefix: Prof.
     suffix: Ph.D.
     affiliation: Ghent University
   - 
-    given-name: Kkkkkk
-    surname: Lllllllll
+    given-name: Bb 
+    surname: Supervisor B
     prefix: Prof.
     suffix: Ph.D.
     affiliation: Ghent University

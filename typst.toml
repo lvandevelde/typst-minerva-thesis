@@ -1,16 +1,18 @@
 [package]
 name="ugentthesis"
 version="0.1.1"
-authors=["Lieven Vandevelde"]
 entrypoint="lib/lib.typ"
-description="Package and template for theses"
+authors=["Lieven Vandevelde"]
+license = "MIT"
+description="Master's and doctoral theses based on guidelines at Ghent University."
 repository="https://github.com/lvandevelde/Typst-UGent-thesis"
 categories=["thesis","model","layout"]
-keywords = ["template", "thesis"]
-license = "MIT"
+keywords = ["template", "thesis", "Ghent University"]
+
 
 [template]
 path = "template"
 entrypoint = "thesis.typ"
+thumbnail = "template/thumbnail.png"
 
 

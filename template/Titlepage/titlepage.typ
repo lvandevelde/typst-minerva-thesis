@@ -14,8 +14,8 @@
   language: "EN",
   faculty: "EA", // Ghent University faculty code (see comment below), only used for selecting the proper faculty icon 
   date: [Month Year], 
-  description: [Master's/Doctoral dissertation submitted to obtain the academic degree of Master/Doctor of Some Subject],
-  supervisors: [#(for member in yaml("../Jury/jury.yaml").at("supervisors") {(showperson(member),)}).join([ -- ])\  Department of X, Y and Z],
+  description: [Master's/Doctoral dissertation submitted to obtain the academic degree of Master/Doctor in Some Discipline],
+  supervisors: [#(for member in yaml("../Jury/jury.yaml").at("supervisors") {(showperson(member),)}).join([ -- ])\  Department of Some Discipline],
   ids: ([ISBN vvv-uu-zzzz-yyy-x], [NUR XXX], [Wettelijk depot: D/YYYY/aa.bbb/cc])
 )
 
