@@ -35,8 +35,8 @@
 }
 
 
-// filledoutline stores page numbers of headings of level 1 which should appear in the table of contents with dots between the title and the page number (contrary to other level 1 headings)
-// level 1 headings within filledoutlined() will be set this way in the table of contents and have no numbering in their heading
+// filledoutline stores page numbers of first-level headings which should appear in the table of contents with dots between the title and the page number (contrary to other first-level headings)
+// first-level headings within filledoutlined() will be set this way in the table of contents and have no numbering in their heading
 #let filledoutline = state("filledoutline", ()) 
 #let filledoutlined(body, showheading: true) = {
   show heading.where(level: 1): it =>  context {

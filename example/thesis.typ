@@ -31,7 +31,7 @@
 #set page(numbering: "i") 
 #set heading(numbering: none)
 
-// Page numbers are not shown before the first level 1 heading.
+// Page numbers are not shown yet, but only from the first first-level heading on.
 
 // BEGIN Title page & Jury
 
@@ -52,11 +52,11 @@
 
 // BEGIN Acknowledgement, Summaries, Table of Content, List of Figures & Tables etc.  
 
-// Level 1 headings within filledoutlined[...] are shown with a fill (dots) between the title and the page number in the outline (Table of Contents), contrary to other level 1 headings (of chapters and appendices).
+// Level 1 headings within filledoutlined[...] are shown with a fill (dots) between the title and the page number in the outline (Table of Contents), contrary to other first-level headings (of chapters and appendices).
 
 #filledoutlined[ 
  
-// Showing page numbers starts here as the acknowledgement has a level 1 heading. 
+// Showing page numbers starts here as the acknowledgement has a first-level heading. 
 #include "Acknowledgement/acknowledgement.typ"
 
 #include "Summaries/samenvatting.typ"
@@ -135,7 +135,7 @@
 
 // BEGIN APPENDICES
 
-// Page numbers are shown again from the first level 1 heading (of the first appendix in this case)
+// Page numbers are shown again from the first first-level heading (of the first appendix in this case)
 #include "AppA/appA.typ"
 #include "AppB/appB.typ"
 
