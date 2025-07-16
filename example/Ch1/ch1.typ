@@ -43,10 +43,10 @@ label: <fig:examplefigure2>
 #lorem(30)
 
 @fig:examplefigure2 consists of 4 subfigures:
-- @subfiga : case a
-- @subfigb : case b
-- @subfigc : case c
-- @subfigd : case d
+- @subfiga: case a
+- @subfigb: case b
+- @subfigc: case c
+- @subfigd: case d
 
 
 #myfigure(
