@@ -12,7 +12,7 @@
 #titlepage(
   author: [The Student],
   title: text(hyphenate:false,[Thesis Title -- #lorem(10)]), 
-  faculty: "EA", 
+  faculty: "EA", // faculty code, only used for selecting the proper faculty icon in folder "img" 
   date: [Month Year], 
   description: [Doctoral dissertation submitted to obtain the academic degree of Doctor of Engineering],
   supervisors: [#(for member in yaml("../Jury/jury.yaml").at("supervisors") {(showperson(member),)}).join([ -- ])\  Department of X, Y and Z],

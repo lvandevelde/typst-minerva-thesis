@@ -39,7 +39,7 @@ There are 2 options for importing the package modules:
  
 ## Ghent University specific features
 
-The function `titlepage()` used in `titlepage.typ` is specific for Ghent University theses as it uses logos of Ghent University and its faculties (stored in folder `img`) for building the titlepage. You can modify this function or build your titlepage manually for usage at other institutions.
+The function `titlepage()` used in `titlepage.typ` is specific for Ghent University theses as it uses logos of Ghent University and its faculties for building the titlepage. You can modify this function or build your titlepage manually for usage at other institutions.
 
  
 # Example
