@@ -6,10 +6,12 @@
 
 A template for writing (PhD) theses with [Typst](https://typst.app/) based on guidelines at [Ghent University](https://www.ugent.be/en).
 
-- Improved layout of outlines (compared to standard outlines in Typst 0.13, in particular for outline entries spanning multiple lines)
+Some features are added in comparison to standard functions of Typst 0.13:
+
+- Improved layout of outlines (in particular for outline entries spanning multiple lines)
 - Support of Parts and Appendices
 - Figure and equation numbers including the chapter/appendix number
-- Automatic omission of page numbers on blank pages (e.g. blank page before a chapter)
+- Omission of page numbers on blank pages before the beginning of a chapter
 - Customised captions and references
 - Support of subfigures (via package [subpar](https://typst.app/universe/package/subpar))
 - Optional (short) versions of figure captions for outlines (List of Figures, List of Tables)
@@ -46,11 +48,11 @@ The files in this folder contain comments explaining the modules and functions o
 
 - `thesis.typ`: the main file with settings and imports of all contents (title page, front matter, chapters, appendices and bibliography);
 - `Ch1/ch1.typ`: the first chapter with tables and figures with extra features (compared to the standard `figure()` function;
-- `Titlepage/titlepage.typ`: the title page using the `titlepage()` function which is specific for Ghent University theses as it uses logos of Ghent University and its faculties for building the title page. You can modify this function or build your titlepage manually for usage at other institutions.
-
-The example uses [option 1](#workingtree) for importing the modules, but you can switch to [option 2](#localpackage) by commenting the first line and uncommenting the second line in the files.
+- `Titlepage/titlepage.typ`: the title page using the `titlepage()` function which is specific for Ghent University theses as it uses logos of Ghent University and its faculties for building the title page. You can modify this function or build your title page manually for usage at other institutions.
 
 In `example/thesis.typ` the font "UGent Panno Text" is used. This is only relevant for Ghent University theses—it is not a free font and can only be used for Ghent University purposes—and requires this font has been installed on your system (with this specific font name) if you want to compile the example. Remove or change these font settings in `example/thesis.typ` otherwise. In `template/thesis.typ` the font settings using "UGent Panno Text" have been commented.
+
+The example uses [option 1](#workingtree) for importing the modules, but you can switch to [option 2](#localpackage) by commenting the first line and uncommenting the second line in the files.
 
 # License
 This template is licensed under the MIT license.

@@ -9,7 +9,7 @@
 // In this example, the names of the supervisors are extracted from ../Jury/jury.yaml, but you can also create the supervisors argument of the titlepage function manually.
 
 #titlepage(
-  author: [The Student],
+  author: [The Master/PhD Student],
   title: text(hyphenate:false,[Thesis Title -- #lorem(10)]), 
   language: "EN",
   faculty: "EA", // Ghent University faculty code (see comment below), only used for selecting the proper faculty icon 

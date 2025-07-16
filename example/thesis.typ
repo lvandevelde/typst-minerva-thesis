@@ -2,7 +2,7 @@
 // #import "@local/ugentthesis:0.1.1": ugentthesis
 #import ugentthesis: *
 
-// Module ugentthesis includes all functions needed for the main typ file, which sets or imports all content. 
+// Module ugentthesis includes all functions needed for the main file containing settings and imports of all contents (title page, front matter, chapters, appendices and bibliography). 
 
 #show: thesis.with(
   font:"UGent Panno Text", // For Ghent University theses only. Use another font otherwise.
