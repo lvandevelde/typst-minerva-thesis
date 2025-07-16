@@ -25,7 +25,7 @@ There are 2 options for importing the package modules:
 
 1. <a name="workingtree"></a> Using modules in the working tree 
 
-    The main modules are installed in folder `lib`. You can import these modules via their path in the local working tree.
+    The main modules are installed in folder `lib`. You can import these modules via their path in the local working tree, see, e.g., the files in folder `example` where this option is used as explained in [Example](#example).
 
 2. <a name="localpackage"></a> Using a local Typst package 
 
@@ -46,7 +46,7 @@ The function `titlepage()` used in `titlepage.typ` is specific for Ghent Univers
 
 In the folder `example` a basic example of a PhD thesis is given. It uses [option 1](#workingtree) for importing the modules, but you can switch to [option 2](#localpackage) by commenting the first line and uncommenting the second line in the files.
 
-In `example/thesis.typ` the font "UGent Panno Text" is used. This is only relevant for Ghent University theses—it is not a free font and can only be used for Ghent University purposes—and requires this font has been installed on your system (with this specific font name) if you want to compile the example. Remove or change these font settings in `example/thesis.typ` otherwise.
+In `example/thesis.typ` the font "UGent Panno Text" is used. This is only relevant for Ghent University theses—it is not a free font and can only be used for Ghent University purposes—and requires this font has been installed on your system (with this specific font name) if you want to compile the example. Remove or change these font settings in `example/thesis.typ` otherwise. In `template/thesis.typ` the font settings using "UGent Panno Text" have been commented.
 
 In `example/Ch1/ch1.typ` some examples of figures with a short version of the captions for the outline (List of Figures) by using `m̀yfigure` and `mysubpargrid` are given.
 
