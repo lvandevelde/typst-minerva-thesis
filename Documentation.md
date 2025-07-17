@@ -83,7 +83,7 @@ The standard arguments of figure() / subpar.grid() are still valid.
 
 ## Module `titlepage`
 
-This module only contains one function: `titlepage`.
+This module contains only one function: `titlepage`.
 
 ### `titlepage`
 
