@@ -46,7 +46,7 @@ Setting the argument `showheading: false` in `frontmatter` or `backmatter` can b
   
 These functions are usually used in show rules, such as
     
-    #show: thesis.with(...)
+`#show: thesis.with(...)`
     
 
   
