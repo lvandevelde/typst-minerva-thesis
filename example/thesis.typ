@@ -1,13 +1,12 @@
 #import "../lib/lib.typ": ugentthesis
-// #import "@local/ugentthesis:0.1.1": ugentthesis
+// #import "@local/ugentthesis:0.1.2": ugentthesis
 #import ugentthesis: *
 
 // Module ugentthesis includes all functions needed for the main file containing settings and imports of all contents (title page, front matter, chapters, appendices and bibliography). 
 
 #show: thesis.with(
-  font:"UGent Panno Text", // For Ghent University theses only. Use another font otherwise.
+//   font:"UGent Panno Text", // For Ghent University theses only. Use another font otherwise.
   fontsize: 11pt,
-  figurefont: "Libertinus Sans",
   equation-left-margin: 5%, // auto = centred equations (which is the default)
   figure-fill:  luma(245) // auto = color-tertiary of Ghent University corporate identity, none = no background
   )
@@ -28,33 +27,20 @@
 
 // #set figure(placement: auto) // puts figures at the top or bottom of pages
 
-#set page(numbering: "i") 
-#set heading(numbering: none)
 
 // Page numbers are not shown yet, but only from the first first-level heading on.
 
-// BEGIN Title page & Jury
-
-#[
-#set text(font: "UGent Panno Text", size: 10pt) // For Ghent University theses only. Use another font otherwise.
-
 #include "Titlepage/titlepage.typ"
 
-#startatoddpage()
 
-#include "Jury/jury.typ"
-
+// #include "Jury/jury.typ"
+// For including the Examination Board in the Table of Contents, comment the previous line and uncomment the following 4 lines:
+#frontmatter(showheading:false)[
+  = Examination Board
+  #include "Jury/jury.typ"
 ]
 
-// END Title page & Jury
-
-
-
-// BEGIN Acknowledgement, Summaries, Table of Content, List of Figures & Tables etc.  
-
-// Level 1 headings within filledoutlined[...] are shown with a fill (dots) between the title and the page number in the outline (Table of Contents), contrary to other first-level headings (of chapters and appendices).
-
-#filledoutlined[ 
+#show: frontmatter
  
 // Showing page numbers starts here as the acknowledgement has a first-level heading. 
 #include "Acknowledgement/acknowledgement.typ"
@@ -78,23 +64,10 @@
   target: figure.where(kind: image)
 )
 
-] 
 
-// END Acknowledgement, Summaries, Table of Content, List of Figures & Tables etc.  
-
-
-// Settings for Chapters:
-#set page(numbering:"1")
-#counter(page).update(0) 
-#set heading(numbering: "1.1.1")
-#show heading.where(level:1): set heading(supplement: [Chapter]) 
-#counter(heading).update(0)
-
-
-// BEGIN Chapters
+#show: chapter
 
 // Parts are optional. 
-// part() produces a flyleaf with only the part title, indexed in the Table of Contents. 
 
 #part("Introduction") 
 
@@ -109,44 +82,16 @@
 
 #include "Ch4/ch4.typ"
 
+#part("Results")
 
-// END Chapters
+#include "Ch5/ch5.typ"
 
+// #show: appendix.with(flyleaf:[Appendix]) // if there is only one Appendix
+#show: appendix //otherwise
 
-
-
-// BEGIN FLYLEAF before the appendices with only "Appendices", indexed in the Table of Contents
-
-#set heading(numbering:none) 
-
-= Appendices
-
-#nopagenumber() // Stops showing page numbers
-
-// END FLYLEAF
-
-
-// Settings for Appendices
-
-#counter(heading).update(0)
-#set heading(numbering: "A.1.1")
-#show heading.where(level:1): set heading(supplement: [Appendix]) 
-
-
-// BEGIN APPENDICES
-
-// Page numbers are shown again from the first first-level heading (of the first appendix in this case)
 #include "AppA/appA.typ"
 #include "AppB/appB.typ"
 
-// END APPENDICES
-
-// BEGIN BIBLIOGRAPHY
-
-#filledoutlined[
+#show: backmatter
 
 #bibliography("references.bib", style: "ieee")  // style argument is actually not needed here because "ieee" is the default
-
-]
-
-// END BIBLIOGRAPHY

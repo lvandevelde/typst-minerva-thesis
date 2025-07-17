@@ -64,6 +64,7 @@
   captionfontsize: 10pt,
   equation-left-margin: auto,
   figure-fill: none,
+  figure-inset: auto,
   doc,
 ) = {
   set text(font: font, size: fontsize)
@@ -126,6 +127,7 @@
     )
   }
   if figure-fill != auto { default-figure-fill.update(figure-fill) }
+  if figure-inset != auto { default-figure-inset.update(figure-inset) }
 
   show math.equation: set text(font: mathfont, size: mathfontsize)
 
@@ -236,4 +238,47 @@
   doc
 
   [#[] <enddocument>] // Marks the end of the document (is used by filledoutline and pgnumshown)
+}
+
+
+#let frontmatter(..args, body)={
+ set page(numbering: "i") 
+ set heading(numbering: none)
+ 
+ filledoutlined(..args, body)
+}
+
+#let chapter(body)={
+// Settings for Chapters:
+ set page(numbering:"1")
+ counter(page).update(0) 
+ set heading(numbering: "1.1.1")
+ show heading.where(level:1): set heading(supplement: [Chapter]) 
+ counter(heading).update(0)
+ 
+ body
+}
+
+#let appendix(flyleaf:[Appendices],body)={
+
+  if flyleaf!=none {
+    set heading(numbering:none) 
+    [= #flyleaf]
+    nopagenumber() 
+  }
+  
+  counter(heading).update(0)
+  set heading(numbering: "A.1.1")
+  show heading.where(level:1): set heading(supplement: [Appendix]) 
+  
+  body
+}
+
+#let backmatter(..args,body)={
+
+// nothing special here
+set page(numbering:"1")
+
+filledoutlined(..args, body) 
+
 }

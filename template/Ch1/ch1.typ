@@ -1,4 +1,4 @@
-#import "@local/ugentthesis:0.1.1": chapterdefs
+#import "@local/ugentthesis:0.1.2": chapterdefs
 #import chapterdefs: *
 
 

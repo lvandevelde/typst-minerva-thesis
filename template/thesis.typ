@@ -1,8 +1,8 @@
-#import "@local/ugentthesis:0.1.1": ugentthesis
+#import "@local/ugentthesis:0.1.2": ugentthesis
 #import ugentthesis: *
 
 
-#show: thesis.with( // Here the default arguments are used for your reference. 
+#show: thesis.with( // Here the default values of the arguments are used for your reference. 
   font: "Libertinus Sans", 
   fontsize: 10pt,
   mathfont: "Libertinus Math",
@@ -18,27 +18,16 @@
 
 // #set figure(placement: auto) // puts figures at the top or bottom of pages
 
-#set page(numbering: "i") 
-#set heading(numbering: none)
-
-// BEGIN Titlepage & Jury
-
-#[
-// #set text(font: "UGent Panno Text", size: 10pt) // For Ghent University theses only. Use another font otherwise.
-
 #include "Titlepage/titlepage.typ"
 
-#startatoddpage()
-
 #include "Jury/jury.typ"
+// For including the Examination Board in the Table of Contents, comment the previous line and uncomment the following 4 lines:
+// #frontmatter(showheading:false)[
+//   = Examination Board
+//   #include "Jury/jury.typ"
+// ]
 
-]
-
-// END Titlepage & Jury
-
-// BEGIN Acknowledgement, Summaries, Table of Content, List of Figures & Tables etc.  
- 
-#filledoutlined[ 
+#show: frontmatter
  
 #include "Acknowledgement/acknowledgement.typ"
 
@@ -60,21 +49,10 @@
   title: [List of Figures],
   target: figure.where(kind: image)
 )
-
-] 
-
-// END Acknowledgement, Summaries, Table of Content, List of Figures & Tables etc.  
+ 
 
 
-// Settings for Chapters:
-#set page(numbering:"1")
-#counter(page).update(0) 
-#set heading(numbering: "1.1.1")
-#show heading.where(level:1): set heading(supplement: [Chapter]) 
-#counter(heading).update(0)
-
-
-// BEGIN Chapters
+#show: chapter 
 
 // Parts are optional
 #part("First Part") 
@@ -89,32 +67,14 @@
 // 
 // #include "Ch4/ch4.typ"
 
+#show: appendix.with(flyleaf:[Appendix]) // if there is only one Appendix
+// #show: appendix //otherwise
 
-// END Chapters
-
-
-// Settings for Appendices
-#set heading(numbering:none)
-
-= Appendices
-#nopagenumber()
-
-#counter(heading).update(0)
-#set heading(numbering: "A.1.1")
-#show heading.where(level:1): set heading(supplement: [Appendix]) 
-
-
-// BEGIN APPENDICES
-  
 #include "AppA/appA.typ"
 
 
-// END APPENDICES
+#show: backmatter
 
-// BIBLIOGRAPHY
+// #bibliography(<your bibfile>)
 
-#filledoutlined[
 
-// #bibliography()
-
-]

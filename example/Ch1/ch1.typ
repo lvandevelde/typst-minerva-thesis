@@ -1,5 +1,5 @@
 #import "../../lib/lib.typ": chapterdefs
-// #import "@local/ugentthesis:0.1.1": chapterdefs
+// #import "@local/ugentthesis:0.1.2": chapterdefs
 #import chapterdefs: *
 
 // Module chapterdefs contains some functions to be used in files with chapters, appendices, etc. 
@@ -22,7 +22,7 @@ In @app:A you find some more, in particular in @sctn:Aformulas, e.g. @eq:sin2alp
 
 === The First Subsection <sbsctn:firstsubsection>
 
-See @AaBbb2025 and @EeFff2025 for some more explanation.
+// See @AaBbb2025 and @EeFff2025 for some more explanation.
 
 // Use myfigure() instead of the standard figure() function for:
 //    - setting an outline-caption: a (mostly shorter) caption used in the outline (List of Tables / List of Figures)
@@ -55,7 +55,7 @@ label: <fig:examplefigure2>
 //   label: none,
 //   breakable: false, // if true, the figure is able to span multiple pages (experimental)
 //   fill: auto, // auto =  the value of argument figure-fill in thesis(), see thesis.typ
-//   inset: auto // inset of the coloured outer block, auto = 0.5em
+//   inset: auto // inset of the coloured outer block, auto = the value of argument figure-inset in thesis(), see thesis.typ
 // The standard arguments of figure() / subpar.grid() are still valid.
 
 #lorem(30)

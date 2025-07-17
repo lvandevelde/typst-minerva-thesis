@@ -31,17 +31,20 @@ There are 2 options for importing the package modules:
 
     For installing and using the template execute:
     
-        typst init @local/ugentthesis:0.1.1  
+        typst init @local/ugentthesis:0.1.2  
         cd ugentthesis
         typst watch thesis.typ
  
 
+# Modules and functions
+
+Some documentation on the modules and functions of this package can be found in [`Documentation.md`](Documentation.md) 
  
 # Example
 
 In the folder `example` a basic example of a PhD thesis is given. 
 
-The files in this folder contain comments explaining the modules and functions of this package, in particular:
+The files in this folder illustrate most of the modules and functions of the package, in particular:
 
 - `thesis.typ`: the main file with settings and imports of all contents (title page, front matter, chapters, appendices and bibliography);
 - `Ch1/ch1.typ`: the first chapter with tables and figures with extra features (compared to the standard `figure()` function;
@@ -50,6 +53,11 @@ The files in this folder contain comments explaining the modules and functions o
 In `example/thesis.typ` the font "UGent Panno Text" is used. This is only relevant for Ghent University theses—it is not a free font and can only be used for Ghent University purposes—and requires this font has been installed on your system (with this specific font name) if you want to compile the example. Remove or change these font settings in `example/thesis.typ` otherwise. In `template/thesis.typ` the font settings using "UGent Panno Text" have been commented.
 
 The example uses [option 1](#workingtree) for importing the modules, but you can switch to [option 2](#localpackage) by commenting the first line and uncommenting the second line in the files.
+
+# Fonts
+
+In the example and the template, the lines for selecting the "UGent Panno Text" font have been commented, such that `thesis.typ`can be compiled out-of-the-box. The "UGent Panno Text" font is not a free font and can only be used for Ghent University purposes. For using this font, it has to be installed on your system (with this specific font name).
+
 
 # License
 This template is licensed under the MIT license.

@@ -6,6 +6,7 @@
 #let color-tertiary = rgb("#e9f0fa")
 
 #let default-figure-fill = state("default-figure-fill", color-tertiary)
+#let default-figure-inset = state("default-figure-inset", 0.5em)
 
 #let addchapternumber(..num) = {
   let chapters = query(heading.where(level: 1).before(here()))
@@ -45,7 +46,7 @@
   let thefill = fill
   let theinset = inset
   if thefill == auto { thefill = default-figure-fill.get() }
-  if theinset == auto { theinset = if thefill == none { 0pt } else { 0.5em } }
+  if theinset == auto { theinset = if thefill == none { 0pt } else { default-figure-inset.get() } }
   show figure.caption: set block(breakable: false) if breakable
   if theinset == 0pt and thefill == none {
     show figure: set block(breakable: breakable)

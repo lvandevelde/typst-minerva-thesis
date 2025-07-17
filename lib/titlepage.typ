@@ -16,33 +16,48 @@
   faculty: none, // faculty code, case-insensitive
   description: none,
   ids: none, // ID(s) such as ISBN, NIR code, ... : single string/content or array
+  font: auto,
+  fontsize: auto
 ) = {
-  facultylogo(faculty, language: language)
 
-  v(8em)
+  {
+    set text(font: font) if font!=auto 
+    set text(size: fontsize) if fontsize!=auto 
+  
+    facultylogo(faculty, language: language)
 
-  text(size: 18pt, weight: "bold", title)
-  v(3em)
-  align(right, text(size: 12pt, weight: "bold", author))
-  v(6em)
+    v(8em)
 
-  [#description]
+    text(size: 1.8em, weight: "bold", title)
+    
+    v(3em)
+    
+    align(right, text(size: 1.2em, weight: "bold", author))
+    
+    v(6em)
+    
+    [#description]
 
-  v(2em)
-  [*Supervisors*
+    v(2em)
+    
+    [*Supervisors*
 
     #supervisors]
 
-  v(5em)
-  text(size: 11pt, date)
+    v(5em)
+    
+    text(size: 1.1em, date)
 
-  v(1fr)
+    v(1fr)
 
-  UGentlogo(language: language)
-
+    UGentlogo(language: language)
+  }
+  
   pagebreak()
 
   v(1fr)
 
   if type(ids) == array { for id in ids [#id \ ] } else [#ids]
+  
+  pagebreak(weak: true, to: "odd")
 }
