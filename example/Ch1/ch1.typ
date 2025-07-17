@@ -22,7 +22,7 @@ In @app:A you find some more, in particular in @sctn:Aformulas, e.g. @eq:sin2alp
 
 === The First Subsection <sbsctn:firstsubsection>
 
-// See @AaBbb2025 and @EeFff2025 for some more explanation.
+See @AaBbb2025 and @EeFff2025 for some more explanation.
 
 // Use myfigure() instead of the standard figure() function for:
 //    - setting an outline-caption: a (mostly shorter) caption used in the outline (List of Tables / List of Figures)
