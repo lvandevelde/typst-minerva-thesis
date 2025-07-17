@@ -17,8 +17,8 @@
   description: [Master's/Doctoral dissertation submitted to obtain the academic degree of Master/Doctor in Some Discipline],
   supervisors: [#(for member in yaml("../Jury/jury.yaml").at("supervisors") {(showperson(member),)}).join([ -- ])\  Department of Some Discipline],
   ids: ([ISBN vvv-uu-zzzz-yyy-x], [NUR XXX], [Wettelijk depot: D/YYYY/aa.bbb/cc]), 
-  font: auto, 
-  fontsize: auto
+//   font: "UGent Panno Text", 
+  fontsize: 11pt
 )
 
 

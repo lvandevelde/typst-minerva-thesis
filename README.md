@@ -48,9 +48,8 @@ The files in this folder illustrate most of the modules and functions of the pac
 
 - `thesis.typ`: the main file with settings and imports of all contents (title page, front matter, chapters, appendices and bibliography);
 - `Ch1/ch1.typ`: the first chapter with tables and figures with extra features (compared to the standard `figure()` function;
-- `Titlepage/titlepage.typ`: the title page using the `titlepage()` function which is specific for Ghent University theses as it uses logos of Ghent University and its faculties for building the title page. You can modify this function or build your title page manually for usage at other institutions.
+- `Titlepage/titlepage.typ`: the title page using the `titlepage` function which is specific for Ghent University theses as it uses logos of Ghent University and its faculties for building the title page. You can modify this function or build your title page manually for usage at other institutions.
 
-In `example/thesis.typ` the font "UGent Panno Text" is used. This is only relevant for Ghent University theses—it is not a free font and can only be used for Ghent University purposes—and requires this font has been installed on your system (with this specific font name) if you want to compile the example. Remove or change these font settings in `example/thesis.typ` otherwise. In `template/thesis.typ` the font settings using "UGent Panno Text" have been commented.
 
 The example uses [option 1](#workingtree) for importing the modules, but you can switch to [option 2](#localpackage) by commenting the first line and uncommenting the second line in the files.
 

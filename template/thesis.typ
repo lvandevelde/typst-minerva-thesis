@@ -3,6 +3,7 @@
 
 
 #show: thesis.with( // Here the default values of the arguments are used for your reference. 
+//   font: "UGent Panno Text",
   font: "Libertinus Sans", 
   fontsize: 10pt,
   mathfont: "Libertinus Math",
