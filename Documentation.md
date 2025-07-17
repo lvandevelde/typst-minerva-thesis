@@ -81,7 +81,7 @@ Both `myfigure` and `mysubpargrid` have extra named arguments compared to `figur
 
 The standard arguments of figure() / subpar.grid() are still valid. 
 
-## Mudule `titlepage`
+## Module `titlepage`
 
 This module only contains one function: `titlepage`.
 
