@@ -31,7 +31,7 @@ There are 2 options for importing the package modules:
 
     For installing and using the template execute:
     
-        typst init @local/ugentthesis:0.1.2  
+        typst init @local/ugentthesis:0.1.3  
         cd ugentthesis
         typst watch thesis.typ
  
