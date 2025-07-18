@@ -29,7 +29,7 @@
 ]
 
 // titlepage() can (for now) be used for Ghent University theses only, but you can build a title page manually.
-// In this example, the names of the supervisors are extracted from ../Jury/jury.yaml, but you can also create the supervisors argument of the titlepage function manually.
+// In this example, the names of the supervisors are extracted from ../Jury/jury.yaml, but you can also create the supervisor(s) argument of the titlepage function manually.
 
 
 #titlepage(

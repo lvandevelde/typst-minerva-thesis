@@ -11,6 +11,9 @@
   title: none,
   author: none,
   supervisors: none,
+  counsellors: none,
+  supervisor: none,
+  counsellor: none,
   date: none,
   language: "EN", // "EN" or "NL", case-insensitive
   faculty: none, // faculty code, case-insensitive
@@ -26,7 +29,7 @@
   
     facultylogo(faculty, language: language)
 
-    v(8em)
+    v(2fr)
 
     text(size: 1.8em, weight: "bold", title)
     
@@ -40,9 +43,33 @@
 
     v(2em)
     
-    [*Supervisors*
-
-    #supervisors]
+    if supervisors!=none { 
+      par({
+      [*Supervisors*]
+      linebreak()
+      supervisors
+      })
+    } else if supervisor!=none { 
+      par({
+      [*Supervisor*]
+      linebreak()
+      supervisor
+      })
+    }
+    
+    if counsellors!=none { 
+      par({
+      [*Counsellors*] 
+      linebreak()
+      counsellors
+      })
+    } else if counsellor!=none { 
+      par({
+      [*Counsellor*] 
+      linebreak()
+      counsellor
+      })
+    }
 
     v(5em)
     

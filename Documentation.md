@@ -30,7 +30,15 @@ Module `ugentthesis` includes all functions needed for the main file containing 
   - `figure-inset: auto`  
       the default inset of the outer block of figures if a background colour is given  
       `auto` means 0.5em
+  - `paper: none`  
+  - `page-width: 160mm`  
+    Is ignored when `paper` is given
+  - `page-height: 240mm`  
+    Is ignored when `paper` is given
 
+The optional arguments `paper`, `page-width` and  `page-height` correspond to the respective arguments `paper`, `width` and  `height`
+    of the standard `page` element function.
+    
 The following functions are used for setting the different parts of a thesis:
   
 - `frontmatter`
@@ -38,11 +46,12 @@ The following functions are used for setting the different parts of a thesis:
 - `chapter`
 - `appendix`
   - `flyleaf: [Appendices]`  
-  sets the title on the flyleaf before the appendices,  `none` means no flyleaf
+  sets the title on the flyleaf before the appendices  
+  `none` means no flyleaf
 - `backmatter`
   - `showheading: true`
-  
-Setting the argument `showheading: false` in `frontmatter` or `backmatter` can be used to add pages with a first-level heading to the Table of Contents without showing the heading on the page itself  
+
+Setting the argument `showheading: false` in `frontmatter` or `backmatter` can be used to add pages with a first-level heading to the Table of Contents without showing the heading on the page itself.
   
 These functions are usually used in show rules, such as
     
@@ -69,6 +78,7 @@ Functions:
   Use the standard `figure` function for the subfigures within mysubpargrid(). 
   
 Both `myfigure` and `mysubpargrid` have extra named arguments compared to `figure` and `subpar.grid` respectively:
+
   - `outline-caption: auto`  
     `auto` means that the caption set by argument `caption` is also used in the outline 
   - `label: none`
@@ -89,13 +99,20 @@ This module contains only one function: `titlepage`.
 
 The function `titlepage` can (for now) be used for Ghent University theses only. Otherwise the title page has to be build manually.
 
-  - `title`: `none`
-  - `author`: `none`
-  - `supervisors`: `none`
-  - `date`: `none`
+  - `title: none`
+  - `author: none`
+  - `supervisors: none`  
+      use in case of multiple supervisors
+  - `supervisor: none`  
+      use in case of a single supervisor 
+  - `counsellors: none`  
+      use in case of multiple counsellors
+  - `counselor: none`  
+      use in case of a single counsellor
+  - `date: none`
   - `language: "EN"`  
     "EN" for English or "NL" for Dutch, case-insensitive
-  - `faculty`: `none`  
+  - `faculty: none`  
     faculty code, case-insensitive  
      - Arts and Philosophy: "LW"
      - Law and Criminology: "RE"
@@ -108,13 +125,14 @@ The function `titlepage` can (for now) be used for Ghent University theses only.
      - Bioscience Engineering: "BW"
      - Pharmaceutical Sciences: "FW"
      - Political and Social Sciences: "PS
-  - `description`: `none`
+  - `description: none`  
+      Typically information on the degree for which the thesis is submitted.
   - `ids`: `none`  
     ID(s) such as ISBN, NIR code, ... : single string/content or array
-  - `font`: `auto`  
+  - `font: auto`  
     `auto` means the current font (usually, `font` set via `thesis`) 
-  - `fontsize`: `auto`  
+  - `fontsize: auto`  
     base font size  
-    `auto` means the current font size (usually, `fontsize` set via `thesis`) 
+    `auto` means the current font size (usually, `fontsize` set via the `thesis` function) 
 
   

@@ -8,20 +8,23 @@
 //   font:"UGent Panno Text", // For Ghent University theses only. Use another font otherwise.
   fontsize: 11pt,
   equation-left-margin: 5%, // auto = centred equations (which is the default)
-  figure-fill:  luma(245) // auto = color-tertiary of Ghent University corporate identity, none = no background
+  figure-fill:  luma(245), // auto = color-tertiary of Ghent University corporate identity, none = no background
   )
 
 // full list of named arguments of thesis with their default values:
-//   font: "Libertinus Sans",
-//   fontsize: 10pt,
-//   mathfont: "Libertinus Math",
-//   mathfontsize: 10pt,
-//   figurefont: "Libertinus Sans",
-//   figurefontsize: 10pt,
-//   captionfont: "Libertinus Sans",
-//   captionfontsize: 10pt,
-//   equation-left-margin: auto,
+//   font: "Libertinus Sans"
+//   fontsize: 10pt
+//   mathfont: "Libertinus Math"
+//   mathfontsize: 10pt
+//   figurefont: "Libertinus Sans"
+//   figurefontsize: 10pt
+//   captionfont: "Libertinus Sans"
+//   captionfontsize: 10pt
+//   equation-left-margin: auto
 //   figure-fill: none
+//   pager: none
+//   page-width: 160mm
+//   page-height: 240mm
   
 #show "et al.": [_et al._]
 

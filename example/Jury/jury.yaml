@@ -38,3 +38,5 @@ supervisors:
     prefix: Prof.
     suffix: Ph.D.
     affiliation: Ghent University
+
+counsellors:

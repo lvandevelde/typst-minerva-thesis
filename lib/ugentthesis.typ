@@ -63,6 +63,9 @@
   captionfont: "Libertinus Sans",
   captionfontsize: 10pt,
   equation-left-margin: auto,
+  paper: none,
+  page-width: 160mm, 
+  page-height: 240mm,
   figure-fill: none,
   figure-inset: auto,
   doc,
@@ -73,10 +76,12 @@
   set par(justify: true)
   set list(indent: 0.5em)
   set enum(indent: 0.5em)
-
+  
+  set page(paper: paper) if paper != none 
+  set page(width: page-width) if paper==none 
+  set page(height: page-height) if paper==none
+  
   set page(
-    width: 160mm,
-    height: 240mm,
     margin: (y: 15mm, inside: 25mm, outside: 15mm),
     header: context {
       let currentpage = here().page()
