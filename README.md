@@ -36,7 +36,7 @@ There are 2 options for importing the package modules:
         typst watch thesis.typ
  
 
-# Modules and functions
+# Functions
 
 The documentation on the functions of this package can be found in [`Documentation.md`](Documentation.md) 
  
