@@ -1,4 +1,4 @@
-#import "@local/ugentthesis:0.1.2": *
+#import "@local/ugentthesis:0.1.3": *
 
 
 = The First Appendix <app:A>

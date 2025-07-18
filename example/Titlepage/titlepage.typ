@@ -1,5 +1,5 @@
 #import "../../lib/lib.typ": *
-//#import "@local/ugentthesis:0.1.2": *
+//#import "@local/ugentthesis:0.1.3": *
 
 
 // For building the title page, the titlepage() function (see below) can be used, currently for Ghent University these only.

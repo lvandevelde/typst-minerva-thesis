@@ -1,5 +1,5 @@
 #import "../../lib/lib.typ": *
-//#import "@local/ugentthesis:0.1.2": *
+//#import "@local/ugentthesis:0.1.3": *
 
 
 #import "../defs.typ": * // import your own definitions

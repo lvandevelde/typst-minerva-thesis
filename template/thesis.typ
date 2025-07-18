@@ -1,4 +1,4 @@
-#import "@local/ugentthesis:0.1.2": *
+#import "@local/ugentthesis:0.1.3": *
 
 
 #show: thesis.with( // Here the default values of the arguments are used for your reference. 

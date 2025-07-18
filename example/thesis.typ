@@ -1,5 +1,5 @@
 #import "../lib/lib.typ": *
-//#import "@local/ugentthesis:0.1.2": *
+//#import "@local/ugentthesis:0.1.3": *
 
 // Module ugentthesis includes all functions needed for the main file containing settings and imports of all contents (title page, front matter, chapters, appendices and bibliography). 
 
