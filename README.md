@@ -55,7 +55,7 @@ The example uses [option 1](#workingtree) for importing the modules, but you can
 
 # Fonts
 
-In the example and the template, the lines for selecting the "UGent Panno Text" font have been commented, such that `thesis.typ`can be compiled out-of-the-box. The "UGent Panno Text" font is not a free font and can only be used for Ghent University purposes. For using this font, it has to be installed on your system (with this specific font name).
+In the  [example](#example) and the template, the lines for selecting the "UGent Panno Text" font have been commented, such that `thesis.typ`can be compiled out-of-the-box. The "UGent Panno Text" font is not a free font and can only be used for Ghent University purposes. For using this font, it has to be installed on your system (with this specific font name).
 
 
 # License

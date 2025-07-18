@@ -194,7 +194,7 @@
       (str(counter(page).final().first()).len() + 1) * [9],
     ).width // estimate of space needed for page number
     let loc = it.element.location()
-    let ispgnumshow = pgnumshown.at(<enddocument>).contains(loc.page())
+    let ispgnumshow = pgnumshown.final().contains(loc.page())
     link(loc, block(
       width: 100%,
       block(
@@ -208,7 +208,7 @@
               box(
                 baseline: 0%,
                 width: 1fr,
-                if loc.page() in filledoutline.at(<enddocument>) {
+                if loc.page() in filledoutline.final() {
                   repeat(text(weight: "regular")[.], gap: 0.15em) // i.e. the default fill
                 } else {
                  it.fill
@@ -242,7 +242,6 @@
 
   doc
 
-  [#[] <enddocument>] // Marks the end of the document (is used by filledoutline and pgnumshown)
 }
 
 
