@@ -2,10 +2,16 @@
 
 #let contentswitch = state("content.switch", false)
 #let contentpages = state("content.pages", ())
-#let currentpgnum = state("currentpgnum", true)
+#let showpgnum = state("showpgnum", true)
 #let pgnumshown = state("pgnumshown", ())
+#let pgnumonpage = state("pgnumonpage", true)
 
-#let nopagenumber() = { currentpgnum.update(false) }
+
+
+#let hidepagenumber(outline: true) = {
+  if outline {showpgnum.update(false)}
+  else  {pgnumonpage.update(false)} 
+}
 
 #let startatoddpage() = {
   contentswitch.update(false)
@@ -28,7 +34,7 @@
       [Part ] + partnumber.display("I"),
     ))
     align(right, text(size: 32pt, title))
-    if not pagenumber { nopagenumber() }
+    if not pagenumber { hidepagenumber() }
   }
   context heading[Part #partnumber.display("I") -- #title]
   counter(heading).update(counter(heading).get()) // restores the heading counter to value before calling part()
@@ -98,7 +104,7 @@
     footer: context {
       let currentpage = here().page()
       let has-content = contentpages.get().contains(currentpage)
-      if has-content and page.numbering != none and currentpgnum.get() {
+      if has-content and page.numbering != none and showpgnum.get() and pgnumonpage.get() {
         align(
           if calc.odd(counter(page).get().first()) { right } else { left },
           counter(page).display(),
@@ -108,7 +114,8 @@
           it
         })
       }
-      currentpgnum.update(true)
+      showpgnum.update(true)
+      pgnumonpage.update(true)
     },
   )
 
@@ -194,7 +201,7 @@
       (str(counter(page).final().first()).len() + 1) * [9],
     ).width // estimate of space needed for page number
     let loc = it.element.location()
-    let ispgnumshow = pgnumshown.final().contains(loc.page())
+    let ispgnumshown = pgnumshown.final().contains(loc.page())
     link(loc, block(
       width: 100%,
       block(
@@ -204,7 +211,7 @@
             justify: true,
             it.body()
             + [ ]
-            + if ispgnumshow {
+            + if ispgnumshown {
               box(
                 baseline: 0%,
                 width: 1fr,
@@ -221,10 +228,10 @@
             justify: true,
             it.body()
             + [ ]
-            + { if ispgnumshow { box(baseline: 0%, width: 1fr, it.fill) } },
+            + { if ispgnumshown { box(baseline: 0%, width: 1fr, it.fill) } },
           )))
         })
-      + if ispgnumshow { place(bottom + right, it.page()) },
+      + if ispgnumshown { place(bottom + right, it.page()) },
     ))
   }
 
@@ -268,7 +275,7 @@
   if flyleaf!=none {
     set heading(numbering:none) 
     [= #flyleaf]
-    nopagenumber() 
+    hidepagenumber() 
   }
   
   counter(heading).update(0)
@@ -280,9 +287,7 @@
 
 #let backmatter(..args,body)={
 
-// nothing special here
-set page(numbering:"1")
-
-filledoutlined(..args, body) 
+  set page(numbering:"1")
+  filledoutlined(..args, body) 
 
 }

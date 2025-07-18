@@ -1,9 +1,6 @@
-#import "../../lib/lib.typ": chapterdefs
-// #import "@local/ugentthesis:0.1.2": chapterdefs
-#import chapterdefs: *
+#import "../../lib/lib.typ": *
+//#import "@local/ugentthesis:0.1.2": *
 
-// Module chapterdefs contains some functions to be used in files with chapters, appendices, etc. 
-// Currently, these functions are only related to extra features for figures & tables, compared to the standard figure() function.
 
 #import "../defs.typ": * // import your own definitions
 

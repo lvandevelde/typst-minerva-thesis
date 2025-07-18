@@ -1,13 +1,12 @@
-#import "../../lib/lib.typ": titlepage
-// #import "@local/ugentthesis:0.1.2": titlepage
-#import titlepage: *
+#import "../../lib/lib.typ": *
+//#import "@local/ugentthesis:0.1.2": *
 
-// Module titlepage contains:
-//   - the titlepage() function (see below)
-//   - functions for loading the Ghent University and faculty logos:
+
+// For building the title page, the titlepage() function (see below) can be used, currently for Ghent University these only.
+// Furthermore functions for using Ghent University logos are defined:
 //       - UGentlogo(language: <language code>) creates an image with the Ghent University logo 
-//       - facultylogo(<faculty code>, language: <language code>) creates an image with a faculty logo 
-//   
+//       - facultylogo(faculty: <faculty code>, language: <language code>) creates an image with a faculty logo 
+
 // <language code>:
 //     English: "EN"
 //     Nederlands: "NL"

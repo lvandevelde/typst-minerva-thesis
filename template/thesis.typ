@@ -1,5 +1,4 @@
-#import "@local/ugentthesis:0.1.2": ugentthesis
-#import ugentthesis: *
+#import "@local/ugentthesis:0.1.2": *
 
 
 #show: thesis.with( // Here the default values of the arguments are used for your reference. 
@@ -22,9 +21,10 @@
 #include "Titlepage/titlepage.typ"
 
 #include "Jury/jury.typ"
-// For including the Examination Board in the Table of Contents, comment the previous line and uncomment the following 4 lines:
+// For including the Examination Board in the Table of Contents, comment the previous line and uncomment the following 5 lines:
 // #frontmatter(showheading:false)[
 //   = Examination Board
+//   #hidepagenumber(outline: false)
 //   #include "Jury/jury.typ"
 // ]
 

@@ -38,13 +38,13 @@ There are 2 options for importing the package modules:
 
 # Modules and functions
 
-Some documentation on the modules and functions of this package can be found in [`Documentation.md`](Documentation.md) 
+The documentation on the functions of this package can be found in [`Documentation.md`](Documentation.md) 
  
 # Example
 
 In the folder `example` a basic example of a PhD thesis is given. 
 
-The files in this folder illustrate most of the modules and functions of the package, in particular:
+The files in this folder illustrate most of the functions of the package, in particular:
 
 - `thesis.typ`: the main file with settings and imports of all contents (title page, front matter, chapters, appendices and bibliography);
 - `Ch1/ch1.typ`: the first chapter with tables and figures with extra features (compared to the standard `figure()` function;

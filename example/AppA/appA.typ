@@ -1,6 +1,6 @@
-#import "../../lib/lib.typ": chapterdefs
-// #import "@local/ugentthesis:0.1.2": chapterdefs
-#import chapterdefs: *
+#import "../../lib/lib.typ": *
+//#import "@local/ugentthesis:0.1.2": *
+
 
 #import "../defs.typ": *
 

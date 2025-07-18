@@ -1,6 +1,5 @@
-#import "../lib/lib.typ": ugentthesis
-// #import "@local/ugentthesis:0.1.2": ugentthesis
-#import ugentthesis: *
+#import "../lib/lib.typ": *
+//#import "@local/ugentthesis:0.1.2": *
 
 // Module ugentthesis includes all functions needed for the main file containing settings and imports of all contents (title page, front matter, chapters, appendices and bibliography). 
 
@@ -31,21 +30,20 @@
 // #set figure(placement: auto) // puts figures at the top or bottom of pages
 
 
-// Page numbers are not shown yet, but only from the first first-level heading on.
 
 #include "Titlepage/titlepage.typ"
 
-
 // #include "Jury/jury.typ"
-// For including the Examination Board in the Table of Contents, comment the previous line and uncomment the following 4 lines:
+// For including the Examination Board in the Table of Contents, comment the previous line and uncomment the following 5 lines:
 #frontmatter(showheading:false)[
   = Examination Board
+  #hidepagenumber(outline: false)
   #include "Jury/jury.typ"
 ]
 
 #show: frontmatter
  
-// Showing page numbers starts here as the acknowledgement has a first-level heading. 
+ 
 #include "Acknowledgement/acknowledgement.typ"
 
 #include "Summaries/samenvatting.typ"

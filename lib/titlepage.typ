@@ -2,7 +2,7 @@
   "../img/logo_UGent_" + upper(language) + ".svg",
   height: 21mm,
 )
-#let facultylogo(faculty, language: "EN") = image(
+#let facultylogo(faculty: none, language: "EN") = image(
   "../img/logo_" + upper(faculty) + "_" + upper(language) + ".svg",
   height: 10mm,
 )
@@ -27,7 +27,7 @@
     set text(font: font) if font!=auto 
     set text(size: fontsize) if fontsize!=auto 
   
-    facultylogo(faculty, language: language)
+    facultylogo(faculty: faculty, language: language)
 
     v(2fr)
 

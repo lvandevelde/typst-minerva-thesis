@@ -1,7 +1,4 @@
-#import "@local/ugentthesis:0.1.2": chapterdefs
-#import chapterdefs: *
-
-
+#import "@local/ugentthesis:0.1.2": *
 
 
 = The First Chapter <chapter1>

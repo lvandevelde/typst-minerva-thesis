@@ -1,5 +1,4 @@
-#import "@local/ugentthesis:0.1.2": titlepage
-#import titlepage: *
+#import "@local/ugentthesis:0.1.2": *
 
 #let showperson(person) = [
 #person.prefix #person.given-name #person.surname#{if person.suffix!=none [, #person.suffix]}
