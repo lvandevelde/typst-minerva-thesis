@@ -27,7 +27,7 @@ There are 2 options for importing the package modules:
 
 2. <a name="localpackage"></a> Using a local Typst package 
 
-    You can install the package and template as a local Typst package. Using  `Makefile` you can install the local package (on a Linux system) by executing `make install`. For other systems you can copy the files `typst.toml`and the folders `lib`, `img` and `template` manually to the proper location on your local drive. More explanation on local packages can be found in the "Local packages" section on [this page](https://github.com/typst/packages/#).
+    You can install the package and template as a local Typst package. Using  `Makefile` you can install the local package (on a Linux system) by executing `make install`. For other systems you can copy the files `typst.toml`and the folders `lib`, `img` and `template` manually to the proper location on your local drive. More information on local packages can be found via the ["Local packages"](https://github.com/typst/packages/?tab=readme-ov-file#local-packages) section of the Typst packages documentation.
 
     For installing and using the template execute:
     
