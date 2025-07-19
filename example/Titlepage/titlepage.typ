@@ -2,32 +2,12 @@
 //#import "@local/ugentthesis:0.1.3": *
 
 
-// For building the title page, the titlepage() function (see below) can be used, currently for Ghent University these only.
-// Furthermore functions for using Ghent University logos are defined:
-//       - UGentlogo(language: <language code>) creates an image with the Ghent University logo 
-//       - facultylogo(faculty: <faculty code>, language: <language code>) creates an image with a faculty logo 
-
-// <language code>:
-//     English: "EN"
-//     Nederlands: "NL"
-//  <faculty code>:
-//     Arts and Philosophy: "LW"
-//     Law and Criminology: "RE"
-//     Sciences: "WE"
-//     Medicine and Health Sciences: "GE"
-//     Engineering and Architecture: "EA"
-//     Economics and Business Administration: "EB"
-//     Veterinary Medicine: "DI"
-//     Psychology and Educational Sciences: "PP"
-//     Bioscience Engineering: "BW"
-//     Pharmaceutical Sciences: "FW"
-//     Political and Social Sciences: "PS"
 
 #let showperson(person) = [
 #person.prefix #person.given-name #person.surname#{if person.suffix!=none [, #person.suffix]}
 ]
 
-// titlepage() can (for now) be used for Ghent University theses only, but you can build a title page manually.
+
 // In this example, the names of the supervisors are extracted from ../Jury/jury.yaml, but you can also create the supervisor(s) argument of the titlepage function manually.
 
 
@@ -40,8 +20,8 @@
   supervisors: [#(for member in yaml("../Jury/jury.yaml").at("supervisors") {(showperson(member),)}).join([ -- ])\  Department of X, Y and Z],
   ids: ([ISBN vvv-uu-zzzz-yyy-x], [NUR XXX], [Wettelijk depot: D/YYYY/aa.bbb/cc]), 
   language: "EN",
-  //   font: "UGent Panno Text", // default: current font, usually set via the font argument of thesis()
-  fontsize: 10pt // default: current font size, usually set via the fontsize argument of thesis()
+  //   font: "UGent Panno Text", 
+  fontsize: 10pt 
 )
 
 

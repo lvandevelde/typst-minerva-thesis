@@ -1,7 +1,7 @@
 #import "@local/ugentthesis:0.1.3": *
 
 
-= The First Appendix <app:A>
+= The First Appendix <anappendixlabel>
 
 
 

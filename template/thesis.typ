@@ -1,7 +1,7 @@
 #import "@local/ugentthesis:0.1.3": *
 
 
-#show: thesis.with( // Here the default values of the arguments are used for your reference. 
+#show: thesis.with( // Here default values of the arguments are used for your reference. 
 //   font: "UGent Panno Text",
   font: "Libertinus Sans", 
   fontsize: 10pt,
@@ -13,6 +13,10 @@
   captionfontsize: 10pt,
   equation-left-margin: auto, // auto=centered equations
   figure-fill: none, // background colour of figures
+  figure-inset: auto,
+//   paper: none,
+  page-width: 160mm, 
+  page-height: 240mm
   )
 
 

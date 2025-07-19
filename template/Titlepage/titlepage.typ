@@ -11,7 +11,7 @@
   author: [The Master/PhD Student],
   title: text(hyphenate:false,[Thesis Title -- #lorem(10)]), 
   language: "EN",
-  faculty: "EA", // Ghent University faculty code (see comment below), only used for selecting the proper faculty icon 
+  faculty: "EA", // Ghent University faculty code, only used for selecting the proper faculty icon 
   date: [Month Year], 
   description: [Master's/Doctoral dissertation submitted to obtain the academic degree of Master/Doctor in Some Discipline],
   supervisors: [#(for member in yaml("../Jury/jury.yaml").at("supervisors") {(showperson(member),)}).join([ -- ])\  Department of Some Discipline],
@@ -21,15 +21,3 @@
 )
 
 
-// faculty codes:
-//     Arts and Philosophy: LW
-//     Law and Criminology: RE
-//     Sciences: WE
-//     Medicine and Health Sciences: GE
-//     Engineering and Architecture: EA
-//     Economics and Business Administration: EB
-//     Veterinary Medicine: DI
-//     Psychology and Educational Sciences: PP
-//     Bioscience Engineering: BW
-//     Pharmaceutical Sciences: FW
-//     Political and Social Sciences: PS

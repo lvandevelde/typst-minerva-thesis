@@ -1,7 +1,6 @@
 #import "../lib/lib.typ": *
 //#import "@local/ugentthesis:0.1.3": *
 
-// Module ugentthesis includes all functions needed for the main file containing settings and imports of all contents (title page, front matter, chapters, appendices and bibliography). 
 
 #show: thesis.with(
 //   font:"UGent Panno Text", // For Ghent University theses only. Use another font otherwise.
@@ -10,25 +9,10 @@
   figure-fill:  luma(245), // auto = color-tertiary of Ghent University corporate identity, none = no background
   )
 
-// full list of named arguments of thesis with their default values:
-//   font: "Libertinus Sans"
-//   fontsize: 10pt
-//   mathfont: "Libertinus Math"
-//   mathfontsize: 10pt
-//   figurefont: "Libertinus Sans"
-//   figurefontsize: 10pt
-//   captionfont: "Libertinus Sans"
-//   captionfontsize: 10pt
-//   equation-left-margin: auto
-//   figure-fill: none
-//   pager: none
-//   page-width: 160mm
-//   page-height: 240mm
   
 #show "et al.": [_et al._]
 
 // #set figure(placement: auto) // puts figures at the top or bottom of pages
-
 
 
 #include "Titlepage/titlepage.typ"

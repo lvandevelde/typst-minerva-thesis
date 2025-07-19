@@ -1,6 +1,8 @@
 #import "@local/ugentthesis:0.1.3": *
 
 
-= The First Chapter <chapter1>
+= The First Chapter <achapterlabel>
+
+== The First Section <asectionlabel> 
 
 

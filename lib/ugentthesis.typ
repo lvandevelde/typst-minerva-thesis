@@ -104,11 +104,13 @@
     footer: context {
       let currentpage = here().page()
       let has-content = contentpages.get().contains(currentpage)
-      if has-content and page.numbering != none and showpgnum.get() and pgnumonpage.get() {
-        align(
-          if calc.odd(counter(page).get().first()) { right } else { left },
-          counter(page).display(),
-        )
+      if has-content and page.numbering != none and showpgnum.get() {
+        if pgnumonpage.get() {
+          align(
+            if calc.odd(counter(page).get().first()) { right } else { left },
+            counter(page).display()
+          )
+        }
         pgnumshown.update(it => {
           it.push(currentpage)
           it

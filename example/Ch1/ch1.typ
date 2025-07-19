@@ -21,11 +21,7 @@ In @app:A you find some more, in particular in @sctn:Aformulas, e.g. @eq:sin2alp
 
 See @AaBbb2025 and @EeFff2025 for some more explanation.
 
-// Use myfigure() instead of the standard figure() function for:
-//    - setting an outline-caption: a (mostly shorter) caption used in the outline (List of Tables / List of Figures)
-//    - figures/tables with a coloured background 
-// When using the myfigure() function, the (optional) label should be passed as an argument and not be put behind the function call.
-// The standard figure() function can still be used.
+
 #myfigure(
 image("img/figure_1.svg"),
 caption: [A long figure caption -- #lorem(30)],
@@ -33,8 +29,6 @@ outline-caption: [A short caption],
 label: <fig:examplefigure1>
 )
 
-
-// mysubpargrid() is based on subpar.grid() (of package subpar) but with analogue extra features as myfigure()
 // Use the standard figure() function for the subfigures within mysubpargrid()
 #mysubpargrid(
 figure(image("img/subfigure_a.svg"), caption: [Subfigure a]),<subfiga>,
@@ -47,13 +41,6 @@ outline-caption: [A short caption for a figure with subfigures],
 label: <fig:examplefigure2>
 )
 
-// list of extra named arguments of myfigure() / mysubpargrid() and their default values: 
-//   outline-caption: auto,
-//   label: none,
-//   breakable: false, // if true, the figure is able to span multiple pages (experimental)
-//   fill: auto, // auto =  the value of argument figure-fill in thesis(), see thesis.typ
-//   inset: auto // inset of the coloured outer block, auto = the value of argument figure-inset in thesis(), see thesis.typ
-// The standard arguments of figure() / subpar.grid() are still valid.
 
 #lorem(30)
 
