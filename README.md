@@ -19,11 +19,11 @@ A template for writing theses with [Typst](https://typst.app/) following guideli
 # Installation and usage
 
 
-There are 2 options for importing the package modules:
+There are 2 options for importing the locally installed package modules:
 
 1. <a name="workingtree"></a> Using modules in the working tree 
 
-    The main modules are installed in folder `lib`. You can import these modules via their path in the local working tree, see, e.g., the files in folder `example` where this option is used as explained in [Example](#example).
+    The main module `lib.typ` is installed in folder `lib`. You can import this module via its path in the local working tree, see, e.g., the files in folder `example` where this option is used as explained in [Example](#example).
 
 2. <a name="localpackage"></a> Using a local Typst package 
 

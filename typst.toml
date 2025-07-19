@@ -13,6 +13,6 @@ keywords = ["template", "thesis", "Ghent University"]
 [template]
 path = "template"
 entrypoint = "thesis.typ"
-thumbnail = "template/thumbnail.png"
+thumbnail = "thumbnail.png"
 
 
