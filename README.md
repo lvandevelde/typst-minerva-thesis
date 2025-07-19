@@ -19,7 +19,7 @@ A template for writing theses with [Typst](https://typst.app/) following guideli
 # Installation and usage
 
 
-There are 2 options for importing the locally installed package modules:
+There are 2 options for importing the **locally installed package modules**:
 
 1. <a name="workingtree"></a> Using modules in the working tree 
 
@@ -47,7 +47,7 @@ In the folder `example` a basic example of a PhD thesis is given.
 The files in this folder illustrate most of the functions of the package, in particular:
 
 - `thesis.typ`: the main file with settings and imports of all contents (title page, front matter, chapters, appendices and bibliography);
-- `Ch1/ch1.typ`: the first chapter with tables and figures with extra features (compared to the standard `figure()` function;
+- `Ch1/ch1.typ`: the first chapter with tables and figures with extra features (compared to the standard `figure` function;
 - `Titlepage/titlepage.typ`: the title page using the `titlepage` function which is specific for Ghent University theses as it uses logos of Ghent University and its faculties for building the title page. You can modify this function or build your title page manually for usage at other institutions.
 
 
