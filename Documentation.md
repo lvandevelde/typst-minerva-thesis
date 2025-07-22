@@ -133,7 +133,7 @@ For creating the title page and the use of Ghent University logos the following 
     base font size  
     `auto` means the current font size (usually, `fontsize` set via the `thesis` function) 
 
-- `UGentlogo`
+- `ugentlogo`
 
     - `language: "EN"`
   
