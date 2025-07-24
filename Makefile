@@ -1,5 +1,5 @@
 VERSION=0.1.3
-PACKAGEDIR=$(HOME)/.local/share/typst/packages/local/ugentthesis/$(VERSION)
+PACKAGEDIR=$(HOME)/.local/share/typst/packages/local/minerva-thesis/$(VERSION)
 FILES=typst.toml lib img template
 
 .PHONY: install
