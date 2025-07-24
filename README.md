@@ -1,10 +1,8 @@
-<h1>
-<img width="2146" height="302" alt="Typst-UGent-thesis-banner" src="https://github.com/user-attachments/assets/4d31ee26-9639-4566-9142-68ef41a2a19f" />
-</h1>
 
-# Typst thesis
 
-A template for writing theses with [Typst](https://typst.app/) following guidelines at [Ghent University](https://www.ugent.be/en) (UGent) and providing additional features in comparison to standard functions of Typst 0.13:
+# Minerva Typst thesis
+
+The `minerva-thesis` package provides a template for writing theses with [Typst](https://typst.app/) following guidelines at [Ghent University](https://www.ugent.be/en) (UGent) and additional functions and features in comparison to standard functions of Typst 0.13:
 
 - Improved layout of outlines (in particular for outline entries spanning multiple lines)
 - Support of Parts and Appendices
@@ -18,8 +16,17 @@ A template for writing theses with [Typst](https://typst.app/) following guideli
 
 # Installation and usage
 
+The package has been published on the [Typst Universe](https://typst.app/universe/package/minerva-thesis), so you can use the `preview` version of the template, e.g. via the Typst CLI:
 
-There are 2 options for importing the **locally installed package modules**:
+    typst init @preview/minerva-thesis:0.1.3  
+    cd minerva-thesis
+    typst watch thesis.typ
+
+In your Typst files, you can import the functions of the package via:
+
+    #import "@preview/minerva-thesis:0.1.3": *
+        
+If you want to install the template and the modules of the package locally, download the files of this repository and import the locally installed modules via one of the following options:
 
 1. <a name="workingtree"></a> Using modules in the working tree 
 
@@ -31,9 +38,13 @@ There are 2 options for importing the **locally installed package modules**:
 
     For installing and using the template execute:
     
-        typst init @local/ugentthesis:0.1.3  
-        cd ugentthesis
+        typst init @local/minerva-thesis:0.1.3  
+        cd minerva-thesis
         typst watch thesis.typ
+        
+    In your code, you can import the functions of the package via:
+
+        #import "@local/minerva-thesis:0.1.3": *
  
 
 # Functions
@@ -51,7 +62,9 @@ The files in this folder illustrate most of the functions of the package, in par
 - `Titlepage/titlepage.typ`: the title page using the `titlepage` function which is specific for Ghent University theses as it uses logos of Ghent University and its faculties for building the title page. You can modify this function or build your title page manually for usage at other institutions.
 
 
-The example uses [option 1](#workingtree) for importing the modules, but you can switch to [option 2](#localpackage) by commenting the first line and uncommenting the second line in the files.
+The example uses [option 1](#workingtree) for importing the locally installed modules, but you can switch to [option 2](#localpackage) by commenting the first line and uncommenting the second line in the files.
+
+The folder `example-preview` contains the same example, but the package modules are imported by using the `preview` version.
 
 # Fonts
 

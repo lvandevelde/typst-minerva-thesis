@@ -1,4 +1,4 @@
-#import "@local/ugentthesis:0.1.3": *
+#import "@local/minerva-thesis:0.1.3": *
 
 #let showperson(person) = [
 #person.prefix #person.given-name #person.surname#{if person.suffix!=none [, #person.suffix]}

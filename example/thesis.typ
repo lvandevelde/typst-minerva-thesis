@@ -1,5 +1,5 @@
 #import "../lib/lib.typ": *
-//#import "@local/ugentthesis:0.1.3": *
+//#import "@local/minerva-thesis:0.1.3": *
 
 
 #show: thesis.with(
