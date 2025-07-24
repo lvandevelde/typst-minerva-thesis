@@ -1,6 +1,6 @@
 
 
-# Minerva Typst thesis
+# UGent thesis template
 
 The `minerva-thesis` package provides a template for writing theses with [Typst](https://typst.app/) following guidelines at [Ghent University](https://www.ugent.be/en) (UGent) and additional functions and features in comparison to standard functions of Typst 0.13:
 
