@@ -16,7 +16,7 @@ The `minerva-thesis` package provides a template for writing theses with [Typst]
 
 # Installation and usage
 
-The package has been published on the [Typst Universe](https://typst.app/universe/package/minerva-thesis), so you can use the `preview` version of the template, e.g. via the Typst CLI:
+The package has been published on the [Typst Universe](https://typst.app/universe/package/minerva-thesis/0.1.3), so you can use the `preview` version of the template, e.g. via the Typst CLI:
 
     typst init @preview/minerva-thesis:0.1.3  
     cd minerva-thesis
