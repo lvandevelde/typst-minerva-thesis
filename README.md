@@ -1,5 +1,4 @@
-<img width="2146" height="302" alt="Typst-minerva-thesis-banner" src="https://github.com/user-attachments/assets/e40a6238-9a4d-4086-8eed-a48e9a6e733c" />
-
+<img width="2146" height="302" alt="Typst-minerva-thesis-banner" src="https://github.com/user-attachments/assets/0a116493-7518-46c2-bd72-c51f20adbee0" />
 
 # `minerva-thesis` - a Typst thesis template
 
