@@ -3,6 +3,10 @@
 
 #show: thesis.with(
 //   font:"UGent Panno Text", // For Ghent University theses only. Use another font otherwise.
+  font: "Libertinus Serif", 
+  captionfont: "Libertinus Serif",
+  figurefont: "Libertinus Serif",
+  mathfont: "New Computer Modern Math",
   fontsize: 11pt,
   equation-left-margin: 5%, // auto = centred equations (which is the default)
   figure-fill:  luma(245), // auto = color-tertiary of Ghent University corporate identity, none = no background
