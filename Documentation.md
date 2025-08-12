@@ -1,5 +1,7 @@
 # Documentation
 
+**minerva-thesis version 0.1.3**
+
 This documentation explains the functions of the package.
 
 Below, for every function the named arguments and their default values are listed.
