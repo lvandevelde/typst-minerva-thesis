@@ -1,15 +1,15 @@
 #import "@local/minerva-thesis:0.1.3": *
 
 
-#show: thesis.with( // Here default values of the arguments are used for your reference. 
+#show: thesis.with( 
 //   font: "UGent Panno Text",
-  font: "Libertinus Sans", 
+  font: "Libertinus Serif", 
   fontsize: 10pt,
-  mathfont: "Libertinus Math",
+  mathfont: "New Computer Modern Math",
   mathfontsize: 10pt,
-  figurefont: "Libertinus Sans",
+  figurefont: "Libertinus Serif",
   figurefontsize: 10pt,
-  captionfont: "Libertinus Sans",
+  captionfont: "Libertinus Serif",
   captionfontsize: 10pt,
   equation-left-margin: auto, // auto=centered equations
   figure-fill: none, // background colour of figures
