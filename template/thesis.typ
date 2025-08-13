@@ -1,7 +1,7 @@
 #import "@local/minerva-thesis:0.1.3": *
 
 
-#show: thesis.with(
+#show: thesis.with( 
 //   font: "UGent Panno Text",
   font: "Libertinus Serif", 
   fontsize: 10pt,
