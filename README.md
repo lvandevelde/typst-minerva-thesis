@@ -4,8 +4,9 @@ The current version available on the [Typst Universe](https://typst.app/universe
 You can switch to that version via this [link](https://github.com/lvandevelde/typst-minerva-thesis/tree/v0.1.3).
 
 The current version under development is version 0.2.0, which will be available soon on the Universe.
-It can already be installed locally, see [below](#local-installation).
-The information below refers to v0.2.0.
+The information below refers to this development version v0.2.0.
+It can already be installed locally, see [below](#local-installation). Currently a locally installed package (namespace `@local`) is used in the examples and the template. 
+
 
 
 # `minerva-thesis` - a Typst thesis template
@@ -27,7 +28,7 @@ The `minerva-thesis` package provides a template for writing doctoral and master
 # Installation and usage
 
 ## Typst Universe
-The package has been published on the [Typst Universe](https://typst.app/universe/package/minerva-thesis). As soon as the 0.2.0 version is available in the Universe, you can use the `preview` version of the template via the Typst app or via the Typst CLI:
+As soon as the 0.2.0 version is available in the [Typst Universe](https://typst.app/universe/package/minerva-thesis), you can use the `preview` version of the template via the Typst app or via the Typst CLI:
 
     typst init @preview/minerva-thesis:0.2.0  
     cd minerva-thesis
@@ -39,7 +40,7 @@ In your Typst files, you can import the functions of the package via:
 
 ## Local installation    
     
-If you want to install the modules of the package locally (e.g. for modifying them), download the files of this repository and import the locally installed modules via one of the following options:
+If you want to install the modules of the package locally, download the files of this repository and import the locally installed modules via one of the following options:
 
 1. <a name="filepath"></a> Via the path of the main module file  
 
@@ -65,8 +66,8 @@ Theses example files illustrate most of the functions of the package, in particu
 
 - `thesis.typ`: the main file with settings and imports of all contents (title page, front matter, chapters, appendices and bibliography);
 - `Ch1/ch1.typ`: the first chapter with tables and figures with extra features (compared to the standard `figure` function);
-- `TitlePage/title-page.typ` (in the PhD thesis example): a tailored title page using the `title-page` function which is specific for Ghent University theses as it uses logos of Ghent University and its faculties for building the title page. You can modify this function or build your title page manually for usage at other institutions.
-- `ExtendedAbstract/extended-abstract.typ` (in the master's thesis example): an extended abstract in double-column format with a separate bibliography
+- `FrontMatter/title-page.typ` (in the PhD thesis example): a tailored title page using the `title-page` function which is specific for Ghent University theses as it uses logos of Ghent University and its faculties for building the title page. You can modify this function or build your title page manually for usage at other institutions.
+- `FrontMatter/extended-abstract.typ` (in the master's thesis example): an extended abstract in double-column format with a separate bibliography
 
 
 # Fonts
