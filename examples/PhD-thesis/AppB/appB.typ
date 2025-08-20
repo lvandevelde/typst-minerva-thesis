@@ -3,6 +3,6 @@
 #import "../defs.typ": *
 
 
-= The First Appendix <app:A>
+= The Second Appendix <app:B>
 
 

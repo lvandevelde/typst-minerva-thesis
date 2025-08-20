@@ -1,20 +1,18 @@
 #import "@local/minerva-thesis:0.2.0": *
-//#import "@local/minerva-thesis:0.1.3": *
-
 
 #show: thesis.with(
-  authors: "The Student", // or array: ("Student 1", "Student 2") 
-  title: [The thesis title],
-  keywords: ("Keyword 1", "Keyword 2", "Keyword 3"),
+  authors: ("Student 1", "Student 2"),
+  title: [A nice thesis title -- #lorem(10)],
+  keywords: ("Master's thesis", "Typst"),
   date: [Academic year XXXX-YYYY],
   description: [Master's disseration submitted to obtain the academic degree of Master of Science in Some Discipline],
   supervisors: ([Prof. Aa Bbb, Ph.D.], [Prof. Cc Dddd, Ph.D.]), 
-  counsellors: [Ee Ffff], // or array
+  counsellors: [Ee Ffff],
   faculty: "EA",
   language: "EN",
   paper: "a4",
   font-size: 11pt,
-  figure-fill: none, // auto = colour-tertiary of Ghent University corporate identity, none = no background
+  figure-fill: none, // luma(245), // auto = colour-tertiary of Ghent University corporate identity, none = no background
   )
 
   
@@ -51,10 +49,14 @@
 
 #show: front-matter // is not needed if the line #show: front-matter.with(show-headings: false) above is commented
 
+#set-page-number-width(1.8em)
+
 #outline(
   title:[Table of Contents], 
   target: heading
 )
+
+#set-page-number-width(1.2em)
 
 #outline(
   title: [List of Tables],
@@ -75,29 +77,29 @@
 #show: chapter
 
 // Parts are optional. 
-#part("First Part") 
+#part("Introduction") 
 
 #include "Ch1/ch1.typ"
 
-// #include "Ch2/ch2.typ"
-// 
-// 
-// #part("Methods") 
-// 
-// #include "Ch3/ch3.typ"
-// 
-// #include "Ch4/ch4.typ"
-// 
-// #part("Results")
-// 
-// #include "Ch5/ch5.typ"
+#include "Ch2/ch2.typ"
+
+
+#part("Methods") 
+
+#include "Ch3/ch3.typ"
+
+#include "Ch4/ch4.typ"
+
+#part("Results")
+
+#include "Ch5/ch5.typ"
 
 // #show: appendix.with(flyleaf:[Appendix]) // if there is only one Appendix
 #show: appendix //otherwise
 
 #include "AppA/appA.typ"
-// #include "AppB/appB.typ"
+#include "AppB/appB.typ"
 
 #show: back-matter
 
-// #bibliography("references.bib", style: "ieee")  // refer to your bibliography  file here
+#bibliography("references.bib", style: "ieee")  

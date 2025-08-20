@@ -1,8 +1,7 @@
-#import "@local/minerva-thesis:0.1.3": *
+#import "@local/minerva-thesis:0.2.0": *
+
+#import "../defs.typ": * // import your own definitions
 
 
-= The First Chapter <achapterlabel>
-
-== The First Section <asectionlabel> 
-
+= The First Chapter <ch:firstchapter>
 
