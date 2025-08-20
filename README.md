@@ -1,7 +1,7 @@
 <img width="2146" height="302" alt="Typst-minerva-thesis-banner" src="https://github.com/user-attachments/assets/0a116493-7518-46c2-bd72-c51f20adbee0" />
 
 The current version available on the [Typst Universe](https://typst.app/universe/package/minerva-thesis) is version 0.1.3. 
-You can switch to that version via this [link](https://github.com/lvandevelde/typst-minerva-thesis/tree/v0.1.3).
+You can switch to that version via this [link](https://github.com/lvandevelde/typst-minerva-thesis/tree/v0.1.3) or download it [here](https://github.com/lvandevelde/typst-minerva-thesis/releases/tag/v0.1.3).
 
 The current version under development is version 0.2.0, which will be available soon on the Universe.
 The information below refers to this development version v0.2.0.
