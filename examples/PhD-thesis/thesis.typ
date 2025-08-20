@@ -11,6 +11,8 @@
   keywords: ("Typst", "thesis", "template"),
   title: text(hyphenate:false,[Thesis Title -- #lorem(10)]),
   font-size: 10pt,
+  caption-font-size: 9pt,
+  figure-font-size: 9pt,
   equation-left-margin: 5%, // auto = centred equations (which is the default)
   figure-fill: luma(245), // auto = colour-tertiary of Ghent University corporate identity, none = no background
   bold-figure-ref: true,
