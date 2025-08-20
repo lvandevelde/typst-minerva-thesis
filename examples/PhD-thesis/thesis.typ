@@ -10,7 +10,7 @@
   description: [Dissertation submitted to obtain the academic degree of Doctor of Engineering],
   keywords: ("Typst", "thesis", "template"),
   title: text(hyphenate:false,[Thesis Title -- #lorem(10)]),
-  font-size: 11pt,
+  font-size: 10pt,
   equation-left-margin: 5%, // auto = centred equations (which is the default)
   figure-fill: luma(245), // auto = colour-tertiary of Ghent University corporate identity, none = no background
   bold-figure-ref: true,
