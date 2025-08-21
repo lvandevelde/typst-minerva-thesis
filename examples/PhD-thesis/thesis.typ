@@ -1,6 +1,5 @@
 #import "@local/minerva-thesis:0.2.0": *
 
-
 #show: thesis.with(
 //   font: "Libertinus Serif", 
 //   caption-font: "Libertinus Serif",
@@ -13,6 +12,8 @@
   font-size: 10pt,
   caption-font-size: 9pt,
   figure-font-size: 9pt,
+  chapter-title-font-size: 24pt, 
+  chapter-number-font-size: 60pt, 
   equation-left-margin: 5%, // auto = centred equations (which is the default)
   figure-fill: luma(245), // auto = colour-tertiary of Ghent University corporate identity, none = no background
   bold-figure-ref: true,

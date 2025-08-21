@@ -193,22 +193,17 @@ store: none
 
 #let part(page-number: false, title) = context {
   if not page-number {show-page-number.update(false)} 
-  start-at-odd-page()
-  if not page-number {show-page-number.update(true)}
   set heading(numbering: none)
-  counter(heading).update(part-number.get())
   part-number.step()
-  show heading: it => {
-    v(8mm)
-    align(right, text(
-      size: 72pt,
-      fill: rgb(150, 150, 150),
-      [Part ] + part-number.display("I"),
-    ))
-    align(right, text(size: 32pt, title))
+  part-heading.update(true)
+  context {
+    show heading: it => {start-at-odd-page()} // a heading for the Table of Contents only. start-at-odd-page is needed for right location in ToC
+    heading[Part #part-number.display("I") -- #title]
   }
-  context heading[Part #part-number.display("I") -- #title]
+  heading(title, outlined: false, bookmarked: false) 
   counter(heading).update(counter(heading).get()) // restores the heading counter to value before calling part()
+  part-heading.update(false)
+  if not page-number {show-page-number.update(true)} 
 }
 
 
@@ -233,6 +228,11 @@ store: none
   figure-font-size: 10pt,
   caption-font: auto,
   caption-font-size: 10pt,
+  chapter-title-font: auto,
+  chapter-title-font-size: 32pt,
+  chapter-number-font: auto,
+  chapter-number-font-size: 72pt,
+  chapter-number-colour: luma(150),
   equation-left-margin: auto,
   paper: none,
   page-width: 160mm, 
@@ -284,24 +284,35 @@ store: none
   set page(height: page-height) if paper==none
   
   set page(
-    margin: page-margin, 
-    header: context {
-      let current-page = here().page()
-      let is-start-chapter = query(heading.where(level: 1))
-        .map(it => it.location().page())
-        .contains(current-page)
-      page-number-shown.update((content-switch.get() or is-start-chapter) and page.numbering != none and show-page-number.get() )
+    margin: page-margin,
+    // set page-number-shown to (content-switch or level-1 heading on page) and (page-numbering!=none and show-page-number) 
+    //                        = or-condition and and-condition
+    // show-page-number has to be set before the page is made, false means no page number at all (not on the page, nor in the outline)
+    header: context { 
+      let or-condition-1=content-switch.get()
+      let and-condition=page.numbering != none and show-page-number.get()
+      // perform the query for level-1 heading on page (= the second factor of the or-condittion) only if needed. 
+      if (not or-condition-1) and and-condition { 
+        // only the second factor of the or-condition has to be checked as the first one is false and the and-condition is true
+        page-number-shown.update( 
+          query(heading.where(level: 1)) 
+            .map(it => it.location().page())
+            .contains(here().page())
+        )
+      } else {page-number-shown.update(and-condition) }
     },
+    // page-number-on-page can be set on the page itself (default=true). If false no page number is set on the page itself.
+    // Whether the page number is shown in the outline or not depends on page-number-shown (which is set in header)
     footer: context {
       if page-number-shown.get() {
-        if page-number-on-page.get() {
+        if page-number-on-page.get() { 
           align(
             if calc.odd(counter(page).get().first()) { right } else { left },
             counter(page).display()
           )
         }
       }
-      page-number-on-page.update(true)
+      page-number-on-page.update(true) // The default (for the next page) is true.
     },
   )
 
@@ -373,13 +384,29 @@ store: none
     counter(figure.where(kind: raw)).update(0)
     start-at-odd-page()
     if show-heading.get() {
-      v(8mm)
-      if it.numbering != none {
-        align(right, text(size: 72pt, fill: rgb(150, 150, 150), counter(
-          heading).display(it.numbering)))
+      if part-heading.get() {
+        v(8mm)
+        {
+          set text(font: chapter-number-font) if chapter-number-font!=auto
+          align(right, text(
+            size: chapter-number-font-size,
+            fill: chapter-number-colour,
+            [Part ] + part-number.display("I")
+          ))
+        }
+        set text(font: chapter-title-font) if chapter-title-font!=auto
+        align(right, text(size: chapter-title-font-size, it.body))
+      } else {
+        v(8mm)
+        if it.numbering != none {
+          set text(font: chapter-number-font) if chapter-number-font!=auto
+          align(right, text(size: chapter-number-font-size, fill: chapter-number-colour, counter(
+            heading).display(it.numbering)))
+        }
+        set text(font: chapter-title-font) if chapter-title-font!=auto
+        align(right, text(size: chapter-title-font-size, hyphenate: false, it.body))
+        v(10mm)
       }
-      align(right, text(size: 32pt, hyphenate: false, it.body))
-      v(10mm)
     }
     content-switch.update(true)
   }

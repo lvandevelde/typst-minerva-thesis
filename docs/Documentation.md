@@ -31,6 +31,11 @@ The following functions are typically used in the main file containing settings 
         figure-font-size: 10pt,
         caption-font: auto,
         caption-font-size: 10pt,
+        chapter-title-font: auto,
+        chapter-title-font-size: 32pt,
+        chapter-number-font: auto,
+        chapter-number-font-size: 72pt,
+        chapter-number-colour: luma(150),
         equation-left-margin: auto,
         paper: none,
         page-width: 160mm, 
@@ -69,9 +74,16 @@ The following functions are typically used in the main file containing settings 
     The value `auto` means `true` if `supervisors`/`counsellors`is an `array` with more than one element and `false` otherwise.
   - `date`:  
     If `date` is of type `datetime`, it is added to the document properties.
-  - `font` (main font), `figure-font` (font used in `figure` elements, e.g. tables), `caption-font` (font used in figure captions), `math-font` (font for equations):  
-    `auto` means no font is set such that the default Typst font is used.  
-    It is recommended to not use many different fonts, e.g., to set the same value for `font`, `figure-font` and `caption-font`.
+  - font settings:
+      - `font` and `font-size`: main text font
+      - `figure-font` and `figure-font-size`: font used in `figure` elements (tables and figures)
+      - `caption-font` and `caption-font-size`: font of figure captions
+      - `math-font` and `math-font-size`:  font of equations
+      - `chapter-title-font` and `chapter-title-font-size`: font of the title of first-level headings (chapters, parts and non-numbered headings in the front-matter) 
+      - `chapter-number-font`, `chapter-number-font-size` and `chapter-number-colour`: font and colour of the number of first-level headings 
+      
+      For the fonts, `auto` means no font is set such that the default Typst font is used.  
+      It is recommended to not use many different fonts, e.g., to set the same value for all fonts execept `math-font`. 
   - `equation-left-margin`:  
     Sets the left margin of equations.  
     `auto` means centred equations  

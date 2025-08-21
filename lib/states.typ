@@ -14,6 +14,7 @@
 #let filled-outline=state("filled-outline", false)
 
 #let show-heading = state("show-heading", false)
+#let part-heading = state("part-heading", false)
 
 #let figure-settings = state("figure-settings", (:))
 
