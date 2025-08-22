@@ -7,7 +7,7 @@ You can switch to that version via this [link](https://github.com/lvandevelde/ty
 
 The current version under development is **v0.2.0**, which will be available soon on the Universe.
 The information below refers to this development version.
-It can already be installed locally, see [below](#local-installation). Currently a locally installed package (namespace `@local`) is used in the examples and the template. 
+It can already be installed locally, see [below](#local-installation). Currently a locally installed package (namespace `local`) is used in the examples and the template. 
 
 ---
 
@@ -31,7 +31,7 @@ The `minerva-thesis` package provides a template for writing doctoral and master
 ## Installation and usage
 
 ### Typst Universe
-As soon as the 0.2.0 version is available in the [Typst Universe](https://typst.app/universe/package/minerva-thesis), you can use the `preview` version of the template via the Typst app or via the Typst CLI:
+As soon as the 0.2.0 version is available in the [Typst Universe](https://typst.app/universe/package/minerva-thesis), you can use the `preview` namespace for installing the template via the Typst app or via the Typst CLI:
 
     typst init @preview/minerva-thesis:0.2.0  
     cd minerva-thesis
@@ -54,7 +54,7 @@ If you want to install the modules of the package locally, download the files of
 2. <a name="localpackage"></a> By installing `minerva-thesis` as a local Typst package 
 
     You can install the package and template as a local Typst package by using the `Makefile` (on a Linux system) and executing `make install`. For other systems you can copy the files `typst.toml` and the folders `lib`, `img` and `template` manually to the proper location on your local drive. More information on local packages can be found via the ["Local packages"](https://github.com/typst/packages/?tab=readme-ov-file#local-packages) section of the Typst packages documentation. 
-    For using the local package, replace `@preview` by `@local` in the code above.
+    For using the package of the `local` namespace, replace `@preview` by `@local` in the code above.
 
 
 ## Functions
