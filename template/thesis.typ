@@ -51,6 +51,8 @@
 
 #show: front-matter // is not needed if the line #show: front-matter.with(show-headings: false) above is commented
 
+// #set-page-number-width(2em) // use this function to adjust the space for the page number in the outlines
+
 #outline(
   title:[Table of Contents], 
   target: heading
