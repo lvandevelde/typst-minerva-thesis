@@ -41,14 +41,14 @@
 
 #include "FrontMatter/summary.typ"
 
-#set-page-number-width(1.6em)
+#set-page-number-width(2em)
 
 #outline(
   title:[Table of Contents], 
   target: heading
 )
 
-#set-page-number-width(1.2em)
+#set-page-number-width(1.3em)
 
 #outline(
   title: [List of Tables],
@@ -60,6 +60,8 @@
   target: figure.where(kind: image)
 )
 
+// List of abbreviations
+#abbr.list()
 
 #show: chapter
 
@@ -90,4 +92,4 @@
 
 #show: back-matter
 
-#bibliography("references.bib", style: "ieee")  // style argument is actually not needed here because "ieee" is the default
+#bibliography("references.bib", style: "ieee")  

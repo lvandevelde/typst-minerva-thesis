@@ -7,6 +7,14 @@
 
 #lorem(50)
 
+#abbr.add("DOF", "Degree of Freedom", "Degrees of Freedom")
+
+This is the first occurrence of the term #abbr.a("DOF").
+
+// This is the second occurrence of the term #abbr.a("DOF") or in plural: #abbr.pla("DOF").
+
+
+
 == The First Section  <sctn:firstsection>
 
 $ cos^2alpha = frac(1+cos 2 alpha,2) $ <eq:cos2alpha>
@@ -42,6 +50,8 @@ label: <fig:examplefigure2>
 
 #lorem(30)
 
+=== The Second Subsection <sbsctn:secondsubsection>
+
 @fig:examplefigure2 consists of 4 subfigures:
 - @subfiga: case a
 - @subfigb: case b
@@ -71,8 +81,6 @@ label: <tbl:table2>
 
 @tbl:table1 and @tbl:table2 are very basic tables.
 
-== The Second Section
 
-=== A Subsection
 
-=== Another Subsection
+
