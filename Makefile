@@ -4,7 +4,7 @@ FILES=typst.toml lib img template
 
 .PHONY: install
 
-UPDATE=cp -uaPr
+UPDATE=cp -aPr
 
 install: $(PACKAGEDIR)
 	@ $(UPDATE) $(FILES) $(PACKAGEDIR)

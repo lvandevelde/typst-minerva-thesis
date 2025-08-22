@@ -22,7 +22,12 @@
   description: auto,
   ids: none, // ID(s) such as ISBN, NIR code, ... : single string/content or array
   font: auto,
-  font-size: auto
+  font-size: auto, 
+  title-font-size: auto,
+  author-font-size: auto,
+  description-font-size: auto,
+  supervisor-font-size: auto,
+  date-font-size: auto
 ) = context{
   
   let the-authors= if authors==auto {thesis-authors.get()} else {authors}
@@ -44,45 +49,49 @@
   
   { set text(font: font) if font!=auto 
     set text(size: font-size) if font-size!=auto 
-
+    
   
     faculty-logo(faculty: the-faculty, language: the-language)
 
     v(2fr)
-
-    text(size: 1.8em, weight: "bold", hyphenate: false, the-title)
+    
+    text(size: if title-font-size==auto {1.8em} else {title-font-size} , weight: "bold", hyphenate: false, the-title)
     
     v(3em)
     
     align(right, { 
-      set text(size: 1.2em, weight: "bold")
+      set text(size: if author-font-size==auto {1.2em} else {author-font-size} , weight: "bold")
       if type(the-authors)==array {the-authors.join(", ", last: " and ")} else {the-authors}
     })
+    
     v(6em)
     
-    [#the-description]
-
+    text(size: if description-font-size==auto {1em} else {description-font-size}, the-description)
+    
     v(2em)
     
-    if the-supervisors!=none { 
-      par({
-      if the-multiple-supervisors [*Supervisors*] else [*Supervisor*] 
-      linebreak()
-      if type(the-supervisors)==array {the-supervisors.join(", ", last: " and ")} else {the-supervisors}
-      })
-    }
+    {  
+      set text(size:  if supervisor-font-size==auto {1em} else {supervisor-font-size})
+      if the-supervisors!=none { 
+        par({
+          if the-multiple-supervisors [*Supervisors*] else [*Supervisor*] 
+          linebreak()
+          if type(the-supervisors)==array {the-supervisors.join(", ", last: " and ")} else {the-supervisors}
+        })
+      }
     
-    if the-counsellors!=none { 
-      par({
-      if the-multiple-counsellors [*Counsellors*] else [*Counsellor*] 
-      linebreak()
-      if type(the-counsellors)==array {the-counsellors.join(", ", last: " and ")} else {the-counsellors}
-      })
+      if the-counsellors!=none { 
+        par({
+          if the-multiple-counsellors [*Counsellors*] else [*Counsellor*] 
+          linebreak()
+          if type(the-counsellors)==array {the-counsellors.join(", ", last: " and ")} else {the-counsellors}
+        })
+      }
     }
     
     v(5em)
     
-    text(size: 1.1em, the-date)
+    text(size: if date-font-size==auto {1.1em} else {date-font-size}, the-date)
 
     v(1fr)
 

@@ -24,17 +24,17 @@ The following functions are typically used in the main file containing settings 
         multiple-counsellors: auto,
         date: none,
         font: auto,
-        font-size: 10pt,
+        font-size: auto,
         math-font: auto,
-        math-font-size: 10pt,
+        math-font-size: auto,
         figure-font: auto,
-        figure-font-size: 10pt,
+        figure-font-size: auto,
         caption-font: auto,
-        caption-font-size: 10pt,
+        caption-font-size: auto,
         chapter-title-font: auto,
-        chapter-title-font-size: 32pt,
+        chapter-title-font-size: auto,
         chapter-number-font: auto,
-        chapter-number-font-size: 72pt,
+        chapter-number-font-size: auto,
         chapter-number-colour: luma(150),
         equation-left-margin: auto,
         paper: none,
@@ -82,8 +82,10 @@ The following functions are typically used in the main file containing settings 
       - `chapter-title-font` and `chapter-title-font-size`: font of the title of first-level headings (chapters, parts and non-numbered headings in the front-matter) 
       - `chapter-number-font`, `chapter-number-font-size` and `chapter-number-colour`: font and colour of the number of first-level headings 
       
-      For the fonts, `auto` means no font is set such that the default Typst font is used.  
-      It is recommended to not use many different fonts, e.g., to set the same value for all fonts execept `math-font`. 
+      For `font` auto means no text font is set, such that the default Typst font is used. For the other fonts, `auto` means no font is set such that the current text font is used.  
+      It is recommended to not use many different fonts, e.g., to set the same value for all fonts execept `math-font`.  
+      For `font-size`, `auto` means that no font size is set for the main text, such that the default Typst font size is used. For the other font sizes, `auto` means that a pre-defined size relative to `font-size` is used.
+      
   - `equation-left-margin`:  
     Sets the left margin of equations.  
     `auto` means centred equations  
@@ -162,7 +164,7 @@ The following auxilliary functions are available:
 
 - `hide-page-number`
 
-      hide-page-number()`
+      hide-page-number()
   
   This function hides the page number on the current page. 
   
@@ -222,11 +224,17 @@ For creating the title page and the use of Ghent University logos the following 
         faculty: auto,
         description: auto,
         font: auto,
-        font-size: auto,
+        font-size: auto, 
+        title-font-size: auto,
+        author-font-size: auto,
+        description-font-size: auto,
+        supervisor-font-size: auto,
+        date-font-size: auto
         ids: none
       )
   
-    Most arguments can already be set via the `thesis` function. Here, `auto` means that the current values (set by `thesis`) are used.   
+    The arguments from `authors` till `description` can already be set via the `thesis` function. Here, `auto` means that the current values (set by `thesis`) are used.  
+    The arguments related to the font and font sizes are analogous to the font related arguments of the `thesis` function.  
     Argument `ids` is a single `str`/`content` or an `array` with ID(s) such as ISBN, NIR code, etc. 
 
 
@@ -263,24 +271,28 @@ An extended abstract, i.e. an abstract in double-column format and with a separa
         font: auto,
         font-size: 10pt,
         math-font: auto,
-        math-font-size: 10pt,
+        math-font-size: auto,
         figure-font: auto,
-        figure-font-size: 10pt,
+        figure-font-size: auto,
         caption-font: auto,
-        caption-font-size: 9pt,
+        caption-font-size: auto,
+        title-font: auto,
+        title-font-size: auto,
+        author-font: auto,
+        author-font-size: auto,
         equation-left-margin: auto,
         bibliography: none,
         read: none,
         body
       )
       
-    Most arguments can already be set via the `thesis` function.__
-    `auto` means that the current values (set by `thesis`) are used.
-    
+    Most arguments can already be set via the `thesis` function.  
+    `auto` means that the current values (set by `thesis`) are used.  
+    The additional font related arguments are analogous to the font related arguments of the `thesis` function.
     
     A separate bibliography can be added by means of the following arguments:
-      - `bibliography`: relative path to the bibliography file.
-      - `read` has to be set to `"(path) => read(path)"`
+    - `bibliography`: relative path to the bibliography file
+    - `read` has to be set to `"(path) => read(path)"`
       
     For referring to this bibliography in the extended abstract, the prefix `"eab-"` (meaning "extended abstract bibliography") has to be added to the label. E.g., a citation to the publication with label `"pub1"` in the bibliography file is given by `@eab-pub1`.
 

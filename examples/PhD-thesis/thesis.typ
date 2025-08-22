@@ -10,11 +10,9 @@
   keywords: ("Typst", "thesis", "template"),
   title: text(hyphenate:false,[Thesis Title -- #lorem(10)]),
   font-size: 10pt,
-  caption-font-size: 9pt,
-  figure-font-size: 9pt,
-  chapter-title-font-size: 24pt, 
-  chapter-number-font-size: 60pt, 
-  equation-left-margin: 5%, // auto = centred equations (which is the default)
+  chapter-title-font-size: 24pt, // slightly less than "auto" (= the default) 
+  chapter-number-font-size: 60pt, // slightly less than "auto" (= the default)
+  equation-left-margin: 5%, // left aligned equations (with some left margin),  auto = centred equations (which is the default)
   figure-fill: luma(245), // auto = colour-tertiary of Ghent University corporate identity, none = no background
   bold-figure-ref: true,
 )
@@ -29,7 +27,7 @@
 
 
 #show: front-matter.with(show-headings:false)
-= Examination Board
+= Examination Board // shown in the Table of Contents but not on the page itself
 #hide-page-number()
 #include "FrontMatter/jury.typ"
 

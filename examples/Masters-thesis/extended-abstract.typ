@@ -3,6 +3,7 @@
 #import "../defs.typ": *
 
 #show: extended-abstract.with(
+  font-size: 10pt,
   bibliography: "../references.bib", 
   read: path => read(path))
 
@@ -12,6 +13,7 @@
 
 #lorem(40)
 ]
+
 
 
 = Introduction
@@ -31,7 +33,7 @@ The expression given by @ea-eq:TM has been derived in @eab-AaBbb2025.
 
 === Example
 
-#lorem(10)
+#lorem(20)
 
 #figure(
 table(

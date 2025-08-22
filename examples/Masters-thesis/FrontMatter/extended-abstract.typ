@@ -3,6 +3,7 @@
 #import "../defs.typ": *
 
 #show: extended-abstract.with(
+  font-size: 10pt,
   bibliography: "../references.bib", 
   read: path => read(path))
 
@@ -32,6 +33,7 @@ The expression given by @ea-eq:TM has been derived in @eab-AaBbb2025.
 
 === Example
 
+#lorem(20)
 
 #figure(
 table(
@@ -58,7 +60,7 @@ figure(image("../Ch1/img/subfigure_c.svg"), caption: [Subfigure c]),<ea-subfig1c
 figure(image("../Ch1/img/subfigure_d.svg"), caption: [Subfigure d]),<ea-subfig1d>,
 columns: 2,
 caption: [A figure with subfigures -- #lorem(20)],
-placement: bottom,
+placement: top,
 label: <ea-examplefigure1>
 )
 

@@ -83,7 +83,7 @@
   numbering-sub: auto,
   numbering-sub-ref: auto,
   ..args,
-) = context {
+) =  context {
   let the-figure
   let the-show-sub
   let the-numbering
@@ -151,14 +151,14 @@
 
 
 #let set-figures(
-image-style: "1",
-table-style: "1",
-raw-style: "1",
-style-function: none,
-bold-ref: false,
-fill: none,
-inset: 0pt,
-store: none
+  image-style: "1",
+  table-style: "1",
+  raw-style: "1",
+  style-function: none,
+  bold-ref: false,
+  fill: none,
+  inset: 0pt,
+  store: none
 ) = body => context{
     
   figure-settings.update(
@@ -221,17 +221,17 @@ store: none
   multiple-counsellors: auto,
   date: none,
   font: auto,
-  font-size: 10pt,
+  font-size: auto,
   math-font: auto,
-  math-font-size: 10pt,
+  math-font-size: auto,
   figure-font: auto,
-  figure-font-size: 10pt,
+  figure-font-size: auto,
   caption-font: auto,
-  caption-font-size: 10pt,
+  caption-font-size: auto,
   chapter-title-font: auto,
-  chapter-title-font-size: 32pt,
+  chapter-title-font-size: auto,
   chapter-number-font: auto,
-  chapter-number-font-size: 72pt,
+  chapter-number-font-size: auto,
   chapter-number-colour: luma(150),
   equation-left-margin: auto,
   paper: none,
@@ -243,8 +243,6 @@ store: none
   bold-figure-ref: false,
   body,
 ) = {
-
-  store.update("m")
   
   abbr.config(style: it=>{it})
   
@@ -273,7 +271,7 @@ store: none
   if keywords!=none {thesis-keywords.update(keywords)}
   
   set text(font: font) if font != auto
-  set text(size: font-size)
+  set text(size: font-size) if font-size!=auto
 
   set par(justify: true)
   set list(indent: 0.5em)
@@ -316,150 +314,161 @@ store: none
     },
   )
 
-
-  show figure: set text(font: figure-font) if figure-font != auto
-  show figure: set text(size: figure-font-size)
-//   show figure.caption: set text(font: caption-font)  if caption-font != auto
-//   show figure.caption: set text(size: caption-font-size)
-  show figure.where(kind: table): set figure.caption(position: top)
-   
-  show: set-figures(
-    image-style:"1",
-    table-style:"1",
-    raw-style:"1",
-    style-function: add-chapter-number,
-    bold-ref: bold-figure-ref,
-    fill: if figure-fill==auto {colour-tertiary} else {figure-fill},
-    inset: figure-inset,
-    store: "m")
-
-  show figure.caption: it => context {
-    set text(font: caption-font)  if caption-font != auto
-    set text(size: caption-font-size)
-    table(
-      [*#it.supplement #it.counter.display(it.numbering)*#it.separator],
-      it.body,
-      column-gutter: 0.15em,
-      stroke: none,
-      inset: 0pt,
-      align: (right, left),
-      columns: 2,
-    )
-  }
-    
-//   if figure-fill != auto { default-figure-fill.update(figure-fill) }
-//   if figure-inset != auto { default-figure-inset.update(figure-inset) }
-
-  show math.equation: set text(font: math-font) if math-font != auto
-  show math.equation: set text(size: math-font-size)
-
-  show math.equation.where(block: true): set align(left) if (
-    equation-left-margin != auto
-  )
-  show math.equation.where(block: true): set block(inset: (
-    left: equation-left-margin,
-  )) if type(equation-left-margin) in (relative, length, ratio)
-
-  set math.equation(
-    numbering: add-chapter-number.with(style:"1"),
-  ) 
-
-  let addbrackets(..num) = {
-    "(" + numbering(math.equation.numbering, ..num) + ")"
-  }
-  show math.equation.where(block: true): it => {
-    if type(it.numbering) == function and it.numbering != addbrackets {
-      counter(math.equation).update(v => v - 1)
-      math.equation(block: true, numbering: addbrackets, it.body)
-    } else { it }
-  }
-
-  show heading: set block(below: 1em)
+  context{
   
+    let base-font-size=text.size
+  
+    show figure: set text(font: figure-font) if figure-font != auto
+    show figure: set text(size: if figure-font-size==auto {0.9*base-font-size} else {figure-font-size})
+
+    show figure.where(kind: table): set figure.caption(position: top)
+
+    store.update("m")
     
-  show heading.where(level: 1): it => {
-    counter(math.equation).update(0)
-    counter(figure.where(kind: image)).update(0)
-    counter(figure.where(kind: table)).update(0)
-    counter(figure.where(kind: raw)).update(0)
-    start-at-odd-page()
-    if show-heading.get() {
-      if part-heading.get() {
-        v(8mm)
-        {
-          set text(font: chapter-number-font) if chapter-number-font!=auto
-          align(right, text(
-            size: chapter-number-font-size,
-            fill: chapter-number-colour,
-            [Part ] + part-number.display("I")
-          ))
-        }
-        set text(font: chapter-title-font) if chapter-title-font!=auto
-        align(right, text(size: chapter-title-font-size, it.body))
-      } else {
-        v(8mm)
-        if it.numbering != none {
-          set text(font: chapter-number-font) if chapter-number-font!=auto
-          align(right, text(size: chapter-number-font-size, fill: chapter-number-colour, counter(
-            heading).display(it.numbering)))
-        }
-        set text(font: chapter-title-font) if chapter-title-font!=auto
-        align(right, text(size: chapter-title-font-size, hyphenate: false, it.body))
-        v(10mm)
-      }
+    show: set-figures(
+      image-style:"1",
+      table-style:"1",
+      raw-style:"1",
+      style-function: add-chapter-number,
+      bold-ref: bold-figure-ref,
+      fill: if figure-fill==auto {colour-tertiary} else {figure-fill},
+      inset: figure-inset,
+      store: "m")
+
+    show figure.caption: it => context {
+      set text(font: caption-font)  if caption-font != auto
+      set text(size: if caption-font-size==auto {0.9*base-font-size} else {caption-font-size} )
+      table(
+        [*#it.supplement #it.counter.display(it.numbering)*#it.separator],
+        it.body,
+        column-gutter: 0.15em,
+        stroke: none,
+        inset: 0pt,
+        align: (right, left),
+        columns: 2,
+      )
     }
-    content-switch.update(true)
-  }
+    
 
-  show ref: it => {
-    let el = it.element
-    set text(weight: "semibold") if el != none and el.func() == figure and figure-settings.get().at(store.get()).bold-ref
-    it
-  }
+    show math.equation: set text(font: math-font) if math-font != auto 
+    show math.equation: set text(size: if math-font-size==auto {base-font-size} else {math-font-size})
+
+    show math.equation.where(block: true): set align(left) if equation-left-margin != auto
+
+    show math.equation.where(block: true): set block(inset: (left: equation-left-margin)) if type(equation-left-margin) in (relative, length, ratio)
+
+    set math.equation(numbering: add-chapter-number.with(style:"1")) 
+
+    let addbrackets(..num) = {
+      "(" + numbering(math.equation.numbering, ..num) + ")"
+    }
+    show math.equation.where(block: true): it => {
+      if type(it.numbering) == function and it.numbering != addbrackets {
+        counter(math.equation).update(v => v - 1)
+        math.equation(block: true, numbering: addbrackets, it.body)
+      } else { it }
+    }
+
+    show heading: set block(below: 1em)
   
-  show outline: set heading(outlined: true)
-
-  show outline.entry.where(level: 1): set block(above: 1em)
-
-  show outline.entry: it => context {
-    set box(baseline: 100%)
-    let pg-width=page-number-width.get()
-    let loc = it.element.location()
-    let is-page-number-shown = page-number-shown.at(loc)
-    link(loc, block(
-      width: 100%,
-      block(
-        width: 100% - pg-width, 
-        if it.prefix() == none {
-          box(par(
-            justify: true,
-            it.body()
-            + [ ]
-            + if is-page-number-shown {
-              box(
-                baseline: 0%,
-                width: 1fr,
-                if filled-outline.at(loc) {
-                  repeat(text(weight: "regular")[.], gap: 0.15em) // i.e. the default fill
-                } else {
-                 it.fill
-                }
-              )
-            },
-          ))
+    
+    show heading.where(level: 1): it => {
+      counter(math.equation).update(0)
+      counter(figure.where(kind: image)).update(0)
+      counter(figure.where(kind: table)).update(0)
+      counter(figure.where(kind: raw)).update(0)
+      start-at-odd-page()
+      if show-heading.get() {
+        if part-heading.get() {
+          v(8mm)
+          {
+            set text(font: chapter-number-font) if chapter-number-font!=auto
+            align(right, text(
+              size: if chapter-number-font-size==auto {7.2*base-font-size} else {chapter-number-font-size},
+              fill: chapter-number-colour,
+              [Part ] + part-number.display("I")
+            ))
+          }
+          set text(font: chapter-title-font) if chapter-title-font!=auto
+          align(right, 
+            text(
+              size: if chapter-title-font==auto {3.2*base-font-size} else {chapter-title-font-size}, 
+              it.body
+            )
+          )
         } else {
-          it.indented(box(text(weight: "semibold", it.prefix())), box(par(
-            justify: true,
-            it.body()
-            + [ ]
-            + { if is-page-number-shown { box(baseline: 0%, width: 1fr, it.fill) } },
-          )))
-        })
-      + if is-page-number-shown { 
-          place(bottom + right, it.page())
+          v(8mm)
+          if it.numbering != none {
+            set text(font: chapter-number-font) if chapter-number-font!=auto
+            align(right, 
+              text(size: if chapter-number-font-size==auto {7.2*base-font-size} else {chapter-number-font-size},
+                fill: chapter-number-colour, 
+                counter(heading).display(it.numbering)
+              )
+            )
+          }
+          set text(font: chapter-title-font) if chapter-title-font!=auto
+          align(right, 
+            text(size: if chapter-title-font==auto {3.2*base-font-size} else {chapter-title-font-size}, 
+              hyphenate: false,
+              it.body
+            )
+          )
+          v(10mm)
         }
-    ))
-  }
+      }
+      content-switch.update(true)
+    }
+
+    show ref: it => {
+      let el = it.element
+      set text(weight: "semibold") if el != none and el.func() == figure and figure-settings.get().at(store.get()).bold-ref
+      it
+    }
+  
+    show outline: set heading(outlined: true)
+
+    show outline.entry.where(level: 1): set block(above: 1em)
+
+    show outline.entry: it => context {
+      set box(baseline: 100%)
+      let pg-width=page-number-width.get()
+      let loc = it.element.location()
+      let is-page-number-shown = page-number-shown.at(loc)
+      link(loc, block(
+        width: 100%,
+        block(
+          width: 100% - pg-width, 
+          if it.prefix() == none {
+            box(par(
+              justify: true,
+              it.body()
+              + [ ]
+              + if is-page-number-shown {
+                box(
+                  baseline: 0%,
+                  width: 1fr,
+                  if filled-outline.at(loc) {
+                    repeat(text(weight: "regular")[.], gap: 0.15em) // i.e. the default fill
+                  } else {
+                  it.fill
+                  }
+                )
+              },
+            ))
+          } else {
+            it.indented(box(text(weight: "semibold", it.prefix())), box(par(
+              justify: true,
+              it.body()
+              + [ ]
+              + { if is-page-number-shown { box(baseline: 0%, width: 1fr, it.fill) } },
+            )))
+          })
+        + if is-page-number-shown { 
+            place(bottom + right, it.page())
+          }
+      ))
+    }
 
 // First-level headings are set in bold and without fill in the Table of Contents
 //   show outline.where(target: heading): it => {
@@ -468,26 +477,24 @@ store: none
 //       it
 //   } 
 // Selection via outline.where(target: heading) does not work for some reason. Therefore selection via repr(it.target)
-  show outline: it => {
-    if repr(it.target) == "heading" {
-      show outline.entry.where(level: 1): set text(weight: "semibold")
-      show outline.entry.where(level: 1): set outline.entry(fill: none)
-      it
-    } else {
-      it
+    show outline: it => {
+      if repr(it.target) == "heading" {
+        show outline.entry.where(level: 1): set text(weight: "semibold")
+        show outline.entry.where(level: 1): set outline.entry(fill: none)
+        it
+      } else {it}
     }
-  }
   
  
 
-  set document(title: title) if title!=none
-  set document(author: authors) if type(authors)==str or type(authors) == array 
-  set document(keywords: keywords) if type(keywords)==str or type(keywords)==array
-  set document(description: description) if description!=none
-  set document(date: date) if type(date) == datetime
-  
-  body
+    set document(title: title) if title!=none
+    set document(author: authors) if type(authors)==str or type(authors) == array 
+    set document(keywords: keywords) if type(keywords)==str or type(keywords)==array
+    set document(description: description) if description!=none
+    set document(date: date) if type(date) == datetime
 
+    body
+  }
 }
 
 
