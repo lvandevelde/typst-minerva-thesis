@@ -1,5 +1,4 @@
 #import "@local/minerva-thesis:0.2.0": *
-//#import "@local/minerva-thesis:0.1.3": *
 
 
 #show: thesis.with(
