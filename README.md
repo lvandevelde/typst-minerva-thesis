@@ -1,18 +1,21 @@
 <img width="2146" height="302" alt="Typst-minerva-thesis-banner" src="https://github.com/user-attachments/assets/0a116493-7518-46c2-bd72-c51f20adbee0" />
 
-The current version available on the [Typst Universe](https://typst.app/universe/package/minerva-thesis) is version 0.1.3. 
+---
+
+The current version available on the [Typst Universe](https://typst.app/universe/package/minerva-thesis) is **v0.1.3**. 
 You can switch to that version via this [link](https://github.com/lvandevelde/typst-minerva-thesis/tree/v0.1.3) or download it [here](https://github.com/lvandevelde/typst-minerva-thesis/releases/tag/v0.1.3).
 
-The current version under development is version 0.2.0, which will be available soon on the Universe.
-The information below refers to this development version v0.2.0.
+The current version under development is **v0.2.0**, which will be available soon on the Universe.
+The information below refers to this development version.
 It can already be installed locally, see [below](#local-installation). Currently a locally installed package (namespace `@local`) is used in the examples and the template. 
 
-
+---
 
 # `minerva-thesis` - a Typst thesis template
 
-The `minerva-thesis` package provides a template for writing doctoral and master's theses with [Typst](https://typst.app/) following guidelines at [Ghent University](https://www.ugent.be/en) and additional functions and features in comparison to standard functions of Typst 0.13:
+The `minerva-thesis` package provides a template for writing doctoral and master's theses with [Typst](https://typst.app/) presenting both [Ghent University](https://www.ugent.be/en) specific features and additional generic functions and features (in comparison to standard functions of Typst 0.13):
 
+- A Ghent University specific title page. 
 - Improved layout of outlines (in particular for outline entries spanning multiple lines)
 - Support of Parts and Appendices
 - Figure and equation numbers including the chapter/appendix number
@@ -21,7 +24,7 @@ The `minerva-thesis` package provides a template for writing doctoral and master
 - Support of subfigures via package [`subpar`](https://typst.app/universe/package/subpar)
 - Optional (short) versions of figure captions for outlines (List of Figures, List of Tables)
 - Possibility of left-aligned equations (with a settable left margin)
-- Possibility to set background colour (`fill`) and `breakable` feature of figures (experimental)
+- Possibility to set a background colour (`fill`) for figures and a `breakable` feature for figures (possible span over multiple pages, *experimental*)
 - Possibility to include an extended abstract, i.e. an abstract in two-column format with a separate bibliography (via package [`alexandria`](https://typst.app/universe/package/alexandria))
 - Handling of abbreviations via package [`abbr`](https://typst.app/universe/package/abbr)
 
