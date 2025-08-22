@@ -28,9 +28,9 @@ The `minerva-thesis` package provides a template for writing doctoral and master
 - Possibility to include an extended abstract, i.e. an abstract in two-column format with a separate bibliography (via package [`alexandria`](https://typst.app/universe/package/alexandria))
 - Handling of abbreviations via package [`abbr`](https://typst.app/universe/package/abbr)
 
-# Installation and usage
+## Installation and usage
 
-## Typst Universe
+### Typst Universe
 As soon as the 0.2.0 version is available in the [Typst Universe](https://typst.app/universe/package/minerva-thesis), you can use the `preview` version of the template via the Typst app or via the Typst CLI:
 
     typst init @preview/minerva-thesis:0.2.0  
@@ -41,7 +41,7 @@ In your Typst files, you can import the functions of the package via:
 
     #import "@preview/minerva-thesis:0.2.0": *
 
-## Local installation    
+### Local installation    
     
 If you want to install the modules of the package locally, download the files of this repository and import the locally installed modules via one of the following options:
 
@@ -57,11 +57,11 @@ If you want to install the modules of the package locally, download the files of
     For using the local package, replace `@preview` by `@local` in the code above.
 
 
-# Functions
+## Functions
 
 The documentation on the functions of this package can be found in [`docs/Documentation.md`](docs/Documentation.md) 
  
-# Examples
+## Examples
 
 In the folder `examples` basic examples of a PhD and a master's thesis are given. 
 
@@ -73,11 +73,11 @@ Theses example files illustrate most of the functions of the package, in particu
 - `FrontMatter/extended-abstract.typ` (in the master's thesis example): an extended abstract in double-column format with a separate bibliography
 
 
-# Fonts
+## Fonts
 
 In the  [examples](#examples) and the template, the lines for selecting the "UGent Panno Text" font have been commented, such that `thesis.typ` can be compiled out-of-the-box. The "UGent Panno Text" font is not a free font and can only be used for Ghent University purposes. For using this font, it has to be installed on your system (with this specific font name).
 
 
-# License
+## License
 This template is licensed under the MIT license.
 The logos and icons of Ghent University in folder `img` are copyrighted and are not covered by the MIT license. Use them only when there is a direct link to Ghent University. 
