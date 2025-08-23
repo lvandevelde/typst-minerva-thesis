@@ -1,6 +1,7 @@
 #import "@local/minerva-thesis:0.2.0": *
 
 
+
 #show: thesis.with(
   authors: "The Student", // or array: ("Student 1", "Student 2") 
   title: [The thesis title],
@@ -13,7 +14,8 @@
   language: "EN",
   paper: "a4",
 //   font-size: auto, // auto (= default) means default Typst text size (11pt)    
-  figure-fill: none, // auto = colour-tertiary of Ghent University corporate identity, none = no background
+//   figure-fill: none, // auto = colour-tertiary of Ghent University corporate identity, none = no background (=default)
+  figure-tabular-caption: true,
   )
 
   

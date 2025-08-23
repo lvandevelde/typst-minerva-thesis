@@ -11,8 +11,10 @@
   faculty: "EA",
   language: "EN",
   paper: "a4",
-//   font-size: 11pt, // 11pt is the default Typst text size
+  font-size: 11pt,
   figure-fill: none, // luma(245), // auto = colour-tertiary of Ghent University corporate identity, none = no background
+  figure-tabular-caption: true, 
+  figure-bold-ref: false 
   )
 
   

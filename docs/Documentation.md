@@ -3,6 +3,7 @@
 **minerva-thesis version 0.2.0**
 
 This documentation explains the functions of the package.
+In the code blocks the default values of the named arguments are shown.
 
 ## Functions for the main file
 
@@ -43,12 +44,14 @@ The following functions are typically used in the main file containing settings 
         page-margin: (y: 15mm, inside: 25mm, outside: 15mm),
         figure-fill: none,
         figure-inset: auto,
-        bold-figure-ref: false,
+        figure-tabular-caption: false,
+        figure-bold-ref: auto,
         body,
       )
 
   - `authors`:  
-    If `authors` is of type `str` or `array` (of `str`), this information is included in the document properties. (An `array` with elements not of type `str` is not allowed.)
+    Only if `authors` is of type `str` or `array` of `str` elements, this information will be included in the document properties. An `array` with elements not of type `str` is not allowed here.  
+    In the [`title-page` function](#title-page-and-logos),  `authors` can be also be of type `content` or `array` of `content` elements.
   - `title` and `description`:  
     The `description` contains typically information on the degree for which the thesis is submitted.
   - `keywords` should be of type `str` or `array`
@@ -91,13 +94,17 @@ The following functions are typically used in the main file containing settings 
     `auto` means centred equations  
   - The arguments `paper`, `page-width`, `page-height` and `page-margin` correspond to the respective arguments `paper`, `width`, `height` and `margin` of the standard `page` element function.  
   `page-width` and `page-height` are ignored when `paper` is given.
-  - `figure-fill`: the default background colour of `figure` elements  
+  - `figure` settings:
+  
+    - `figure-fill`: the default background colour of `figure` elements  
       `none` means no fill is applied  
       `auto` means the "tertiary colour" of the Ghent University corporate identity (which is a light blue)
-  - `figure-inset`: the default inset of the outer block of `figure` elements if a background colour is given  
+    - `figure-inset`: the default inset of the outer block of `figure` elements if a background colour is given  
       `auto` means 0.5em
-  - `bold-figure-ref`:  `bool`  
-      If `true`, references to `figure` elements are put in bold.
+    - `figure-tabular-caption`: `bool`  
+      If `true`, the caption is set in 2 columns: one for the label (in bold) and one left-aligned column for the caption body
+    - `figure-bold-ref`:  `bool` or `auto`  
+      If `true`, references to `figure` elements are put in bold. `auto` means the same value as `figure-tabular-caption` is used.
 
 The following functions are used for setting the different parts of a thesis:
   
