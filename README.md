@@ -56,7 +56,7 @@ The documentation on the functions of this package can be found in [`docs/Docume
 
 In the folder `examples` basic examples of a PhD and a master's thesis are given. 
 
-Theses example files illustrate most of the functions of the package, in particular:
+These example files illustrate most of the functions of the package, in particular:
 
 - `thesis.typ`: the main file with settings and imports of all contents (title page, front matter, chapters, appendices and bibliography);
 - `Ch1/ch1.typ`: the first chapter with tables and figures with extra features (compared to the standard `figure` function);
