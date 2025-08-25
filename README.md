@@ -2,15 +2,6 @@
 
 ---
 
-The current version available on the [Typst Universe](https://typst.app/universe/package/minerva-thesis) is **v0.1.3**. 
-You can switch to that version via this [link](https://github.com/lvandevelde/typst-minerva-thesis/tree/v0.1.3) or download it [here](https://github.com/lvandevelde/typst-minerva-thesis/releases/tag/v0.1.3).
-
-The current version under development is **v0.2.0**, which will be available soon on the Universe.
-The information below refers to this development version.
-It can already be installed locally, see [below](#local-installation). Currently a locally installed package (namespace `local`) is used in the examples and the template. 
-
----
-
 # `minerva-thesis` - a Typst thesis template
 
 The `minerva-thesis` package provides a template for writing doctoral and master's theses with [Typst](https://typst.app/) presenting both [Ghent University](https://www.ugent.be/en) specific features and additional generic functions and features (in comparison to standard functions of Typst 0.13):
@@ -31,7 +22,7 @@ The `minerva-thesis` package provides a template for writing doctoral and master
 ## Installation and usage
 
 ### Typst Universe
-As soon as the 0.2.0 version is available in the [Typst Universe](https://typst.app/universe/package/minerva-thesis), you can use the `preview` namespace for installing the template via the Typst app or via the Typst CLI:
+As the package is available in the [Typst Universe](https://typst.app/universe/package/minerva-thesis/0.2.0), you can use the package in the `preview` namespace via the Typst app and via the Typst CLI:
 
     typst init @preview/minerva-thesis:0.2.0  
     cd minerva-thesis
@@ -75,7 +66,7 @@ Theses example files illustrate most of the functions of the package, in particu
 
 ## Fonts
 
-In the  [examples](#examples) and the template, the lines for selecting the "UGent Panno Text" font have been commented, such that `thesis.typ` can be compiled out-of-the-box. The "UGent Panno Text" font is not a free font and can only be used for Ghent University purposes. For using this font, it has to be installed on your system (with this specific font name).
+In the [examples](#examples) and the template, the lines for selecting the "UGent Panno Text" font have been commented, such that `thesis.typ` can be compiled out-of-the-box. The "UGent Panno Text" font is not a free font and can only be used for Ghent University purposes. For using this font, it has to be installed on your system (with this specific font name).
 
 
 ## License
