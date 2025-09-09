@@ -1,4 +1,4 @@
-#import "@preview/minerva-thesis:0.2.0": *
+#import "@local/minerva-thesis:0.2.1": *
 
 #let showperson(person) = [
 #person.prefix #person.given-name #person.surname#{if person.suffix!=none [, #person.suffix]}
@@ -18,7 +18,8 @@
   multiple-supervisors: true,
   ids: ([ISBN vvv-uu-zzzz-yyy-x], [NUR XXX], [Wettelijk depot: D/YYYY/aa.bbb/cc]), 
   //   font: "UGent Panno Text", 
-  font-size: 10pt 
+  font-size: 10pt,
+  additional-logo: (image: image("../img/AnotherUniversity.svg"), height: 80%)
 )
 
 

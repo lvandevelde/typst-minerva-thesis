@@ -1,6 +1,6 @@
 # Documentation
 
-**minerva-thesis version 0.2.0**
+**minerva-thesis version 0.2.1 (in progress)**  
 
 This documentation explains the functions of the package.
 In the code blocks the default values of the named arguments are shown.
@@ -85,9 +85,9 @@ The following functions are typically used in the main file containing settings 
       - `chapter-title-font` and `chapter-title-font-size`: font of the title of first-level headings (chapters, parts and non-numbered headings in the front-matter) 
       - `chapter-number-font`, `chapter-number-font-size` and `chapter-number-colour`: font and colour of the number of first-level headings 
       
-      For `font` auto means no text font is set, such that the default Typst font is used. For the other fonts, `auto` means no font is set such that the current text font is used.  
-      It is recommended to not use many different fonts, e.g., to set the same value for all fonts execept `math-font`.  
-      For `font-size`, `auto` means that no font size is set for the main text, such that the default Typst font size is used. For the other font sizes, `auto` means that a pre-defined size relative to `font-size` is used.
+      For `font`, `auto` means no text font is set, such that the default Typst font is used. For the other fonts (`figure-font`, etc.), `auto` means no font is set such that the current or default text font is used.  
+      It is recommended to not use many different fonts, e.g., to set the same value for all fonts except `math-font`.  
+      For `font-size`, `auto` means that no font size is set for the main text, such that the default Typst font size is used. For the other font sizes (`figure-font-size` etc.) , `auto` means that a pre-defined size relative to `font-size` is used.
       
   - `equation-left-margin`:  
     Sets the left margin of equations.  
@@ -236,12 +236,16 @@ For creating the title page and the use of Ghent University logos the following 
         author-font-size: auto,
         description-font-size: auto,
         supervisor-font-size: auto,
-        date-font-size: auto
+        date-font-size: auto,
+        additional-logo: none,
         ids: none
       )
   
     The arguments from `authors` till `description` can already be set via the `thesis` function. Here, `auto` means that the current values (set by `thesis`) are used.  
     The arguments related to the font and font sizes are analogous to the font related arguments of the `thesis` function.  
+    Argument `additional-logo` can be used to add one or more additional logos, besides the Ghent University logo. This argument has to be a `dictionary` or an array of `dictionary` where each `dictionary` has two fields (key/value pairs): 
+      - `image`: the `image` of the logo, made by means of the `image` function without setting `height` or `width` (i.e. by leaving them `auto`)
+      - `height`: the height of the logo on the title page, relative to the height of the Ghent University logo (e.g., `80%`)
     Argument `ids` is a single `str`/`content` or an `array` with ID(s) such as ISBN, NIR code, etc. 
 
 
@@ -298,10 +302,10 @@ An extended abstract, i.e. an abstract in double-column format and with a separa
     The additional font related arguments are analogous to the font related arguments of the `thesis` function.
     
     A separate bibliography can be added by means of the following arguments:
-    - `bibliography`: relative path to the bibliography file
-    - `read` has to be set to `"(path) => read(path)"`
-      
-    For referring to this bibliography in the extended abstract, the prefix `"eab-"` (meaning "extended abstract bibliography") has to be added to the label. E.g., a citation to the publication with label `"pub1"` in the bibliography file is given by `@eab-pub1`.
+    - `bibliography`: path to the bibliography file
+    - `read`: has to be set to `(path) => read(path)`
+    
+    These arguments are passed to the `bibliographyx` and `alexandria` functions of the [`alexandria` package](https://typst.app/universe/package/alexandria). For referring to this bibliography in the extended abstract, the prefix `"eab-"` (meaning "extended abstract bibliography") has to be added to the label. E.g., a citation to the publication with label `"pub1"` in the bibliography file is given by `@eab-pub1`.
 
 
 For both a regular (single-page) abstract and the extended abstract, the following function can be used for setting the abstract and keywords:

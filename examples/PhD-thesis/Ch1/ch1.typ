@@ -1,4 +1,4 @@
-#import "@preview/minerva-thesis:0.2.0": *
+#import "@local/minerva-thesis:0.2.1": *
 
 #import "../defs.typ": * // import your own definitions
 
@@ -25,7 +25,7 @@ In @app:A you find some more, in particular in @sctn:Aformulas, e.g. @eq:sin2alp
 
 === The First Subsection <sbsctn:firstsubsection>
 
-See @AaBbb2025 and @EeFff2025 for some more explanation.
+See @AaBbb2025 and @CcDdd2025 for some more explanation.
 
 
 #m-figure(
@@ -82,5 +82,5 @@ label: <tbl:table2>
 @tbl:table1 and @tbl:table2 are very basic tables.
 
 
-
+More explanation is found in literature @EeFff2025 @GgHhh2025 and on the web @IiJjj2025.
 

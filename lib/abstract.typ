@@ -132,6 +132,7 @@
   
     if bibliography!=none {
       set heading(numbering: none)
+      set par(leading: 0.65em, spacing: 0.65em)
       bibliographyx(bibliography, title: [References])
     }
   }

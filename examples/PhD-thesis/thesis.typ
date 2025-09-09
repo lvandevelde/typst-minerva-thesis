@@ -1,4 +1,4 @@
-#import "@preview/minerva-thesis:0.2.0": *
+#import "@local/minerva-thesis:0.2.1": *
 
 #show: thesis.with(
 //   font: "Libertinus Serif", 
@@ -92,4 +92,4 @@
 
 #show: back-matter
 
-#bibliography("references.bib", style: "ieee")  
+#bibliography("references.yaml")  

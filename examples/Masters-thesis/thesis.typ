@@ -1,4 +1,4 @@
-#import "@preview/minerva-thesis:0.2.0": *
+#import "@local/minerva-thesis:0.2.1": *
 
 #show: thesis.with(
   authors: ("Student 1", "Student 2"),
@@ -104,4 +104,5 @@
 
 #show: back-matter
 
-#bibliography("references.bib", style: "ieee")  
+// #bibliography("references.bib")  
+#bibliography("references.yaml") 

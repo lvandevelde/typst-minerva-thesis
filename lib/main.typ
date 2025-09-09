@@ -95,7 +95,7 @@
   
   if show-sub==auto { the-show-sub = it => {
       set figure.caption(position: top)
-      show figure.caption: it => align(left, it)
+      show figure.caption: set align(left)
       set block(inset: 0pt, fill: none) 
       set figure(placement: none)
       it
@@ -323,6 +323,7 @@
     show figure: set text(font: figure-font) if figure-font != auto
     show figure: set text(size: if figure-font-size==auto {0.9*base-font-size} else {figure-font-size})
 
+
     show figure.where(kind: table): set figure.caption(position: top)
 
     store.update("m")
@@ -338,12 +339,16 @@
       inset: figure-inset,
       store: "m")
 
+// Caption block is by default centred in the figure block (and (thus) also the text in the caption block)
+// Uncomment if the caption block has to be left aligned in the figure block:
+// show figure.caption: set align(left)
+      
     show figure.caption: it => context {
       set text(font: caption-font)  if caption-font != auto
       set text(size: if caption-font-size==auto {0.9*base-font-size} else {caption-font-size} )
       if figure-settings.get().at(store.get()).tabular-caption {
         table(
-          [*#it.supplement #it.counter.display(it.numbering)*#it.separator],
+          [*#it.supplement~#it.counter.display(it.numbering)*#it.separator],
           it.body,
           column-gutter: 0.15em,
           stroke: none,
@@ -351,9 +356,10 @@
           align: (right, left),
           columns: 2,
         )
-      } else {it}
+      } else {
+        box(align(left, it)) // In the caption block itself, the text is left aligned, this can be just "it" if the caption block is left aligned in the figure block.
+      }
     }
-    
 
     show math.equation: set text(font: math-font) if math-font != auto 
     show math.equation: set text(size: if math-font-size==auto {base-font-size} else {math-font-size})

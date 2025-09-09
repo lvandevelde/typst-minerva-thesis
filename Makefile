@@ -1,4 +1,4 @@
-VERSION=0.2.0
+VERSION=0.2.1
 PACKAGEDIR=$(HOME)/.local/share/typst/packages/local/minerva-thesis/$(VERSION)
 FILES=typst.toml lib img template
 

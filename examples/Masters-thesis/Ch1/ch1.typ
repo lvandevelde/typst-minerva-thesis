@@ -1,4 +1,4 @@
-#import "@preview/minerva-thesis:0.2.0": *
+#import "@local/minerva-thesis:0.2.1": *
 
 #import "../defs.typ": * // import your own definitions
 
@@ -25,7 +25,7 @@ In @app:A you find some more, in particular in @sctn:Aformulas, e.g. @eq:sin2alp
 
 === The First Subsection <sbsctn:firstsubsection>
 
-See @EeFff2025 for some more explanation.
+See @AaBbb2025 and @CcDdd2025 for some more explanation.
 
 
 #m-figure(
@@ -42,8 +42,8 @@ figure(image("img/subfigure_b.svg"), caption: [Subfigure b]),<subfigb>,
 figure(image("img/subfigure_c.svg"), caption: [Subfigure c]),<subfigc>,
 figure(image("img/subfigure_d.svg"), caption: [Subfigure d]),<subfigd>,
 columns: 2,
-caption: [A long caption for a figure with subfigures -- #lorem(30)],
-outline-caption: [A short caption for a figure with subfigures],
+caption: [A figure with subfigures: a. shows case a, b. shows ... ],
+outline-caption: [A figure with subfigures],
 label: <fig:examplefigure2>, 
 )
 
@@ -89,7 +89,8 @@ The Maxwell stress tensor $tTM$ is given by:
 $ tTM =  vB vH - 1/2 mu_0 H^2 tI $ <eq:TM>
 where $vB$, $vH$ are the magnetic flux density and field strength respectively and $tI$ is the unity tensor.
 
-The expression given by @eq:TM has been derived in @AaBbb2025.
+The expression given by @eq:TM has been derived by #cite(<EeFff2025>, form: "prose") and is widely used  @GgHhh2025 @IiJjj2025.
+
 
 === Another Subsection
 

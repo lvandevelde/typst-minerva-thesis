@@ -1,4 +1,4 @@
-#import "@local/minerva-thesis:0.2.0": *
+#import "@local/minerva-thesis:0.2.1": *
 
 #import "../defs.typ": * // import your own definitions
 
