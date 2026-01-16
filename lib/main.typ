@@ -192,17 +192,16 @@
 #let part-number = counter("part")
 
 
-#let part(page-number: false, title) = context {
+#let part(page-number: false, title) = {
   if not page-number {show-page-number.update(false)} 
   set heading(numbering: none)
   part-number.step()
-  part-heading.update(true)
-  context {
-    show heading: it => {start-at-odd-page()} // a heading for the Table of Contents only. start-at-odd-page is needed for right location in ToC
+  context { // a heading for the Table of Contents only. start-at-odd-page is needed for right location in ToC
+    show heading: it => {start-at-odd-page()} 
     heading[Part #part-number.display("I") -- #title]
   }
+  part-heading.update(true) // see heading show-rule
   heading(title, outlined: false, bookmarked: false) 
-  counter(heading).update(counter(heading).get()) // restores the heading counter to value before calling part()
   part-heading.update(false)
   if not page-number {show-page-number.update(true)} 
 }
@@ -442,9 +441,13 @@
     show outline.entry.where(level: 1): set block(above: 1em)
 
     show outline.entry: it => context {
-      set box(baseline: 100%)
       let pg-width=page-number-width.get()
-      let loc = it.element.location()
+      set box(baseline: 100%)
+      let el=it.element
+      let loc=el.location()
+      let firstlevelheading=el.func()==heading and it.level==1 
+      set text(weight:"semibold") if firstlevelheading
+      let thefill=if firstlevelheading {none} else {it.fill}
       let is-page-number-shown = page-number-shown.at(loc)
       link(loc, block(
         width: 100%,
@@ -462,7 +465,7 @@
                   if filled-outline.at(loc) {
                     repeat(text(weight: "regular")[.], gap: 0.15em) // i.e. the default fill
                   } else {
-                  it.fill
+                  thefill
                   }
                 )
               },
@@ -472,7 +475,7 @@
               justify: true,
               it.body()
               + [ ]
-              + { if is-page-number-shown { box(baseline: 0%, width: 1fr, it.fill) } },
+              + { if is-page-number-shown { box(baseline: 0%, width: 1fr, thefill) } },
             )))
           })
         + if is-page-number-shown { 
@@ -488,13 +491,14 @@
 //       it
 //   } 
 // Selection via outline.where(target: heading) does not work for some reason. Therefore selection via repr(it.target)
-    show outline: it => {
-      if repr(it.target) == "heading" {
-        show outline.entry.where(level: 1): set text(weight: "semibold")
-        show outline.entry.where(level: 1): set outline.entry(fill: none)
-        it
-      } else {it}
-    }
+//     show outline: it => {
+//       if repr(it.target) == "heading" {
+//         show outline.entry.where(level: 1): set text(weight: "semibold")
+//         show outline.entry.where(level: 1): set outline.entry(fill: none)
+//         it
+//       } else {it}
+//     }
+// This is now implemented in outline.entry show-rule, see firstlevelheading. 
   
     set document(title: title) if title!=none
     set document(author: authors) if type(authors)==str or type(authors) == array 
@@ -525,13 +529,13 @@
   counter(page).update(0) 
   set heading(numbering: "1.1.1")
   show heading.where(level:1): set heading(supplement: [Chapter]) 
-  counter(heading).update(0)
+  counter(heading).update(0) // not really necessary as front-matter headings are not numbered
   filled-outline.update(false)
   
   body
 }
 
-#let appendix(flyleaf:[Appendices],body)={
+#let appendix(flyleaf:[Appendices], body)={
   set page(numbering:"1")
   show-heading.update(true)
   counter(heading).update(0)
@@ -550,7 +554,7 @@
   body
 }
 
-#let back-matter(show-headings: true,body)={
+#let back-matter(show-headings: true, body)={
   set page(numbering:"1")
   show-heading.update(show-headings)
   set heading(numbering: none)
