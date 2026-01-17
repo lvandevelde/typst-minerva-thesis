@@ -1,4 +1,4 @@
-#import "@local/minerva-thesis:0.2.1": *
+#import "@preview/minerva-thesis:0.2.1": *
 
 #show: thesis.with(
   authors: ("Student 1", "Student 2"),
