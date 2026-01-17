@@ -1,5 +1,5 @@
-#import "@preview/subpar:0.2.2"
-#import "@preview/abbr:0.3.0"
+#import "@local/subpar:0.2.2"
+#import "@local/abbr:0.3.0"
 #import "states.typ": *
 
 // colours of Ghent University corporate identity

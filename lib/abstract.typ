@@ -1,5 +1,5 @@
-#import "@preview/alexandria:0.2.2": *
-#import "@preview/subpar:0.2.2"
+#import "@local/alexandria:0.2.2": *
+#import "@local/subpar:0.2.2"
 #import "states.typ": * 
 #import "main.typ":  set-figures, start-at-odd-page, hide-page-number
 
