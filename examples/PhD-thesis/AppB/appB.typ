@@ -5,4 +5,7 @@
 
 = The Second Appendix <app:B>
 
+== Some more details
+
+This appendix contains details on ...
 

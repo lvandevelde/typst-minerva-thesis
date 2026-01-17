@@ -1,9 +1,15 @@
 <img width="2146" height="302" alt="Typst-minerva-thesis-banner" src="https://github.com/user-attachments/assets/0a116493-7518-46c2-bd72-c51f20adbee0" />
 
 ---
+
+This `main` branch is the development space for the `minerva-thesis` package published on the public repository [`typst-minerva-thesis`](https://github.com/lvandevelde/typst-minerva-thesis) and the [Typst Universe](https://typst.app/universe/package/minerva-thesis/) 
+
+The first versions named `ugentthesis` (not publicly available) are available in the [`ugentthesis` branch](https://github.com/lvandevelde/Typst-thesis/tree/ugentthesis). 
+
+---
 # `minerva-thesis` - a Typst thesis template
 
-The `minerva-thesis` package provides a template for writing doctoral and master's theses with [Typst](https://typst.app/) presenting both [Ghent University](https://www.ugent.be/en) specific features and additional generic functions and features (in comparison to standard functions of Typst 0.13):
+The `minerva-thesis` package provides a template for writing doctoral and master's theses with [Typst](https://typst.app/) presenting both [Ghent University](https://www.ugent.be/en) specific features and additional generic functions and features (in comparison to standard functions of Typst 0.14):
 
 - A Ghent University specific title page. 
 - Improved layout of outlines (in particular for outline entries spanning multiple lines)
@@ -21,15 +27,15 @@ The `minerva-thesis` package provides a template for writing doctoral and master
 ## Installation and usage
 
 ### Typst Universe
-As the package is available in the [Typst Universe](https://typst.app/universe/package/minerva-thesis/0.2.0), you can use the package in the `preview` namespace via the Typst app and via the Typst CLI:
+As the package is available in the [Typst Universe](https://typst.app/universe/package/minerva-thesis/0.2.1), you can use the package in the `preview` namespace via the Typst app and via the Typst CLI:
 
-    typst init @preview/minerva-thesis:0.2.0  
+    typst init @preview/minerva-thesis:0.2.1  
     cd minerva-thesis
     typst watch thesis.typ
 
 In your Typst files, you can import the functions of the package via:
 
-    #import "@preview/minerva-thesis:0.2.0": *
+    #import "@preview/minerva-thesis:0.2.1": *
 
 ### Local installation    
     

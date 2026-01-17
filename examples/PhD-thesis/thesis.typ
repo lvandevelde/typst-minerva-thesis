@@ -1,4 +1,5 @@
 #import "@local/minerva-thesis:0.2.1": *
+#import "../../lib/states.typ": *
 
 #show: thesis.with(
 //   font: "Libertinus Serif", 
@@ -41,7 +42,7 @@
 
 #include "FrontMatter/summary.typ"
 
-#set-page-number-width(2em)
+// #set-page-number-width(2em) // 2em is the default value
 
 #outline(
   title:[Table of Contents], 
@@ -49,6 +50,7 @@
 )
 
 #set-page-number-width(1.3em)
+
 
 #outline(
   title: [List of Tables],
@@ -73,7 +75,6 @@
 
 #include "Ch2/ch2.typ"
 
-
 #part("Methods") 
 
 #include "Ch3/ch3.typ"
@@ -82,7 +83,9 @@
 
 #part("Results")
 
+
 #include "Ch5/ch5.typ"
+
 
 // #show: appendix.with(flyleaf:[Appendix]) // if there is only one Appendix
 #show: appendix                             // otherwise
