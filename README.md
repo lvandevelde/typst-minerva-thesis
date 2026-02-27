@@ -1,10 +1,6 @@
 <img width="2146" height="302" alt="Typst-minerva-thesis-banner" src="https://github.com/user-attachments/assets/0a116493-7518-46c2-bd72-c51f20adbee0" />
 
----
 
-This `main` branch is the development space for the `minerva-thesis` package published on the public repository [`typst-minerva-thesis`](https://github.com/lvandevelde/typst-minerva-thesis) and the [Typst Universe](https://typst.app/universe/package/minerva-thesis/) 
-
-The first versions named `ugentthesis` (not publicly available) are available in the [`ugentthesis` branch](https://github.com/lvandevelde/Typst-thesis/tree/ugentthesis). 
 
 ---
 # `minerva-thesis` - a Typst thesis template
