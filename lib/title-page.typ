@@ -1,7 +1,7 @@
 #import "states.typ": *
 
-#let ugent-logo(language: "EN") = image("../img/logo_UGent_" + upper(language) + ".svg")
-#let faculty-logo(faculty: none, language: "EN") = image("../img/logo_" + upper(faculty) + "_" + upper(language) + ".svg")
+#let ugent-logo(language: "EN", ..args) = image("../img/logo_UGent_"+upper(language)+".svg", ..args)
+#let faculty-icon(faculty, language: "EN", ..args) = image("../img/icon_"+upper(faculty)+"_"+upper(language)+".svg", ..args)
 
 #let title-page(
   authors: auto,
@@ -48,8 +48,7 @@
     let top-logo-height=2.8em // for faculty logo 
     let bottom-logo-height=48/22*top-logo-height  // for UGent logo ; the ratio 48/22 preserves the original height ratio of the logos; the text sizes in UGent logo and faculty logo are then equal  
   
-    set image(height: top-logo-height)
-    faculty-logo(faculty: the-faculty, language: the-language)
+    faculty-icon(the-faculty, language: the-language, height: top-logo-height)
 
     v(2fr)
     
@@ -94,8 +93,7 @@
     v(1fr)
     
     set box(baseline:50%)
-    set image(height: bottom-logo-height)
-    box(ugent-logo(language: the-language))
+    box(ugent-logo(language: the-language, height: bottom-logo-height))
     if additional-logo!=none {
       let add-logo(logo)={
         set image(height: logo.height*bottom-logo-height)

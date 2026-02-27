@@ -1,8 +1,7 @@
 <img width="2146" height="302" alt="Typst-minerva-thesis-banner" src="https://github.com/user-attachments/assets/0a116493-7518-46c2-bd72-c51f20adbee0" />
 
-
-
 ---
+
 # `minerva-thesis` - a Typst thesis template
 
 The `minerva-thesis` package provides a template for writing doctoral and master's theses with [Typst](https://typst.app/) presenting both [Ghent University](https://www.ugent.be/en) specific features and additional generic functions and features (in comparison to standard functions of Typst 0.14):
@@ -21,6 +20,11 @@ The `minerva-thesis` package provides a template for writing doctoral and master
 - Handling of abbreviations via package [`abbr`](https://typst.app/universe/package/abbr)
 
 ## Installation and usage
+
+The tagged versions (releases) have been published on [Typst Universe](https://typst.app/universe/package/minerva-thesis/).
+
+The current version under development, v0.2.2, can be locally installed (see [Local installation](#local-installation).
+
 
 ### Typst Universe
 As the package is available in the [Typst Universe](https://typst.app/universe/package/minerva-thesis/0.2.1), you can use the package in the `preview` namespace via the Typst app and via the Typst CLI:

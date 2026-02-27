@@ -1,6 +1,6 @@
 # Documentation
 
-**minerva-thesis version 0.2.1**  
+**minerva-thesis version 0.2.2 (in progress)**  
 
 This documentation explains the functions of the package.
 In the code blocks the default values of the named arguments are shown.
@@ -252,19 +252,21 @@ For creating the title page and the use of Ghent University logos the following 
 - `ugent-logo`
 
       ugent-logo(
-        language: "EN"
+        language: "EN",
+        ..args
       ) 
       
-  This function creates an `image` with the Ghent University logo.
+  This function creates an `image` with the Ghent University logo, see the [language](#language-codes). The arguments `..args` are passed to the `image` function.
   
-- `faculty-logo`
+- `faculty-icon`
 
-      faculty-logo(
+      faculty-icon(
+        faculty,
         language: "EN",
-        faculty: none`
+        ..args
       )
 
-  This function creates an `image` with the logo of a Ghent University faculty, see the [language](#language-codes) and [faculty codes](#faculty-codes) above.
+  This function creates an `image` with the icon of a Ghent University faculty, see the [language](#language-codes) and [faculty codes](#faculty-codes).  The arguments `..args` are passed to the `image` function.
 
 ## Functions for an (extended) abstract
 

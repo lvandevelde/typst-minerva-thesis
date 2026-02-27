@@ -1,5 +1,5 @@
-#import "@preview/minerva-thesis:0.2.1": *
-#import "../../lib/states.typ": *
+#import "@local/minerva-thesis:0.2.2": *
+
 
 #show: thesis.with(
 //   font: "Libertinus Serif", 
