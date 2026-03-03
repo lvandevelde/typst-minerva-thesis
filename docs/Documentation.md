@@ -116,7 +116,7 @@ The following functions are typically used in the main file containing settings 
   - Settings of subfigures (made by means of [`m-subpar-super`](#m-subpar-super) or [`m-subpar-grid`](#m-subpar-grid):
     - `subfigure-caption-font`: font of the captions; `auto` means the font set via `font`.
     - `subfigure-caption-font-size`: font size of the captions; `auto` means 90% of the size set via`font-size`. 
-    - `subfigure-caption-pos`: position of the caption; `auto` means `top`.__
+    - `subfigure-caption-pos`: position of the caption; `auto` means `top`.  
       For figures of kind `table` the caption position is always `top`. 
     - `subfigure-caption-align`: alignment of the caption; `auto` means `left`. 
     - `subfigure-caption-sep`: separator of the caption; `auto` means `[: ]`.
