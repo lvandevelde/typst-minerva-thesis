@@ -4,8 +4,10 @@
 
 #show: extended-abstract.with(
   font-size: 10pt,
-  bibliography: "../references.yaml", 
-  read: path => read(path))
+  bibliography: "../references.yaml",
+  subfigure-caption-font: "Libertinus Sans",
+  read: path => read(path)
+  )
 
 
 #abstract-keywords[

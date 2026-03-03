@@ -1,10 +1,10 @@
 #import "@local/minerva-thesis:0.2.2": *
 
-
 #show: thesis.with(
 //   font: "Libertinus Serif", 
 //   caption-font: "Libertinus Serif",
 //   figure-font: "Libertinus Serif",
+//   subfigure-caption-font: "Libertinus Sans"
 //   math-font: "New Computer Modern Math",
   authors: "The PhD Candidate",
   description: [Dissertation submitted to obtain the academic degree of Doctor of Engineering],
@@ -15,7 +15,9 @@
   chapter-number-font-size: 60pt, // slightly less than "auto" (= the default)
   equation-left-margin: 5%, // left aligned equations (with some left margin),  auto = centred equations (which is the default)
   figure-fill: luma(245), // auto = colour-tertiary of Ghent University corporate identity, none = no background
-  figure-tabular-caption: true
+  figure-tabular-caption: true,
+//   subfigure-numbering: "(a)", 
+//   subfigure-caption-sep: [ ],
 )
 
   

@@ -1,1 +1,5 @@
 00-OLD
+Makefile.mk
+template/Makefile
+examples/Makefile
+00-README

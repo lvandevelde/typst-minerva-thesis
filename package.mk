@@ -1,0 +1,3 @@
+PACKAGE=minerva-thesis
+VERSION=0.2.2
+TYPST-VERSION=0.14.2

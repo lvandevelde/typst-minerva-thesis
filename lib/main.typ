@@ -69,7 +69,7 @@
 }
 
 
-#let m-subpar-grid(
+#let m-subpar(
   kind: image,
   outline-caption: auto,
   caption: none,
@@ -79,54 +79,86 @@
   fill: auto,
   inset: auto,
   show-sub: auto, 
+  show-sub-caption: auto,
   numbering: auto,
   numbering-sub: auto,
   numbering-sub-ref: auto,
+  breakable-sub: false,
+  subfigure-caption-font: auto,
+  subfigure-caption-font-size: auto,
+  subfigure-caption-pos: auto,
+  subfigure-caption-align: auto,
+  subfigure-caption-sep: auto,
+  subfigure-numbering: auto,
+  subfigure-num-textargs: auto,
+  subpar-function: subpar.super,
   ..args,
 ) =  context {
   let the-figure
-  let the-show-sub
-  let the-numbering
-  let the-numbering-sub
-  let the-numbering-sub-ref
+
   let the-figure-settings=figure-settings.get().at(store.get())
   let the-style=the-figure-settings.at(str(repr(kind)))
   let the-style-function=the-figure-settings.at("style-function")
   
-  if show-sub==auto { the-show-sub = it => {
-      set figure.caption(position: top)
-      show figure.caption: set align(left)
-      set block(inset: 0pt, fill: none) 
-      set figure(placement: none)
+  let the-show-sub=if show-sub==auto {it => {
+      set block(inset: 0pt, fill: none, breakable: breakable-sub) 
+      set figure.caption(position: 
+        if kind==table {top} else {        
+          if subfigure-caption-pos==auto{the-figure-settings.subfigure-caption-pos} else {subfigure-caption-pos}  
+        }
+      )
       it
     }
-  } else {the-show-sub = show-sub} 
+  } else {show-sub} 
   
-  if numbering==auto { 
-    the-numbering = if the-style-function!=none {the-style-function.with(style: the-style)} else {the-style}   
-  } else {the-numbering = numbering} 
-  if numbering-sub==auto {
-    the-numbering-sub= (..num) => text(weight: "semibold", std.numbering("a.", num.pos().last()))
-  } else {the-numbering-sub=numbering-sub} 
-  if numbering-sub-ref==auto {
-    the-numbering-sub-ref= (ifig, isubfig) => {
-      if the-style-function!=none {the-style-function(style: the-style,ifig)} else {std.numbering(the-style,ifig)} + std.numbering("a", isubfig)}
-  } else {the-numbering-sub-ref=numbering-sub-ref}
+  let the-show-sub-caption=if show-sub-caption==auto {
+   (num,it) => {
+      set text(
+        font: if subfigure-caption-font==auto {the-figure-settings.subfigure-caption-font} else {subfigure-caption-font},
+        size: if subfigure-caption-font-size==auto {the-figure-settings.subfigure-caption-font-size} else {subfigure-caption-font-size}
+      )
+      set align(if subfigure-caption-align==auto{the-figure-settings.subfigure-caption-align} else {subfigure-caption-align} )
+      num
+      if it.body!=[] {
+        if subfigure-caption-sep==auto{the-figure-settings.subfigure-caption-sep} else {subfigure-caption-sep}
+      }
+      it.body
+    }
+  } else {show-sub-caption}
+   
+  let the-sub-num=if subfigure-numbering==auto{the-figure-settings.subfigure-numbering} else {subfigure-numbering}
+  
+  let the-numbering=if numbering==auto { 
+    if the-style-function!=none {the-style-function.with(style: the-style)} else {the-style}   
+  } else {numbering} 
+  
+  let the-numbering-sub= if numbering-sub==auto {
+    (..num) => text(
+      ..if subfigure-num-textargs==auto{the-figure-settings.subfigure-num-textargs} else {subfigure-num-textargs} , 
+      std.numbering(the-sub-num, num.pos().last()))
+  } else {numbering-sub} 
+  
+  
+  let the-numbering-sub-ref=if numbering-sub-ref==auto {
+    (ifig, isubfig) => {
+      if the-style-function!=none {the-style-function(style: the-style,ifig)} else {std.numbering(the-style,ifig)} + std.numbering(the-sub-num, isubfig)}
+  } else {numbering-sub-ref}
 
   set figure(placement: none) if breakable 
   if outlined and outline-caption != auto {
     {
       show figure: it => it.counter.update(v => v - 1)
-      subpar.grid(
+      subpar-function(
         numbering: the-numbering,
         kind: kind,
         ..args,
         caption: outline-caption
       )
     } 
-    the-figure = subpar.grid(
+    the-figure = subpar-function(
       kind: kind,
       show-sub: the-show-sub, 
+      show-sub-caption: the-show-sub-caption,
       numbering: the-numbering,
       numbering-sub: the-numbering-sub, 
       numbering-sub-ref: the-numbering-sub-ref,     
@@ -136,9 +168,10 @@
       outlined: false,
     )
   } else {
-    the-figure = subpar.grid(
+    the-figure = subpar-function(
       kind: kind,
       show-sub: the-show-sub, 
+      show-sub-caption: the-show-sub-caption,
       numbering: the-numbering,
       numbering-sub: the-numbering-sub, 
       numbering-sub-ref: the-numbering-sub-ref,
@@ -149,6 +182,8 @@
   figure-block(breakable: breakable, fill: fill, inset: inset, the-figure)
 }
 
+#let m-subpar-super=m-subpar.with(subpar-function: subpar.super)
+#let m-subpar-grid=m-subpar.with(subpar-function: subpar.grid)
 
 #let set-figures(
   image-style: "1",
@@ -159,12 +194,36 @@
   tabular-caption: false,
   fill: none,
   inset: 0pt,
+  subfigure-caption-font: none,
+  subfigure-caption-font-size: 9pt,
+  subfigure-caption-sep: [: ],
+  subfigure-caption-pos: top,
+  subfigure-caption-align: left,
+  subfigure-numbering: "a",
+  subfigure-num-textargs: (weight: "semibold"),
   store: none
-) = body => context{
+) = body => {
     
   figure-settings.update(
     it => {
-      it.insert(store,(image: image-style, table: table-style, raw: raw-style, style-function: style-function, bold-ref: bold-ref, tabular-caption: tabular-caption, fill: fill, inset: inset ))
+      it.insert(store,(
+        image: image-style, 
+        table: table-style, 
+        raw: raw-style, 
+        style-function: style-function, 
+        bold-ref: bold-ref, 
+        tabular-caption: tabular-caption, 
+        subfigure-caption-font: subfigure-caption-font,
+        subfigure-caption-font-size: subfigure-caption-font-size,
+        subfigure-caption-pos: subfigure-caption-pos,
+        subfigure-caption-align: subfigure-caption-align,
+        subfigure-caption-sep: subfigure-caption-sep,
+        subfigure-numbering: subfigure-numbering,
+        subfigure-num-textargs: subfigure-num-textargs,
+        fill: fill, 
+        inset: inset 
+        )
+      )
       it
     }
   )
@@ -242,6 +301,13 @@
   figure-inset: 0.5em,
   figure-tabular-caption: false,
   figure-bold-ref: auto,
+  subfigure-caption-font: auto,
+  subfigure-caption-font-size: auto,
+  subfigure-caption-pos: auto,
+  subfigure-caption-align: auto,
+  subfigure-caption-sep: auto,
+  subfigure-numbering: auto,
+  subfigure-num-textargs: auto,
   body,
 ) = {
   
@@ -314,6 +380,7 @@
       page-number-on-page.update(true) // The default (for the next page) is true.
     },
   )
+  
 
   context{
   
@@ -327,22 +394,30 @@
 
     store.update("m")
     
+    let subfigure-settings=(
+      subfigure-caption-font: if subfigure-caption-font==auto {text.font} else {subfigure-caption-font},
+      subfigure-caption-font-size: if subfigure-caption-font-size==auto {0.9*text.size} else {subfigure-caption-font-size},
+    )
+    if subfigure-caption-pos!=auto {subfigure-settings.insert("subfigure-caption-pos",subfigure-caption-pos)}
+    if subfigure-caption-align!=auto {subfigure-settings.insert("subfigure-caption-align",subfigure-caption-align)}
+    if subfigure-caption-sep!=auto {subfigure-settings.insert("subfigure-caption-sep",subfigure-caption-sep)}
+    if subfigure-numbering!=auto {subfigure-settings.insert("subfigure-numbering",subfigure-numbering)}
+    if subfigure-num-textargs!=auto {subfigure-settings.insert("subfigure-num-textargs",subfigure-num-textargs)}
+    
     show: set-figures(
-      image-style:"1",
-      table-style:"1",
-      raw-style:"1",
       style-function: add-chapter-number,
       tabular-caption: figure-tabular-caption,
       bold-ref: if figure-bold-ref==auto {figure-tabular-caption} else {figure-bold-ref},
       fill: if figure-fill==auto {colour-tertiary} else {figure-fill},
       inset: figure-inset,
+      ..subfigure-settings,
       store: "m")
 
 // Caption block is by default centred in the figure block (and (thus) also the text in the caption block)
 // Uncomment if the caption block has to be left aligned in the figure block:
 // show figure.caption: set align(left)
       
-    show figure.caption: it => context {
+    show figure.caption: it => {
       set text(font: caption-font)  if caption-font != auto
       set text(size: if caption-font-size==auto {0.9*base-font-size} else {caption-font-size} )
       if figure-settings.get().at(store.get()).tabular-caption {

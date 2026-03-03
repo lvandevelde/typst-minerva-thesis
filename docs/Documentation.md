@@ -9,7 +9,7 @@ In the code blocks the default values of the named arguments are shown.
 
 The following functions are typically used in the main file containing settings and imports of all contents (title page, front matter, chapters, appendices and back matter (such as a bibliography)).
 
-- `thesis`  
+- <a name="thesis"></a> `thesis`  
   This function sets the total manuscript.
   
       thesis(
@@ -24,6 +24,10 @@ The following functions are typically used in the main file containing settings 
         counsellors: none,
         multiple-counsellors: auto,
         date: none,
+        paper: none,
+        page-width: 160mm, 
+        page-height: 240mm,
+        page-margin: (y: 15mm, inside: 25mm, outside: 15mm),        
         font: auto,
         font-size: auto,
         math-font: auto,
@@ -38,14 +42,17 @@ The following functions are typically used in the main file containing settings 
         chapter-number-font-size: auto,
         chapter-number-colour: luma(150),
         equation-left-margin: auto,
-        paper: none,
-        page-width: 160mm, 
-        page-height: 240mm,
-        page-margin: (y: 15mm, inside: 25mm, outside: 15mm),
         figure-fill: none,
         figure-inset: auto,
         figure-tabular-caption: false,
         figure-bold-ref: auto,
+        subfigure-caption-font: auto,
+        subfigure-caption-font-size: auto,
+        subfigure-caption-pos: auto,
+        subfigure-caption-align: auto,
+        subfigure-caption-sep: auto,
+        subfigure-numbering: auto,
+        subfigure-num-textargs: auto,
         body,
       )
 
@@ -77,6 +84,8 @@ The following functions are typically used in the main file containing settings 
     The value `auto` means `true` if `supervisors`/`counsellors`is an `array` with more than one element and `false` otherwise.
   - `date`:  
     If `date` is of type `datetime`, it is added to the document properties.
+  - The arguments `paper`, `page-width`, `page-height` and `page-margin` correspond to the respective arguments `paper`, `width`, `height` and `margin` of the standard `page` element function.  
+  `page-width` and `page-height` are ignored when `paper` is given.
   - font settings:
       - `font` and `font-size`: main text font
       - `figure-font` and `figure-font-size`: font used in `figure` elements (tables and figures)
@@ -92,10 +101,8 @@ The following functions are typically used in the main file containing settings 
   - `equation-left-margin`:  
     Sets the left margin of equations.  
     `auto` means centred equations  
-  - The arguments `paper`, `page-width`, `page-height` and `page-margin` correspond to the respective arguments `paper`, `width`, `height` and `margin` of the standard `page` element function.  
-  `page-width` and `page-height` are ignored when `paper` is given.
-  - `figure` settings:
-  
+
+  - `figure` settings:  
     - `figure-fill`: the default background colour of `figure` elements  
       `none` means no fill is applied  
       `auto` means the "tertiary colour" of the Ghent University corporate identity (which is a light blue)
@@ -106,6 +113,16 @@ The following functions are typically used in the main file containing settings 
     - `figure-bold-ref`:  `bool` or `auto`  
       If `true`, references to `figure` elements are put in bold. `auto` means the same value as `figure-tabular-caption` is used.
 
+  - Settings of subfigures (made by means of [`m-subpar-super`](#m-subpar-super) or [`m-subpar-grid`](#m-subpar-grid):
+    - `subfigure-caption-font`: font of the captions; `auto` means the font set via `font`.
+    - `subfigure-caption-font-size`: font size of the captions; `auto` means 90% of the size set via`font-size`. 
+    - `subfigure-caption-pos`: position of the caption; `auto` means `top`.__
+      For figures of kind `table` the caption position is always `top`. 
+    - `subfigure-caption-align`: alignment of the caption; `auto` means `left`. 
+    - `subfigure-caption-sep`: separator of the caption; `auto` means `[: ]`.
+    - `subfigure-numbering`: numbering of the subfigure; `auto` means `"a"`.
+    - `subfigure-num-textargs`: text arguments for the number in the captions; `auto` means `(weight: "semibold")`.
+      
 The following functions are used for setting the different parts of a thesis:
   
 - `front-matter`
@@ -190,14 +207,14 @@ The following functions have been defined with extra features for `figure` eleme
   This function has some extra features compared to the standard `figure` function for:
     - setting an `outline-caption`: a (mostly shorter) caption used in the outline (List of Tables / List of Figures)
     - figures/tables with a coloured background (`fill`)
-  When using the `m-figure` function, the (optional) label should be passed as an argument and not be put behind the function call.
+  When using the `m-figure` function, the (optional) label should be passed as an argument and not be put behind the function call.  
   The standard `figure` function can still be used.
 
-- `m-subpar-grid`  
-  This function for making figures with subfigures is based on the `subpar.grid` function of package [`subpar`](https://typst.app/universe/package/subpar) but has analogous extra features as `m-figure`.
-  Use the standard `figure` function (and not `m-figure`) for the subfigures within `m-subpar-grid`. 
+- <a name="m-subpar-super"></a>`m-subpar-super` and <a name="m-subpar-grid"></a>`m-subpar-grid`  
+  These functions for making figures with subfigures are based on the `subpar.grid` function of package [`subpar`](https://typst.app/universe/package/subpar) but have analogous extra features as `m-figure`.
+  Use the standard `figure` function (and not `m-figure`) for the subfigures within `m-subpar-super` and `m-subpar-grid`. 
   
-Both `m-figure` and `m-subpar-grid` have extra named arguments compared to `figure` and `subpar.grid` respectively:
+The functions `m-figure`, `m-subpar-super` and `m-subpar-grid` have extra named arguments compared to `figure`, `subpar.super` and `subpar.grid` respectively:
 
   - `outline-caption: auto`  
     `auto` means that the caption set by argument `caption` is also used in the outline 
@@ -209,7 +226,11 @@ Both `m-figure` and `m-subpar-grid` have extra named arguments compared to `figu
   - `inset: auto`  
     `auto` means the default value set via the `figure-inset` argument of the `thesis` function
 
-The standard arguments of `figure` and  `subpar.grid` can be used in `m-figure` and `m-subpargrid` respectively, but the `m-subpar-grid` function has tailored default values for `numbering`, `show-sub`, `numbering-sub` and `numbering-sub-ref`. 
+The functions `m-subpar-super` and `m-subpar-grid` have some additional arguments for setting the subfigures: `subfigure-caption-font`, `subfigure-caption-font-size`, `subfigure-caption-pos`, `subfigure-caption-align`, `subfigure-caption-sep`, `subfigure-numbering`, `subfigure-num-textargs`, which allow to override the settings set via [`thesis`](#thesis) or [`extended-abstract`](#extended-abstract).
+    
+The standard arguments of `figure`, `subpar.super` and `subpar.grid` can be used in `m-figure`, `m-subpar-super` and `m-subpar-grid` respectively, but the `m-subpar-super` and `m-subpar-grid` functions have tailored default values for `numbering`, `show-sub`, `numbering-sub` and `numbering-sub-ref`.
+
+
 
 ## Title page and logos
 
@@ -272,7 +293,7 @@ For creating the title page and the use of Ghent University logos the following 
 
 An extended abstract, i.e. an abstract in double-column format and with a separate bibliography, can be included by using the following function:
 
-- `extended-abstract`
+- <a name="extended-abstract"></a> `extended-abstract`
 
       extended-abstract(
         authors: auto,
@@ -294,13 +315,20 @@ An extended abstract, i.e. an abstract in double-column format and with a separa
         author-font: auto,
         author-font-size: auto,
         equation-left-margin: auto,
+        subfigure-caption-font: auto,
+        subfigure-caption-font-size: auto,
+        subfigure-caption-pos: auto,
+        subfigure-caption-align: auto,
+        subfigure-caption-sep: auto,
+        subfigure-numbering: auto,
+        subfigure-num-textargs: (weight: "regular"),
         bibliography: none,
         read: none,
         body
       )
       
     Most arguments can already be set via the `thesis` function.  
-    `auto` means that the current values (set by `thesis`) are used.  
+    `auto` means that the current values (set by `thesis`) are used, except for the subfigure settings. For the latter, `auto` has the same meaning as in the `thesis` function.  
     The additional font related arguments are analogous to the font related arguments of the `thesis` function.
     
     A separate bibliography can be added by means of the following arguments:

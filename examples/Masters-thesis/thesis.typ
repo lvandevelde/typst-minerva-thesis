@@ -5,7 +5,7 @@
   title: [A nice thesis title -- #lorem(10)],
   keywords: ("Master's thesis", "Typst"),
   date: [Academic year XXXX-YYYY],
-  description: [Master's disseration submitted to obtain the academic degree of Master of Science in Some Discipline],
+  description: [Master's dissertation submitted to obtain the academic degree of Master of Science in Some Discipline],
   supervisors: ([Prof. Aa Bbb, Ph.D.], [Prof. Cc Dddd, Ph.D.]), 
   counsellors: [Ee Ffff],
   faculty: "EA",

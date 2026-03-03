@@ -1,12 +1,16 @@
-VERSION=0.2.2
-PACKAGEDIR=$(HOME)/.local/share/typst/packages/local/minerva-thesis/$(VERSION)
+MINERVA=package.mk
+include $(MINERVA)
+PACKAGEDIR=$(HOME)/.local/share/typst/packages/local/$(PACKAGE)/$(VERSION)
 FILES=typst.toml lib img template
 
 .PHONY: install
 
-UPDATE=cp -aPr
+UPDATE=cp -auL
 
-install: $(PACKAGEDIR)
+typst.toml: tmplt/typst.toml $(MINERVA)
+	@ sed -e 's/§package§/$(PACKAGE)/g' -e 's/§version§/$(VERSION)/g' -e 's/§typst-version§/$(TYPST-VERSION)/g' $< > $@	
+
+install: $(PACKAGEDIR) $(FILES)
 	@ $(UPDATE) $(FILES) $(PACKAGEDIR)
 	
 

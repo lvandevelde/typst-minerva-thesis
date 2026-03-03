@@ -35,28 +35,39 @@ outline-caption: [A short caption],
 label: <fig:examplefigure1>
 )
 
-// Use the standard figure() function for the subfigures within m-subpar-grid()
-#m-subpar-grid(
-figure(image("img/subfigure_a.svg"), caption: [Subfigure a]),<subfiga>,
-figure(image("img/subfigure_b.svg"), caption: [Subfigure b]),<subfigb>,
-figure(image("img/subfigure_c.svg"), caption: [Subfigure c]),<subfigc>,
-figure(image("img/subfigure_d.svg"), caption: [Subfigure d]),<subfigd>,
-columns: 2,
-caption: [A long caption for a figure with subfigures -- #lorem(30)],
-outline-caption: [A short caption for a figure with subfigures],
+// Use the standard figure() function for the subfigures within m-subpar-super() and m-subpar-grid()
+#m-subpar-super(
+grid(
+  grid.cell(colspan: 2, [#figure(image("img/subfigure_a.svg"), caption: [Subfigure a -- #lorem(20)]) <subfig2a>]),
+  [#figure(image("img/subfigure_b.svg"), caption: [Subfigure b]) <subfig2b>],
+  [#figure(image("img/subfigure_c.svg"), caption: [/*Subfigure c*/]) <subfig2c>],
+  grid.cell(colspan: 2, [#figure(image("img/subfigure_d.svg"), caption: [Subfigure d -- #lorem(25)]) <subfig2d>]),
+  columns: 2, gutter: 1em,
+),
+caption: [A long caption for a figure with subfigures (via m-subpar-super) -- #lorem(30)],
+outline-caption: [A short caption for a figure with subfigures (via m-subpar-super)],
 label: <fig:examplefigure2>
 )
 
+#m-subpar-grid(
+figure(image("img/subfigure_a.svg"), caption: [Subfigure a]),<subfig3a>,
+figure(image("img/subfigure_b.svg"), caption: [Subfigure b]),<subfig3b>,
+figure(image("img/subfigure_c.svg"), caption: [Subfigure c]),<subfig3c>,
+figure(image("img/subfigure_d.svg"), caption: [Subfigure d]),<subfig3d>,
+columns: 2,
+caption: [Another figure with subfigures (via m-subpar-grid)],
+label: <fig:examplefigure3>
+)
 
 #lorem(30)
 
 === The Second Subsection <sbsctn:secondsubsection>
 
 @fig:examplefigure2 consists of 4 subfigures:
-- @subfiga: case a
-- @subfigb: case b
-- @subfigc: case c
-- @subfigd: case d
+- @subfig2a: case a
+- @subfig2b: case b
+- @subfig2c: case c
+- @subfig2d: case d
 
 
 #m-figure(

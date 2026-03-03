@@ -18,6 +18,13 @@
   figure-font-size: auto,
   caption-font: auto,
   caption-font-size: auto,
+  subfigure-caption-font: auto,
+  subfigure-caption-font-size: auto, 
+  subfigure-caption-pos: auto,
+  subfigure-caption-align: auto,
+  subfigure-caption-sep: auto,
+  subfigure-numbering: auto,
+  subfigure-num-textargs: (weight: "regular"),
   title-font: auto,
   title-font-size: auto,
   author-font: auto,
@@ -62,8 +69,23 @@
     show figure: set text(size: if figure-font-size==auto {0.9*base-font-size} else {figure-font-size})
   
     store.update("ea")
-  
-    show: set-figures(image-style:"1", table-style:"I", raw-style:"1", store: "ea")  
+    
+    let subfigure-settings=(
+      subfigure-caption-font: if subfigure-caption-font==auto {text.font} else {subfigure-caption-font},
+      subfigure-caption-font-size: if subfigure-caption-font-size==auto {0.9*text.size} else {subfigure-caption-font-size},
+    )
+    if subfigure-caption-pos!=auto {subfigure-settings.insert("subfigure-caption-pos",subfigure-caption-pos)}
+    if subfigure-caption-align!=auto {subfigure-settings.insert("subfigure-caption-align",subfigure-caption-align)}
+    if subfigure-caption-sep!=auto {subfigure-settings.insert("subfigure-caption-sep",subfigure-caption-sep)}
+    if subfigure-numbering!=auto {subfigure-settings.insert("subfigure-numbering",subfigure-numbering)}
+    if subfigure-num-textargs!=auto {subfigure-settings.insert("subfigure-num-textargs",subfigure-num-textargs)}
+    
+    show: set-figures(
+      image-style:"1",
+      table-style:"I",
+      raw-style:"1",
+      ..subfigure-settings,
+      store: "ea")  
 
     show math.equation: set text(font: math-font) if math-font != auto 
     show math.equation: set text(size: if math-font-size==auto {base-font-size} else {math-font-size})
