@@ -328,7 +328,7 @@ An extended abstract, i.e. an abstract in double-column format and with a separa
       )
       
     Most arguments can already be set via the `thesis` function.  
-    `auto` means that the current values (set by `thesis`) are used, except for the subfigure settings. For the latter, `auto` has the same meaning as in the `thesis` function.  
+    `auto` means that the current values (set by `thesis`) are used.  
     The additional font related arguments are analogous to the font related arguments of the `thesis` function.
     
     A separate bibliography can be added by means of the following arguments:

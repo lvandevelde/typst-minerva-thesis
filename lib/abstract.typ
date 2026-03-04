@@ -74,11 +74,20 @@
       subfigure-caption-font: if subfigure-caption-font==auto {text.font} else {subfigure-caption-font},
       subfigure-caption-font-size: if subfigure-caption-font-size==auto {0.9*text.size} else {subfigure-caption-font-size},
     )
+
+    
     if subfigure-caption-pos!=auto {subfigure-settings.insert("subfigure-caption-pos",subfigure-caption-pos)}
     if subfigure-caption-align!=auto {subfigure-settings.insert("subfigure-caption-align",subfigure-caption-align)}
     if subfigure-caption-sep!=auto {subfigure-settings.insert("subfigure-caption-sep",subfigure-caption-sep)}
     if subfigure-numbering!=auto {subfigure-settings.insert("subfigure-numbering",subfigure-numbering)}
     if subfigure-num-textargs!=auto {subfigure-settings.insert("subfigure-num-textargs",subfigure-num-textargs)}
+    
+    let m-figure-settings=figure-settings.get().at("m", default: none)
+    if type(m-figure-settings) == dictionary {
+      for (key,value) in m-figure-settings {
+        if key.starts-with("subfigure-") and key not in subfigure-settings {subfigure-settings.insert(key, m-figure-settings.at(key) )}
+      }
+    }
     
     show: set-figures(
       image-style:"1",
