@@ -1,32 +1,27 @@
 #import "@preview/subpar:0.2.2"
 #import "@preview/abbr:0.3.0"
 #import "states.typ": *
-
-// colours of Ghent University corporate identity
-#let colour-primary = rgb("#1e64c8") // = rgb(30, 100, 200)
-#let colour-secondary = rgb("#ffd200")
-#let colour-tertiary = rgb("#e9f0fa")
+#import "settings.typ": *
 
 
-#let add-chapter-number(style: none, ..num) = {
+
+#let add-chapter-number(numbering: none, ..num) = {
   let chapters = query(heading.where(level: 1).before(here()))
-  let the-number= numbering(style, ..num)
+  let the-number= std.numbering(numbering, ..num)
   if chapters.len() == 0 {
     the-number
   } else if chapters.last().numbering == none {
     the-number
   } else {
-    let the-chapter-number=numbering(chapters.last().numbering, counter(heading).get().first())
+    let the-chapter-number=std.numbering(chapters.last().numbering, counter(heading).get().first())
     if the-chapter-number.last()=="." {the-chapter-number+the-number} else {the-chapter-number+"."+the-number}
   }
 }
 
 #let figure-block(breakable: false, fill: auto, inset: auto, body) = context{
-  let the-fill = fill
-  let the-inset = inset
   let the-figure-settings=figure-settings.get().at(store.get())
-  if the-fill == auto {the-fill = the-figure-settings.fill}
-  if the-inset == auto {the-inset = if the-fill == none {0pt} else {the-figure-settings.inset } }
+  let the-fill = if fill==auto {the-figure-settings.fill} else {fill}
+  let the-inset = if inset==auto {if the-fill == none {0pt} else {the-figure-settings.inset } } else {inset}
   show figure.caption: set block(breakable: false) if breakable
   if the-inset == 0pt and the-fill == none {
     show figure: set block(breakable: breakable)
@@ -80,9 +75,9 @@
   inset: auto,
   show-sub: auto, 
   show-sub-caption: auto,
-  numbering: auto,
+  numbering: auto, // should not be set!
   numbering-sub: auto,
-  numbering-sub-ref: auto,
+  numbering-sub-ref: auto, // should not be set!
   breakable-sub: false,
   subfigure-caption-font: auto,
   subfigure-caption-font-size: auto,
@@ -90,15 +85,18 @@
   subfigure-caption-align: auto,
   subfigure-caption-sep: auto,
   subfigure-numbering: auto,
-  subfigure-num-textargs: auto,
+  subfigure-ref-numbering: auto,
+  subfigure-caption-textargs: auto,
+  subfigure-caption-num-textargs: auto,
   subpar-function: subpar.super,
   ..args,
 ) =  context {
   let the-figure
 
   let the-figure-settings=figure-settings.get().at(store.get())
-  let the-style=the-figure-settings.at(str(repr(kind)))
-  let the-style-function=the-figure-settings.at("style-function")
+  let the-numbering=the-figure-settings.at(str(repr(kind))+"-numbering")
+  let the-numbering-function=the-figure-settings.at("numbering-function")
+
   
   let the-show-sub=if show-sub==auto {it => {
       set block(inset: 0pt, fill: none, breakable: breakable-sub) 
@@ -117,31 +115,33 @@
         font: if subfigure-caption-font==auto {the-figure-settings.subfigure-caption-font} else {subfigure-caption-font},
         size: if subfigure-caption-font-size==auto {the-figure-settings.subfigure-caption-font-size} else {subfigure-caption-font-size}
       )
+      set text(..if subfigure-caption-textargs==auto {the-figure-settings.subfigure-caption-textargs} else {subfigure-caption-textargs}) 
       set align(if subfigure-caption-align==auto{the-figure-settings.subfigure-caption-align} else {subfigure-caption-align} )
-      num
-      if it.body!=[] {
-        if subfigure-caption-sep==auto{the-figure-settings.subfigure-caption-sep} else {subfigure-caption-sep}
+      {
+        set text(..if subfigure-caption-num-textargs==auto{the-figure-settings.subfigure-caption-num-textargs} else {subfigure-caption-num-textargs}                      )
+        num
+        if it.body!=[] {
+          if subfigure-caption-sep==auto{the-figure-settings.subfigure-caption-sep} else {subfigure-caption-sep}
+        }
       }
       it.body
     }
   } else {show-sub-caption}
    
-  let the-sub-num=if subfigure-numbering==auto{the-figure-settings.subfigure-numbering} else {subfigure-numbering}
+  let the-subfigure-num=if subfigure-numbering==auto{the-figure-settings.subfigure-numbering} else {subfigure-numbering}
+  let the-subfigure-ref-num=if subfigure-ref-numbering==auto{the-figure-settings.subfigure-ref-numbering} else {subfigure-ref-numbering}
   
   let the-numbering=if numbering==auto { 
-    if the-style-function!=none {the-style-function.with(style: the-style)} else {the-style}   
+    if the-numbering-function!=none {the-numbering-function.with(numbering: the-numbering)} else {the-numbering}   
   } else {numbering} 
   
   let the-numbering-sub= if numbering-sub==auto {
-    (..num) => text(
-      ..if subfigure-num-textargs==auto{the-figure-settings.subfigure-num-textargs} else {subfigure-num-textargs} , 
-      std.numbering(the-sub-num, num.pos().last()))
-  } else {numbering-sub} 
-  
+    (..num) => std.numbering(the-subfigure-num, num.pos().last())
+  } else {numbering-sub}   
   
   let the-numbering-sub-ref=if numbering-sub-ref==auto {
     (ifig, isubfig) => {
-      if the-style-function!=none {the-style-function(style: the-style,ifig)} else {std.numbering(the-style,ifig)} + std.numbering(the-sub-num, isubfig)}
+      std.numbering(the-numbering,ifig) + std.numbering(the-subfigure-ref-num, isubfig)}
   } else {numbering-sub-ref}
 
   set figure(placement: none) if breakable 
@@ -186,52 +186,91 @@
 #let m-subpar-grid=m-subpar.with(subpar-function: subpar.grid)
 
 #let set-figures(
-  image-style: "1",
-  table-style: "1",
-  raw-style: "1",
-  style-function: none,
-  bold-ref: false,
-  tabular-caption: false,
-  fill: none,
-  inset: 0pt,
-  subfigure-caption-font: none,
-  subfigure-caption-font-size: 9pt,
-  subfigure-caption-sep: [: ],
+  base-font: none,
+  base-font-size: none,
+  font: auto,
+  font-size: auto,
+  fill: default-figure-fill, 
+  inset: default-figure-inset,
+  image-numbering: "1",
+  table-numbering: "1",
+  raw-numbering: "1",
+  numbering-function: none,
+  caption-font: auto,
+  caption-font-size: auto,
+  caption-indent: true,
+  caption-align: center,
+  caption-text-align: left,
+  caption-separator: default-caption-separator,
+  caption-textargs: (:),
+  caption-num-textargs: default-caption-num-textargs,
+  subfigure-caption-font: auto,
+  subfigure-caption-font-size: auto,
   subfigure-caption-pos: top,
   subfigure-caption-align: left,
-  subfigure-numbering: "a",
-  subfigure-num-textargs: (weight: "semibold"),
+  subfigure-caption-sep: auto,  
+  subfigure-numbering: default-subfigure-numbering,
+  subfigure-ref-numbering: auto,
+  subfigure-caption-textargs: auto,
+  subfigure-caption-num-textargs: auto,
+  ref-textargs: (:),
   store: none
 ) = body => {
-    
+  
+  let the-caption-font=if caption-font==auto {base-font} else {caption-font}
+  let the-caption-font-size=if caption-font-size==auto {default-figure-font-size*base-font-size} else {caption-font-size}
+  
+  
   figure-settings.update(
     it => {
       it.insert(store,(
-        image: image-style, 
-        table: table-style, 
-        raw: raw-style, 
-        style-function: style-function, 
-        bold-ref: bold-ref, 
-        tabular-caption: tabular-caption, 
-        subfigure-caption-font: subfigure-caption-font,
-        subfigure-caption-font-size: subfigure-caption-font-size,
+        font: if font==auto {base-font} else {font},
+        font-size: if font-size==auto {default-figure-font-size*base-font-size} else {font-size},
+        fill: if fill==auto{default-figure-fill} else {fill}, 
+        inset: inset,      
+        image-numbering: image-numbering, 
+        table-numbering: table-numbering, 
+        raw-numbering: raw-numbering, 
+        numbering-function: numbering-function, 
+        caption-font: the-caption-font,
+        caption-font-size: the-caption-font-size,
+        caption-indent: caption-indent,
+        caption-align: caption-align,
+        caption-text-align: caption-text-align,
+        caption-separator: caption-separator,
+        caption-textargs: caption-textargs,
+        caption-num-textargs: caption-num-textargs,
+        subfigure-caption-font: if subfigure-caption-font==auto {the-caption-font} else {subfigure-caption-font},
+        subfigure-caption-font-size: if subfigure-caption-font-size==auto {the-caption-font-size} else {subfigure-caption-font-size},
         subfigure-caption-pos: subfigure-caption-pos,
         subfigure-caption-align: subfigure-caption-align,
-        subfigure-caption-sep: subfigure-caption-sep,
+        subfigure-caption-sep: if subfigure-caption-sep==auto {caption-separator} else {subfigure-caption-sep},
         subfigure-numbering: subfigure-numbering,
-        subfigure-num-textargs: subfigure-num-textargs,
-        fill: fill, 
-        inset: inset 
+        subfigure-ref-numbering: if subfigure-ref-numbering==auto {subfigure-numbering} else {subfigure-ref-numbering},
+        subfigure-caption-textargs: if subfigure-caption-textargs==auto {caption-textargs} else {subfigure-caption-textargs},
+        subfigure-caption-num-textargs: if subfigure-caption-num-textargs==auto {caption-num-textargs} else {subfigure-caption-num-textargs},
+        ref-textargs: ref-textargs,
         )
       )
       it
     }
   )
   
-  show figure.where(kind: image): set figure(numbering: if style-function!=none {style-function.with(style: image-style)} else {image-style})
-  show figure.where(kind: table): set figure(numbering: if style-function!=none {style-function.with(style: table-style)} else {table-style})
-  show figure.where(kind: raw): set figure(numbering: if style-function!=none {style-function.with(style: raw-style)} else {raw-style})
+  show figure.where(kind: image): set figure(numbering: if numbering-function!=none {numbering-function.with(numbering: image-numbering)} else {image-numbering})
+  show figure.where(kind: table): set figure(numbering: if numbering-function!=none {numbering-function.with(numbering: table-numbering)} else {table-numbering})
+  show figure.where(kind: raw): set figure(numbering: if numbering-function!=none {numbering-function.with(numbering: raw-numbering)} else {raw-numbering})
+
+  show figure: set text(font: font) if font != auto
+  show figure: set text(size: font-size) if type(font-size) == length
   
+  show figure.caption: set text(font: caption-font) if caption-font!=auto
+  show figure.caption: set text(size: caption-font-size) if type(caption-font-size)==length
+  show figure.caption: set text(..caption-textargs) /*if type(caption-textargs)==dictionary*/
+
+  // Caption block is by default centred in the figure block (and (thus) also the text in the caption block)
+  // Uncomment if the caption block has to be left aligned in the figure block:
+  show figure.caption: set align(caption-align)
+
   body 
 }
 
@@ -257,7 +296,7 @@
   part-number.step()
   context { // a heading for the Table of Contents only. start-at-odd-page is needed for right location in ToC
     show heading: it => {start-at-odd-page()} 
-    heading[Part #part-number.display("I") -- #title]
+    heading[Part #part-number.display(part-num.get()) -- #title]
   }
   part-heading.update(true) // see heading show-rule
   heading(title, outlined: false, bookmarked: false) 
@@ -279,36 +318,47 @@
   counsellors: none,
   multiple-counsellors: auto,
   date: none,
+  paper: none,
+  page-width: 160mm, 
+  page-height: 240mm,
+  page-margin: (y: 15mm, inside: 25mm, outside: 15mm),  
   font: auto,
   font-size: auto,
-  math-font: auto,
-  math-font-size: auto,
-  figure-font: auto,
-  figure-font-size: auto,
-  caption-font: auto,
-  caption-font-size: auto,
   chapter-title-font: auto,
   chapter-title-font-size: auto,
   chapter-number-font: auto,
   chapter-number-font-size: auto,
-  chapter-number-colour: luma(150),
+  chapter-number-colour: gray,
+  part-numbering: "I",
+  chapter-numbering: "1.1",
+  appendix-numbering: "A.1",
+  per-chapter-numbering: true,
+  math-font: auto,
+  math-font-size: auto,
   equation-left-margin: auto,
-  paper: none,
-  page-width: 160mm, 
-  page-height: 240mm,
-  page-margin: (y: 15mm, inside: 25mm, outside: 15mm),
-  figure-fill: none,
-  figure-inset: 0.5em,
-  figure-tabular-caption: false,
-  figure-bold-ref: auto,
+  figure-fill: none, // auto = default-figure-fill
+  figure-inset: 0.5em, // default-figure-inset
+  figure-font: auto,
+  figure-font-size: auto, 
+  caption-font: auto,
+  caption-font-size: auto,
+  caption-indent: true,
+  caption-align: center,
+  caption-text-align: left,
+  caption-separator: sym.colon+sym.space, // default-caption-separator 
+  caption-textargs: (:),
+  caption-num-textargs: (weight: "semibold"),  // default-caption-num-textargs
   subfigure-caption-font: auto,
   subfigure-caption-font-size: auto,
-  subfigure-caption-pos: auto,
-  subfigure-caption-align: auto,
+  subfigure-caption-pos: top,
+  subfigure-caption-align: left,
   subfigure-caption-sep: auto,
-  subfigure-numbering: auto,
-  subfigure-num-textargs: auto,
-  body,
+  subfigure-numbering: "a", // default-subfigure-numbering
+  subfigure-ref-numbering: auto, 
+  subfigure-caption-textargs: auto,
+  subfigure-caption-num-textargs: auto,
+  figure-ref-textargs: (:),
+  body
 ) = {
   
   abbr.config(style: it=>{it})
@@ -337,8 +387,8 @@
   if date!=none {thesis-date.update(date)}
   if keywords!=none {thesis-keywords.update(keywords)}
   
-  set text(font: font) if font != auto
-  set text(size: font-size) if font-size!=auto
+  set text(font: font) if font!=auto
+  set text(size: font-size) if type(font-size) == length
 
   set par(justify: true)
   set list(indent: 0.5em)
@@ -382,47 +432,17 @@
   )
   
 
-  context{
-  
-    let base-font-size=text.size
-  
-    show figure: set text(font: figure-font) if figure-font != auto
-    show figure: set text(size: if figure-font-size==auto {0.9*base-font-size} else {figure-font-size})
-
-
-    show figure.where(kind: table): set figure.caption(position: top)
-
-    store.update("m")
-    
-    let subfigure-settings=(
-      subfigure-caption-font: if subfigure-caption-font==auto {text.font} else {subfigure-caption-font},
-      subfigure-caption-font-size: if subfigure-caption-font-size==auto {0.9*text.size} else {subfigure-caption-font-size},
-    )
-    if subfigure-caption-pos!=auto {subfigure-settings.insert("subfigure-caption-pos",subfigure-caption-pos)}
-    if subfigure-caption-align!=auto {subfigure-settings.insert("subfigure-caption-align",subfigure-caption-align)}
-    if subfigure-caption-sep!=auto {subfigure-settings.insert("subfigure-caption-sep",subfigure-caption-sep)}
-    if subfigure-numbering!=auto {subfigure-settings.insert("subfigure-numbering",subfigure-numbering)}
-    if subfigure-num-textargs!=auto {subfigure-settings.insert("subfigure-num-textargs",subfigure-num-textargs)}
-    
-    show: set-figures(
-      style-function: add-chapter-number,
-      tabular-caption: figure-tabular-caption,
-      bold-ref: if figure-bold-ref==auto {figure-tabular-caption} else {figure-bold-ref},
-      fill: if figure-fill==auto {colour-tertiary} else {figure-fill},
-      inset: figure-inset,
-      ..subfigure-settings,
-      store: "m")
-
-// Caption block is by default centred in the figure block (and (thus) also the text in the caption block)
-// Uncomment if the caption block has to be left aligned in the figure block:
-// show figure.caption: set align(left)
-      
-    show figure.caption: it => {
-      set text(font: caption-font)  if caption-font != auto
-      set text(size: if caption-font-size==auto {0.9*base-font-size} else {caption-font-size} )
-      if figure-settings.get().at(store.get()).tabular-caption {
+  show figure.caption: it => {
+      let settings=figure-settings.get().at(store.get())
+//       set text(font: settings.font, size: settings.caption-font-size )
+      if settings.caption-indent {
         table(
-          [*#it.supplement~#it.counter.display(it.numbering)*#it.separator],
+          {set text(..settings.caption-num-textargs) 
+            it.supplement
+            sym.space.nobreak
+            it.counter.display(it.numbering)
+            it.separator
+          },
           it.body,
           column-gutter: 0.15em,
           stroke: none,
@@ -431,9 +451,58 @@
           columns: 2,
         )
       } else {
-        box(align(left, it)) // In the caption block itself, the text is left aligned, this can be just "it" if the caption block is left aligned in the figure block.
+        box(align(settings.caption-text-align, it))
+        // In the caption block itself, the text is left aligned, this can be just "it" if the caption block is left aligned in the figure block.
       }
-    }
+  }
+  
+  part-num.update(part-numbering)
+  chapter-num.update(chapter-numbering)
+  appendix-num.update(appendix-numbering)
+  
+  show ref: it => {
+      let el = it.element
+//       set text(weight: "semibold") if el != none and el.func() == figure and figure-settings.get().at(store.get()).bold-ref
+      set text(..figure-settings.get().at(store.get()).ref-textargs) if el != none and el.func() == figure
+      it
+  }
+
+  
+  context{
+  
+    let base-font-size=text.size
+  
+    show figure.where(kind: table): set figure.caption(position: top)
+
+    
+    show: set-figures(
+      numbering-function: if per-chapter-numbering {add-chapter-number} else {none},
+      base-font: text.font,
+      base-font-size: base-font-size,
+      fill: figure-fill,
+      inset: figure-inset,
+      font: figure-font, 
+      font-size: figure-font-size,
+      caption-font: caption-font,
+      caption-font-size: caption-font-size,
+      caption-indent: caption-indent,
+      caption-align: caption-align,
+      caption-text-align: caption-text-align,
+      caption-separator: caption-separator,
+      caption-textargs: caption-textargs,
+      caption-num-textargs: caption-num-textargs,
+      subfigure-caption-pos: subfigure-caption-pos,
+      subfigure-caption-align: subfigure-caption-align,
+      subfigure-caption-sep: subfigure-caption-sep,
+      subfigure-numbering: subfigure-numbering,
+      subfigure-ref-numbering: subfigure-ref-numbering,
+      subfigure-caption-textargs: subfigure-caption-textargs,
+      subfigure-caption-num-textargs: subfigure-caption-num-textargs,
+      subfigure-caption-font: subfigure-caption-font,
+      subfigure-caption-font-size: subfigure-caption-font-size,
+      ref-textargs: figure-ref-textargs,   
+      store: "m") 
+
 
     show math.equation: set text(font: math-font) if math-font != auto 
     show math.equation: set text(size: if math-font-size==auto {base-font-size} else {math-font-size})
@@ -442,10 +511,12 @@
 
     show math.equation.where(block: true): set block(inset: (left: equation-left-margin)) if type(equation-left-margin) in (relative, length, ratio)
 
-    set math.equation(numbering: add-chapter-number.with(style:"1")) 
+    set math.equation(numbering: add-chapter-number.with(numbering:"1")) if per-chapter-numbering
+    set math.equation(numbering:"(1)") if not per-chapter-numbering
+    
 
     let addbrackets(..num) = {
-      "(" + numbering(math.equation.numbering, ..num) + ")"
+      "(" + std.numbering(math.equation.numbering, ..num) + ")"
     }
     show math.equation.where(block: true): it => {
       if type(it.numbering) == function and it.numbering != addbrackets {
@@ -458,10 +529,12 @@
   
     
     show heading.where(level: 1): it => {
-      counter(math.equation).update(0)
-      counter(figure.where(kind: image)).update(0)
-      counter(figure.where(kind: table)).update(0)
-      counter(figure.where(kind: raw)).update(0)
+      if per-chapter-numbering {
+        counter(math.equation).update(0)
+        counter(figure.where(kind: image)).update(0)
+        counter(figure.where(kind: table)).update(0)
+        counter(figure.where(kind: raw)).update(0)
+      }
       start-at-odd-page()
       if show-heading.get() {
         if part-heading.get() {
@@ -471,7 +544,7 @@
             align(right, text(
               size: if chapter-number-font-size==auto {7.2*base-font-size} else {chapter-number-font-size},
               fill: chapter-number-colour,
-              [Part ] + part-number.display("I")
+              [Part ] + part-number.display(part-num.get())
             ))
           }
           set text(font: chapter-title-font) if chapter-title-font!=auto
@@ -505,11 +578,7 @@
       content-switch.update(true)
     }
 
-    show ref: it => {
-      let el = it.element
-      set text(weight: "semibold") if el != none and el.func() == figure and figure-settings.get().at(store.get()).bold-ref
-      it
-    }
+
   
     show outline: set heading(outlined: true)
 
@@ -581,7 +650,10 @@
     set document(description: description) if description!=none
     set document(date: date) if type(date) == datetime
 
+    store.update("m")
+    
     body
+  
   }
 }
 
@@ -596,13 +668,13 @@
   body
 }
 
-#let chapter(body)={
+#let chapter(body)=context{
 // Settings for Chapters:
 //   section.update("chapters")
   show-heading.update(true)
   set page(numbering:"1")
   counter(page).update(0) 
-  set heading(numbering: "1.1.1")
+  set heading(numbering: chapter-num.get())
   show heading.where(level:1): set heading(supplement: [Chapter]) 
   counter(heading).update(0) // not really necessary as front-matter headings are not numbered
   filled-outline.update(false)
@@ -610,11 +682,11 @@
   body
 }
 
-#let appendix(flyleaf:[Appendices], body)={
+#let appendix(flyleaf:[Appendices], body)=context{
   set page(numbering:"1")
   show-heading.update(true)
   counter(heading).update(0)
-  set heading(numbering: "A.1.1")
+  set heading(numbering: appendix-num.get())
   show heading.where(level:1): set heading(supplement: [Appendix]) 
   filled-outline.update(false)
   

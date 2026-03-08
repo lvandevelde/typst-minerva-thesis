@@ -14,8 +14,8 @@
   chapter-title-font-size: 24pt, // slightly less than "auto" (= the default) 
   chapter-number-font-size: 60pt, // slightly less than "auto" (= the default)
   equation-left-margin: 5%, // left aligned equations (with some left margin),  auto = centred equations (which is the default)
-  figure-fill: luma(245), // auto = colour-tertiary of Ghent University corporate identity, none = no background
-  figure-tabular-caption: true,
+  figure-fill: auto, // auto = light-gray, none = no background
+  caption-indent: true,
 //   subfigure-numbering: "(a)", 
 //   subfigure-caption-sep: [ ],
 )

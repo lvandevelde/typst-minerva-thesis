@@ -15,6 +15,9 @@
 
 #let show-heading = state("show-heading", false)
 #let part-heading = state("part-heading", false)
+#let chapter-num=state("chapter-numbering", "1.1")
+#let appendix-num=state("appendix-numbering", "A.1")
+#let part-num=state("part-numbering", "I")
 
 #let figure-settings = state("figure-settings", (:))
 

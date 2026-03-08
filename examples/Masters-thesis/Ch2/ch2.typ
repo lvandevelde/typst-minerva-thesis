@@ -11,6 +11,16 @@ In this chapter we build further on @ch:firstchapter, and on @sbsctn:firstsubsec
 
 == A Section 
 
+
+#m-figure(image("img/figure_2.svg"), caption: [First figure of chapter 2])
+
+$
+
+A &= a sin alpha
+
+$
+
+
 === A Subsection 
 
 == Another Section

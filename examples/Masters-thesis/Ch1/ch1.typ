@@ -42,7 +42,7 @@ figure(image("img/subfigure_b.svg"), caption: [Subfigure b]),<subfigb>,
 figure(image("img/subfigure_c.svg"), caption: [Subfigure c]),<subfigc>,
 figure(image("img/subfigure_d.svg"), caption: [Subfigure d]),<subfigd>,
 columns: 2,
-caption: [A figure with subfigures: a. shows case a, b. shows ... ],
+caption: [A figure with subfigures],
 outline-caption: [A figure with subfigures],
 label: <fig:examplefigure2>, 
 )

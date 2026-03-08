@@ -5,6 +5,15 @@
 This documentation explains the functions of the package.
 In the code blocks the default values of the named arguments are shown.
 
+## Overview
+
++ [Functions for the main file](#functions-for-the-main-file)
++ [Figures and tables](#figures-and-tables)
++ [Title page and logos](#title-page-and-logos)
++ [Functions for an (extended) abstract](#functions-for-an-extended-abstract)
++ [Pre-defined variables](#pre-defined-variables)
+
+
 ## Functions for the main file
 
 The following functions are typically used in the main file containing settings and imports of all contents (title page, front matter, chapters, appendices and back matter (such as a bibliography)).
@@ -14,9 +23,9 @@ The following functions are typically used in the main file containing settings 
   
       thesis(
         authors: none,
-        title: none,  
-        description: none,
+        title: none,
         keywords: none,
+        description: none,
         language: "EN", 
         faculty: none,
         supervisors: none,
@@ -27,32 +36,43 @@ The following functions are typically used in the main file containing settings 
         paper: none,
         page-width: 160mm, 
         page-height: 240mm,
-        page-margin: (y: 15mm, inside: 25mm, outside: 15mm),        
+        page-margin: (y: 15mm, inside: 25mm, outside: 15mm),  
+        part-numbering: "I",
+        chapter-numbering: "1.1",
+        appendix-numbering: "A.1",
+        per-chapter-numbering: true,
         font: auto,
         font-size: auto,
-        math-font: auto,
-        math-font-size: auto,
-        figure-font: auto,
-        figure-font-size: auto,
-        caption-font: auto,
-        caption-font-size: auto,
         chapter-title-font: auto,
         chapter-title-font-size: auto,
         chapter-number-font: auto,
         chapter-number-font-size: auto,
-        chapter-number-colour: luma(150),
+        chapter-number-colour: gray,
+        math-font: auto,
+        math-font-size: auto,
         equation-left-margin: auto,
         figure-fill: none,
-        figure-inset: auto,
-        figure-tabular-caption: false,
-        figure-bold-ref: auto,
+        figure-inset: 0.5em, 
+        figure-font: auto,
+        figure-font-size: auto, 
+        caption-font: auto,
+        caption-font-size: auto,
+        caption-indent: true,
+        caption-align: center,
+        caption-text-align: left,
+        caption-separator: sym.colon+sym.space,
+        caption-textargs: (:),
+        caption-num-textargs: (weight: "semibold"),
         subfigure-caption-font: auto,
         subfigure-caption-font-size: auto,
-        subfigure-caption-pos: auto,
-        subfigure-caption-align: auto,
+        subfigure-caption-pos: top,
+        subfigure-caption-align: left,
         subfigure-caption-sep: auto,
-        subfigure-numbering: auto,
-        subfigure-num-textargs: auto,
+        subfigure-numbering: "a",
+        subfigure-ref-numbering: auto,
+        subfigure-caption-textargs: auto,
+        subfigure-caption-num-textargs: auto,
+        figure-ref-textargs: (:),
         body,
       )
 
@@ -85,16 +105,19 @@ The following functions are typically used in the main file containing settings 
   - `date`:  
     If `date` is of type `datetime`, it is added to the document properties.
   - The arguments `paper`, `page-width`, `page-height` and `page-margin` correspond to the respective arguments `paper`, `width`, `height` and `margin` of the standard `page` element function.  
-  `page-width` and `page-height` are ignored when `paper` is given.
+    `page-width` and `page-height` are ignored when `paper` is given.
+  - `part-numbering`, `chapter-numbering`  and `appendix-numbering`:
+    heading numbering of parts, chapters and appendices. 
+  - `per-chapter-numbering`:  
+    If `true` equations and figures are numbered per chapter / appendix.
   - font settings:
       - `font` and `font-size`: main text font
-      - `figure-font` and `figure-font-size`: font used in `figure` elements (tables and figures)
-      - `caption-font` and `caption-font-size`: font of figure captions
-      - `math-font` and `math-font-size`:  font of equations
       - `chapter-title-font` and `chapter-title-font-size`: font of the title of first-level headings (chapters, parts and non-numbered headings in the front-matter) 
       - `chapter-number-font`, `chapter-number-font-size` and `chapter-number-colour`: font and colour of the number of first-level headings 
+      - `math-font` and `math-font-size`:  font of equations
+      - for figure related fonts: see [`figure` settings](#figure-settings)
       
-      For `font`, `auto` means no text font is set, such that the default Typst font is used. For the other fonts (`figure-font`, etc.), `auto` means no font is set such that the current or default text font is used.  
+      For `font`, `auto` means no text font is set, such that the default Typst font is used. For the other fonts `auto` means no font is set such that the current or default text font is used.  
       It is recommended to not use many different fonts, e.g., to set the same value for all fonts except `math-font`.  
       For `font-size`, `auto` means that no font size is set for the main text, such that the default Typst font size is used. For the other font sizes (`figure-font-size` etc.) , `auto` means that a pre-defined size relative to `font-size` is used.
       
@@ -102,26 +125,36 @@ The following functions are typically used in the main file containing settings 
     Sets the left margin of equations.  
     `auto` means centred equations  
 
-  - `figure` settings:  
+  - <a name="figure-settings"></a>`figure` settings:  
     - `figure-fill`: the default background colour of `figure` elements  
       `none` means no fill is applied  
-      `auto` means the "tertiary colour" of the Ghent University corporate identity (which is a light blue)
-    - `figure-inset`: the default inset of the outer block of `figure` elements if a background colour is given  
-      `auto` means 0.5em
-    - `figure-tabular-caption`: `bool`  
-      If `true`, the caption is set in 2 columns: one for the label (in bold) and one left-aligned column for the caption body
-    - `figure-bold-ref`:  `bool` or `auto`  
-      If `true`, references to `figure` elements are put in bold. `auto` means the same value as `figure-tabular-caption` is used.
+      `auto` means `default-figure-fill` (which is light gray).
+    - `figure-inset`: the default inset of the outer block of `figure` elements if a background colour (`figure-fill`) is given  
+    - `figure-font` and `figure-font-size`: font used in `figure` elements (tables and figures) (except for the captions)  
+      `auto` means the font set via `font` and `default-figure-font-size` (=90%) of the size set via `font-size`
+    - `caption-font` and `caption-font-size`: font of figure captions; `auto` has the same meaning as for `figure-font` and `figure-font-size`
+    - `caption-indent`: `bool`  
+      If `true`, the caption is left-aligned and set with a hanging indent.
+    - `caption-align`: alignment of the caption with respect to the whole figure
+    - `caption-text-align`: alignment of the text within the caption (only relevant if `caption-indent` is `false`) 
+    - `caption-separator`: separator between the figure number and the caption body
+    - `caption-textargs`: a dictonary with arguments passed to `text` for the caption
+    - `caption-num-textargs`: a dictonary with arguments passed to `text` for the supplement and number in the caption
+    - `figure-ref-textargs`: text arguments for figure references
 
   - Settings of subfigures (made by means of [`m-subpar-super`](#m-subpar-super) or [`m-subpar-grid`](#m-subpar-grid):
-    - `subfigure-caption-font`: font of the captions; `auto` means the font set via `font`.
-    - `subfigure-caption-font-size`: font size of the captions; `auto` means 90% of the size set via`font-size`. 
-    - `subfigure-caption-pos`: position of the caption; `auto` means `top`.  
+    - `subfigure-caption-font`, `subfigure-caption-font-size`: font settings of the captions  
+    `auto` means the font set via `caption-font` and `caption-font-size`.
+    - `subfigure-caption-pos`: position of the caption (`top` or `bottom`)
       For figures of kind `table` the caption position is always `top`. 
-    - `subfigure-caption-align`: alignment of the caption; `auto` means `left`. 
-    - `subfigure-caption-sep`: separator of the caption; `auto` means `[: ]`.
-    - `subfigure-numbering`: numbering of the subfigure; `auto` means `"a"`.
-    - `subfigure-num-textargs`: text arguments for the number in the captions; `auto` means `(weight: "semibold")`.
+    - `subfigure-caption-align`: alignment of the caption with respect to the whole subfigure
+    - `subfigure-caption-sep`: separator of the caption; `auto` means the value set via `caption-separator`.
+    - `subfigure-numbering`: numbering of the subfigure
+    - `subfigure-ref-numbering`: numbering of the subfigure in references; `auto` means the same value as `subfigure-numbering`  
+      A prefix (e.g. ".") between the figure and the subfigure numbers in references can be obtained by setting  `subfigure-ref-numbering` to the value of `subfigure-numbering` preceeded by the prefix (e.g. `subfigure-numbering: "a"` and  `subfigure-ref-numbering: ".a"`).
+    - `subfigure-num-textargs`: text arguments for the number in the captions
+    - `subfigure-caption-textargs` and `subfigure-caption-num-textargs`: analogous to `caption-textargs` and `caption-num-textargs`  
+      `auto` means the same values as set via `caption-textargs` and `caption-num-textargs`.
       
 The following functions are used for setting the different parts of a thesis:
   
@@ -304,32 +337,46 @@ An extended abstract, i.e. an abstract in double-column format and with a separa
         multiple-counsellors: auto,
         font: auto,
         font-size: 10pt,
-        math-font: auto,
-        math-font-size: auto,
-        figure-font: auto,
-        figure-font-size: auto,
-        caption-font: auto,
-        caption-font-size: auto,
         title-font: auto,
         title-font-size: auto,
         author-font: auto,
         author-font-size: auto,
+        math-font: auto,
+        math-font-size: auto,
         equation-left-margin: auto,
+        figure-fill: none,
+        figure-inset: auto,
+        figure-font: auto,
+        figure-font-size: auto,
+        caption-font: auto,
+        caption-font-size: auto,
+        caption-indent: false,
+        caption-align: auto,
+        caption-text-align: auto,
+        caption-separator: auto,
+        caption-textargs: (:),
+        caption-num-textargs: (:),
         subfigure-caption-font: auto,
         subfigure-caption-font-size: auto,
         subfigure-caption-pos: auto,
         subfigure-caption-align: auto,
         subfigure-caption-sep: auto,
         subfigure-numbering: auto,
-        subfigure-num-textargs: (weight: "regular"),
+        subfigure-ref-numbering: auto,
+        subfigure-caption-textargs: auto,
+        subfigure-caption-num-textargs: auto,
+        figure-ref-textargs: (:),
         bibliography: none,
         read: none,
         body
       )
       
     Most arguments can already be set via the `thesis` function.  
-    `auto` means that the current values (set by `thesis`) are used.  
+    For most arguments, `auto` means that the value set via the `thesis` function is used.  
+    Some values for the figure related arguments have been predefined:  `default-figure-fill`, `default-figure-inset`, `default-figure-font-size`, `default-caption-separator`,  `default-subfigure`, `default-subfigure-ref-numbering`,  `default-caption-num-textargs`, e.g., for resetting non-default arguments set via the `thesis` function to their default value,  
     The additional font related arguments are analogous to the font related arguments of the `thesis` function.
+    
+
     
     A separate bibliography can be added by means of the following arguments:
     - `bibliography`: path to the bibliography file
@@ -353,4 +400,25 @@ For both a regular (single-page) abstract and the extended abstract, the followi
 
 An example of a thesis with both a regular abstract and an extended abstract can be found in `examples/Masters-thesis`.
 
+## Pre-defined variables
+
+  Some variables are predefined:
+  
+  + colours of Ghent University corporate identity:
+      
+      + `colour-primary`: `rgb("#1e64c8")`
+      + `colour-secondary`: `rgb("#ffd200")`
+      + `colour-tertiary`: `rgb("#e9f0fa")`
+
+  + figure related variables:
+        
+      + `light-gray`: `luma(245)`
+      + `default-figure-fill`: `light-gray` 
+      + `default-figure-inset`: `0.5em` 
+      + `default-figure-font-size`: `90%`
+      + `default-caption-separator`: `sym.colon+sym.space` (`[: ]`)
+      + `default-subfigure-numbering`: `"a"`
+      + `default-subfigure-ref-numbering`: `".a"`
+      + `default-caption-num-textargs`: `(weight: "semibold")`
+  
 

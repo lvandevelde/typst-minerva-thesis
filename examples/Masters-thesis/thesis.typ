@@ -12,9 +12,11 @@
   language: "EN",
   paper: "a4",
   font-size: 11pt,
-  figure-fill: none, // luma(245), // auto = colour-tertiary of Ghent University corporate identity, none = no background
-  figure-tabular-caption: true, 
-  figure-bold-ref: false 
+  figure-fill: auto, //  auto = light gray, none = no background
+  figure-ref-textargs: (weight: "semibold"), 
+  appendix-numbering: "Α.1", // A = Greek capital Alpha (U+0391)
+//   appendix-numbering: "A.1", // A = Latin capital A (U+0041)
+//   per-chapter-numbering: false,
   )
 
   
@@ -101,6 +103,7 @@
 
 #include "AppA/appA.typ"
 #include "AppB/appB.typ"
+#include "AppC/appC.typ"
 
 #show: back-matter
 

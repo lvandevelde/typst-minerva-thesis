@@ -14,8 +14,9 @@
   language: "EN",
   paper: "a4",
 //   font-size: auto, // auto (= default) means default Typst text size (11pt)    
-//   figure-fill: none, // auto = colour-tertiary of Ghent University corporate identity, none = no background (=default)
-  figure-tabular-caption: true,
+  figure-fill: auto, // auto = default-figure-fill (light-gray), none = no background
+//   subfigure-numbering: "a", 
+//   subfigure-ref-numbering: ".a",
   )
 
   

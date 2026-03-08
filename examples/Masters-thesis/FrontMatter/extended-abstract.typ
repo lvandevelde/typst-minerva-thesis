@@ -4,8 +4,8 @@
 
 #show: extended-abstract.with(
   font-size: 10pt,
+  caption-align: center,
   bibliography: "../references.yaml",
-  subfigure-caption-font: "Libertinus Sans",
   read: path => read(path)
   )
 
