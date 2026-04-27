@@ -14,8 +14,8 @@
   font-size: 11pt,
   figure-fill: auto, //  auto = light gray, none = no background
   figure-ref-textargs: (weight: "semibold"), 
-  appendix-numbering: "Α.1", // A = Greek capital Alpha (U+0391)
-//   appendix-numbering: "A.1", // A = Latin capital A (U+0041)
+//   appendix-numbering: "Α.1", // A = Greek capital Alpha (U+0391)
+  appendix-numbering: "A.1", // A = Latin capital A (U+0041)
 //   per-chapter-numbering: false,
   )
 
@@ -75,7 +75,6 @@
 
 // List of Abbreviations via package abbr (which has been automatically imported)
 #abbr.list()
-
 
 
 #show: chapter

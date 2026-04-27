@@ -659,7 +659,7 @@
 
 
 #let front-matter(show-headings: true, body)={
-//   section.update("front-matter")
+
   set page(numbering: "i") 
   set heading(numbering: none)
   show-heading.update(show-headings)
@@ -669,11 +669,10 @@
 }
 
 #let chapter(body)=context{
-// Settings for Chapters:
-//   section.update("chapters")
   show-heading.update(true)
   set page(numbering:"1")
-  counter(page).update(0) 
+  start-at-odd-page()
+  counter(page).update(1)
   set heading(numbering: chapter-num.get())
   show heading.where(level:1): set heading(supplement: [Chapter]) 
   counter(heading).update(0) // not really necessary as front-matter headings are not numbered

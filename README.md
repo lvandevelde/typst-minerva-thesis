@@ -23,19 +23,17 @@ The `minerva-thesis` package provides a template for writing doctoral and master
 
 The tagged versions (releases) have been published on [Typst Universe](https://typst.app/universe/package/minerva-thesis/).
 
-The current version under development, v0.2.2, can be locally installed (see [Local installation](#local-installation).
-
 
 ### Typst Universe
-As the package is available in the [Typst Universe](https://typst.app/universe/package/minerva-thesis/0.2.1), you can use the package in the `preview` namespace via the Typst app and via the Typst CLI:
+As the package is available in the [Typst Universe](https://typst.app/universe/package/minerva-thesis/), you can use the package in the `preview` namespace via the Typst app and via the Typst CLI:
 
-    typst init @preview/minerva-thesis:0.2.1  
+    typst init @preview/minerva-thesis:0.2.2  
     cd minerva-thesis
     typst watch thesis.typ
 
 In your Typst files, you can import the functions of the package via:
 
-    #import "@preview/minerva-thesis:0.2.1": *
+    #import "@preview/minerva-thesis:0.2.2": *
 
 ### Local installation    
     
