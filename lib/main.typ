@@ -29,9 +29,9 @@
   } else {
     show figure: set block(breakable: breakable, fill: the-fill, inset: the-inset)
     show figure.caption: set block(fill: none, inset: 0pt) 
-    show table: set block(fill: none, inset: 0pt)
-    show grid: set block(fill: none, inset: 0pt)
-    show image: set block(fill: none, inset: 0pt)
+    show table: set block(fill: none, inset: 0pt) // probably not needed
+    show grid: set block(fill: none, inset: 0pt) // prevents that fill and inset are applied to the grid in m-subpar-grid
+    show image: set block(fill: none, inset: 0pt) // probably not needed
     body
   }
 }
@@ -44,21 +44,26 @@
   breakable: false,
   fill: auto,
   inset: auto,
+  body,
   ..args,
 ) = {
   let the-figure
+  let the-body={
+    set block(inset: 0pt, fill: none)
+    body
+  }
   if outlined and outline-caption != auto {
     {
       show figure: it => it.counter.update(v => (
         v - 1
       )) 
-      figure(..args, caption: outline-caption)
+      figure(body, ..args, caption: outline-caption)
     } 
-    the-figure = [#figure(..args, caption: caption, outlined: false) #label]
+    the-figure = [#figure(the-body, ..args, caption: caption, outlined: false) #label]
   } else if label != none {
-    the-figure = [#figure(..args, caption: caption) #label]
+    the-figure = [#figure(the-body, ..args, outlined: outlined, caption: caption) #label]
   } else {
-    the-figure = figure(..args, caption: caption)
+    the-figure = figure(the-body, ..args, outlined: outlined, caption: caption)
   }
   figure-block(breakable: breakable, fill: fill, inset: inset, the-figure)
 }
@@ -144,6 +149,7 @@
       std.numbering(the-numbering,ifig) + std.numbering(the-subfigure-ref-num, isubfig)}
   } else {numbering-sub-ref}
 
+
   set figure(placement: none) if breakable 
   if outlined and outline-caption != auto {
     {
@@ -176,6 +182,7 @@
       numbering-sub: the-numbering-sub, 
       numbering-sub-ref: the-numbering-sub-ref,
       ..args,
+      outlined: outlined,
       label: label,
       caption: caption)
   }
@@ -505,7 +512,7 @@
 
 
     show math.equation: set text(font: math-font) if math-font != auto 
-    show math.equation: set text(size: if math-font-size==auto {base-font-size} else {math-font-size})
+    show math.equation: set text(size: math-font-size) if math-font-size != auto
 
     show math.equation.where(block: true): set align(left) if equation-left-margin != auto
 

@@ -1,6 +1,6 @@
 # Documentation
 
-**minerva-thesis version 0.2.2**  
+**minerva-thesis version 0.2.3 (in progress)**  
 
 This documentation explains the functions of the package.
 In the code blocks the default values of the named arguments are shown.
