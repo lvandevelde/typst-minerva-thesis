@@ -4,7 +4,7 @@
 
 # `minerva-thesis` - a Typst thesis template
 
-The `minerva-thesis` package provides a template for writing doctoral and master's theses with [Typst](https://typst.app/) presenting both [Ghent University](https://www.ugent.be/en) specific features and additional generic functions and features (in comparison to standard functions of Typst 0.14):
+The `minerva-thesis` package provides a template for writing doctoral and master's theses with [Typst](https://typst.app/) presenting both [Ghent University](https://www.ugent.be/en) specific features and additional generic functions and features:
 
 - A Ghent University specific title page. 
 - Improved layout of outlines (in particular for outline entries spanning multiple lines)
@@ -19,6 +19,8 @@ The `minerva-thesis` package provides a template for writing doctoral and master
 - Possibility to include an extended abstract, i.e. an abstract in two-column format with a separate bibliography (via package [`alexandria`](https://typst.app/universe/package/alexandria))
 - Handling of abbreviations via package [`abbr`](https://typst.app/universe/package/abbr)
 
+Due to a breaking change in Typst 0.15 with respect to the baseline of boxes, `minerva-thesis v0.2.3` should be used with **Typst 0.14**. 
+
 ## Installation and usage
 
 The tagged versions (releases) have been published on [Typst Universe](https://typst.app/universe/package/minerva-thesis/).
@@ -27,13 +29,13 @@ The tagged versions (releases) have been published on [Typst Universe](https://t
 ### Typst Universe
 As the package is available in the [Typst Universe](https://typst.app/universe/package/minerva-thesis/), you can use the package in the `preview` namespace via the Typst app and via the Typst CLI:
 
-    typst init @preview/minerva-thesis:0.2.2  
+    typst init @preview/minerva-thesis:0.2.3  
     cd minerva-thesis
     typst watch thesis.typ
 
 In your Typst files, you can import the functions of the package via:
 
-    #import "@preview/minerva-thesis:0.2.2": *
+    #import "@preview/minerva-thesis:0.2.3": *
 
 ### Local installation    
     
