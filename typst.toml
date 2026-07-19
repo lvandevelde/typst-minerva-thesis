@@ -1,6 +1,6 @@
 [package]
 name = "minerva-thesis"
-version = "0.2.3"
+version = "0.2.4"
 license = "MIT"
 entrypoint = "lib/lib.typ"
 authors = ["Lieven Vandevelde"]
@@ -18,7 +18,7 @@ categories = [
     "layout",
     "thesis",
 ]
-compiler = "0.14.0"
+compiler = "0.15.0"
 
 [template]
 path = "template"

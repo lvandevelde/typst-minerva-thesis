@@ -1,5 +1,5 @@
 #import "@preview/subpar:0.2.2"
-#import "@preview/abbr:0.3.0"
+#import "@preview/abbr:0.3.1"
 #import "states.typ": *
 #import "settings.typ": *
 
@@ -593,7 +593,7 @@
 
     show outline.entry: it => context {
       let pg-width=page-number-width.get()
-      set box(baseline: 100%)
+//       set box(baseline: 100%)
       let el=it.element
       let loc=el.location()
       let firstlevelheading=el.func()==heading and it.level==1 
@@ -611,7 +611,7 @@
               + [ ]
               + if is-page-number-shown {
                 box(
-                  baseline: 0%,
+//                   baseline: 0%,
                   width: 1fr,
                   if filled-outline.at(loc) {
                     repeat(text(weight: "regular")[.], gap: 0.15em) // i.e. the default fill

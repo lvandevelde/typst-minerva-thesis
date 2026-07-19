@@ -19,7 +19,7 @@ The `minerva-thesis` package provides a template for writing doctoral and master
 - Possibility to include an extended abstract, i.e. an abstract in two-column format with a separate bibliography (via package [`alexandria`](https://typst.app/universe/package/alexandria))
 - Handling of abbreviations via package [`abbr`](https://typst.app/universe/package/abbr)
 
-Due to a breaking change in Typst 0.15 with respect to the baseline of boxes, `minerva-thesis v0.2.3` should be used with **Typst 0.14**. 
+Due to a breaking change in Typst 0.15 with respect to the baseline of boxes, `minerva-thesis` v0.2.3 and v0.2.4 should be used with Typst 0.14 and 0.15 respectively. 
 
 ## Installation and usage
 
