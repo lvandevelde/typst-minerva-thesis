@@ -39,31 +39,33 @@
 #let m-figure(
   outline-caption: auto,
   caption: none,
-  outlined: true,
+  outlined: auto,
   label: none,
   breakable: false,
   fill: auto,
   inset: auto,
   body,
   ..args,
-) = {
+) = context{
+  let the-outlined=if outlined==auto {figure.outlined} else {outlined}
   let the-figure
   let the-body={
     set block(inset: 0pt, fill: none)
     body
   }
-  if outlined and outline-caption != auto {
+
+  if the-outlined and outline-caption != auto {
     {
       show figure: it => it.counter.update(v => (
         v - 1
       )) 
-      figure(body, ..args, caption: outline-caption)
+      figure(body, ..args, outlined: true, caption: outline-caption)
     } 
     the-figure = [#figure(the-body, ..args, caption: caption, outlined: false) #label]
   } else if label != none {
-    the-figure = [#figure(the-body, ..args, outlined: outlined, caption: caption) #label]
+    the-figure = [#figure(the-body, ..args, outlined: the-outlined, caption: caption) #label]
   } else {
-    the-figure = figure(the-body, ..args, outlined: outlined, caption: caption)
+    the-figure = figure(the-body, ..args, outlined: the-outlined, caption: caption)
   }
   figure-block(breakable: breakable, fill: fill, inset: inset, the-figure)
 }
@@ -73,7 +75,7 @@
   kind: image,
   outline-caption: auto,
   caption: none,
-  outlined: true,
+  outlined: auto,
   label: none,
   breakable: false,
   fill: auto,
@@ -96,8 +98,8 @@
   subpar-function: subpar.super,
   ..args,
 ) =  context {
+  let the-outlined=if outlined==auto {figure.outlined} else {outlined}
   let the-figure
-
   let the-figure-settings=figure-settings.get().at(store.get())
   let the-numbering=the-figure-settings.at(str(repr(kind))+"-numbering")
   let the-numbering-function=the-figure-settings.at("numbering-function")
@@ -151,13 +153,14 @@
 
 
   set figure(placement: none) if breakable 
-  if outlined and outline-caption != auto {
+  if the-outlined and outline-caption != auto {
     {
       show figure: it => it.counter.update(v => v - 1)
       subpar-function(
         numbering: the-numbering,
         kind: kind,
         ..args,
+        outlined: true,
         caption: outline-caption
       )
     } 
@@ -182,7 +185,7 @@
       numbering-sub: the-numbering-sub, 
       numbering-sub-ref: the-numbering-sub-ref,
       ..args,
-      outlined: outlined,
+      outlined: the-outlined,
       label: label,
       caption: caption)
   }
@@ -626,7 +629,13 @@
               justify: true,
               it.body()
               + [ ]
-              + { if is-page-number-shown { box(baseline: 0%, width: 1fr, thefill) } },
+              + { if is-page-number-shown {
+                    box(
+//                       baseline: 0%,
+                      width: 1fr,
+                      thefill)
+                  }
+                },
             )))
           })
         + if is-page-number-shown { 

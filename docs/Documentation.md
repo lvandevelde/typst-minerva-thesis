@@ -1,6 +1,6 @@
 # Documentation
 
-**minerva-thesis version 0.2.3 (for Typst 0.14) and version 0.2.4 (for Typst 0.15) **  
+**minerva-thesis version 0.2.4 (Typst 0.15) **  
 
 This documentation explains the functions of the package.
 In the code blocks the default values of the named arguments are shown.
@@ -246,6 +246,8 @@ The following functions have been defined with extra features for `figure` eleme
 - <a name="m-subpar-super"></a>`m-subpar-super` and <a name="m-subpar-grid"></a>`m-subpar-grid`  
   These functions for making figures with subfigures are based on the `subpar.grid` function of package [`subpar`](https://typst.app/universe/package/subpar) but have analogous extra features as `m-figure`.
   Use the standard `figure` function (and not `m-figure`) for the subfigures within `m-subpar-super` and `m-subpar-grid`. 
+
+The default value of the named argument `outlined` of `m-figure`, `m-subpar-super` and `m-subpar-grid` is `auto`, which means that the current set value of `outlined` for the function `figure` is used.
   
 The functions `m-figure`, `m-subpar-super` and `m-subpar-grid` have extra named arguments compared to `figure`, `subpar.super` and `subpar.grid` respectively:
 

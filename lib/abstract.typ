@@ -100,7 +100,7 @@
       ref-textargs: figure-ref-textargs,
       ..the-figure-settings,
       store: "ea")  
-     
+
   set figure(outlined: false)
   
   let the-authors= if authors==auto {thesis-authors.get()} else {authors}
@@ -194,7 +194,7 @@
   store.update("ea")
   
   show: alexandria(prefix: "eab-", read: path => read(path))
-  
+
   body
 
   if bibliography!=none {

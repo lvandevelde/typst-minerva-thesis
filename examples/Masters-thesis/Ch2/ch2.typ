@@ -23,6 +23,10 @@ $
 
 === A Subsection 
 
+== Another Section with a Long Title -- #lorem(10)
+
 == Another Section
+
+=== Another Subsection
 
 
