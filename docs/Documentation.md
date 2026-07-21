@@ -1,6 +1,6 @@
 # Documentation
 
-**minerva-thesis version 0.2.4 (Typst 0.15) **  
+**minerva-thesis version 0.2.4 (Typst 0.15)**
 
 This documentation explains the functions of the package.
 In the code blocks the default values of the named arguments are shown.
