@@ -1,4 +1,4 @@
-#import "@local/minerva-thesis:0.2.4": *
+#import "@preview/minerva-thesis:0.2.4": *
 
 #import "../defs.typ": *
 
@@ -23,7 +23,7 @@ $
 
 === A Subsection 
 
-== Another Section with a Long Title -- #lorem(10)
+== A Section with a Long Title for Checking the Layout of the Table of Contents with Titles Spanning Multiple Lines
 
 == Another Section
 
