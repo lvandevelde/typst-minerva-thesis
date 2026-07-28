@@ -1,7 +1,8 @@
-#import "@preview/alexandria:0.2.2": *
 #import "@preview/subpar:0.2.2"
 #import "states.typ": * 
-#import "main.typ":  set-figures, start-at-odd-page, hide-page-number
+#import "utils.typ": * 
+#import "main.typ":  set-figures, set-terminology, set-equations, start-at-odd-page, hide-page-number, change-locale
+
 
 #let extended-abstract(
   authors: auto,
@@ -10,146 +11,194 @@
   multiple-supervisors: auto,
   counsellors: auto,
   multiple-counsellors: auto,
+  language: auto,
+  region: auto,
+  keywords: auto,
+  terminology: (math-equation: (supplement: none)),
+  flyleaf: auto,
   font: auto,
   font-size: 10pt,
   math-font: auto,
   math-font-size: auto,
+  equation-numbering: "(1)",
   equation-left-margin: auto,
-  title-font: auto,
-  title-font-size: auto,
-  author-font: auto,
-  author-font-size: auto,
+  title-text: auto,
+  author-text: auto,
+  figure-kinds: (:),
+  figure-numbering: ( table: "I"),
   figure-fill: none,
   figure-inset: auto,
-  figure-font: auto,
-  figure-font-size: auto,
-  caption-font: auto,
-  caption-font-size: auto,
-  caption-indent: false,
+  figure-text: auto,
+  caption-position: auto,
   caption-align: auto,
-  caption-text-align: auto,
+  caption-text-align: left,
   caption-separator: auto,
-  caption-textargs: (:),
-  caption-num-textargs: (:),
-  subfigure-caption-font: auto,
-  subfigure-caption-font-size: auto,
-  subfigure-caption-pos: auto,
+  caption-text: auto, // (table: smallcaps), 
+  caption-prefix-text: none, 
+  subfigure-caption-position: auto,
   subfigure-caption-align: auto,
+  subfigure-caption-text-align: auto,
   subfigure-caption-sep: auto,
   subfigure-numbering: auto,
   subfigure-ref-numbering: auto,
-  subfigure-caption-textargs: auto,
-  subfigure-caption-num-textargs: auto,
-  figure-ref-textargs: (:),
-  bibliography: none,
-  read: none,
+  subfigure-caption-text: auto,
+  subfigure-caption-prefix-text: auto,
+  figure-ref-text: none, 
   body
 ) = context{
   
   
+  let locale=split-locale(language, region: region)
   
-  let base-font-size=text.size
+  let the-store="ea-"+locale.locale
   
+  set-locale(locale.locale, store: the-store) 
 
-  let m-figure-settings=figure-settings.get().at("m", default:  none)  // error without default: none (why?)
-  let the-figure-settings=(:)
-    
+  let the-localise=localise.with(locale: locale.locale)
 
-  if type(m-figure-settings) == dictionary { // error without this check (why?)
-    
-    let insert-setting(dict,key,value)={
-      dict.insert(key, if value==auto {
-        m-figure-settings.at(key)   
-      } else {value})
-      dict
-    } 
-
-    the-figure-settings=insert-setting(the-figure-settings,"caption-indent", caption-indent)
-    the-figure-settings=insert-setting(the-figure-settings,"caption-align", caption-align)
-    the-figure-settings=insert-setting(the-figure-settings,"caption-text-align", caption-text-align)
-    the-figure-settings=insert-setting(the-figure-settings,"caption-separator", caption-separator)
-    the-figure-settings=insert-setting(the-figure-settings,"subfigure-caption-pos", subfigure-caption-pos)
-    the-figure-settings=insert-setting(the-figure-settings,"subfigure-caption-align", subfigure-caption-align)
-    the-figure-settings=insert-setting(the-figure-settings,"subfigure-numbering", subfigure-numbering)
-    the-figure-settings=insert-setting(the-figure-settings,"subfigure-ref-numbering", subfigure-ref-numbering)
-    the-figure-settings=insert-setting(the-figure-settings,"subfigure-caption-sep", subfigure-caption-sep)
-    the-figure-settings=insert-setting(the-figure-settings,"fill", figure-fill)
-    the-figure-settings=insert-setting(the-figure-settings,"inset", figure-inset)
-  } 
+  let the-terminology=the-localise(terminology-defaults.get())
   
-  if  subfigure-ref-numbering==auto and subfigure-numbering!=auto {
-    the-figure-settings.insert("subfigure-ref-numbering",auto)
+  let the-figure-kinds=(:)
+  
+  for (key, value) in figure-kinds {
+    the-figure-kinds.insert("figure-"+key,value)
   }
   
-  show: set-figures(
-      base-font: text.font,
-      base-font-size: base-font-size,
-      image-numbering:"1",
-      table-numbering:"I",
-      raw-numbering:"1",
-      font: figure-font, 
-      font-size: figure-font-size,
-      caption-font: caption-font,
-      caption-font-size: caption-font-size,
-      caption-textargs: caption-textargs,
-      caption-num-textargs: caption-num-textargs,
-      subfigure-caption-font: subfigure-caption-font,
-      subfigure-caption-font-size: subfigure-caption-font-size,
-      subfigure-caption-textargs: subfigure-caption-textargs,
-      subfigure-caption-num-textargs: subfigure-caption-num-textargs,
-      ref-textargs: figure-ref-textargs,
-      ..the-figure-settings,
-      store: "ea")  
-
-  set figure(outlined: false)
+  the-terminology=merge-dictionaries(the-terminology,merge-dictionaries(the-localise(terminology),the-localise(the-figure-kinds)))
   
-  let the-authors= if authors==auto {thesis-authors.get()} else {authors}
-  let the-title= if title==auto {thesis-title.get()} else {title}
+  let the-figure-settings=(:)
+  
+  
+  let m-figure-settings=figure-settings.get().at("m", default:  none)  // error without default: none (why?)
 
-  let the-supervisors= if supervisors==auto {thesis-supervisors.get()} else {supervisors}
+      
+  let auto-settings(dict)={
+    let new-dict=(:)
+    for (key,value) in dict {
+      new-dict.insert(key, if value==auto {m-figure-settings.at(key)} else {value}) 
+    }
+    new-dict
+  } 
+  
+
+  let the-figure-kinds-names=figure-kinds.keys()
+  
+  if m-figure-settings!=none { // can probably be avoided by initialising figure-settings with values for "m" in states.typ
+  
+    the-figure-kinds-names+=m-figure-settings.figure-kinds //the-figure-kinds-names: new and existing user-defined figure kinds
+
+    the-figure-settings+=auto-settings((
+      figure-fill: figure-fill,
+      figure-inset: figure-inset,
+      figure-numbering: figure-numbering,
+      caption-position: caption-position,
+      caption-align: caption-align,
+      caption-text-align: caption-text-align,
+      caption-separator: caption-separator,
+      subfigure-caption-position: subfigure-caption-position,
+      subfigure-caption-align: subfigure-caption-align,
+      subfigure-caption-text-align: subfigure-caption-text-align,
+      subfigure-numbering: subfigure-numbering,
+      subfigure-ref-numbering: subfigure-ref-numbering,
+      subfigure-caption-sep: subfigure-caption-sep,   
+    ))
+    
+    
+    if  subfigure-ref-numbering==auto and subfigure-numbering!=auto {
+      the-figure-settings.insert("subfigure-ref-numbering",auto)
+    }
+
+    the-figure-settings+=(
+      figure-text: figure-text,
+      caption-text: caption-text ,
+      caption-prefix-text: caption-prefix-text ,
+      subfigure-caption-text: subfigure-caption-text,
+      subfigure-caption-prefix-text: subfigure-caption-prefix-text,
+      figure-ref-text: figure-ref-text,   
+    )
+  
+  }
+  
+  let the-authors= the-localise(if authors==auto {thesis-authors.get()} else {authors})
+  let the-title= the-localise(if title==auto {thesis-title.get()} else {title})
+
+  let the-supervisors= the-localise(if supervisors==auto {thesis-supervisors.get()} else {supervisors})
   let the-multiple-supervisors= if multiple-supervisors==auto or type(multiple-supervisors)!=bool { 
     thesis-multiple-supervisors.get()
   } else {multiple-supervisors}
   
-  let the-counsellors= if counsellors==auto {thesis-counsellors.get()} else {counsellors}
+  let the-counsellors= the-localise(if counsellors==auto {thesis-counsellors.get()} else {counsellors})
   let the-multiple-counsellors= if multiple-counsellors==auto or type(multiple-counsellors)!=bool { 
     thesis-multiple-counsellors.get()
   } else {multiple-counsellors}
-    
+  
 
-  if show-heading.get() {
-    [= Extended Abstract]
+  let base-font= if (font==auto) {text.font} else {font}
+  let base-font-size= if (font-size==auto) {text.size} else {font-size}
+  
+  set text(font: base-font, size: base-font-size)
+  
+  set text(
+    lang: locale.language, 
+    region: locale.region
+  ) 
+
+  let the-flyleaf=if flyleaf==auto {show-heading.get()} else {flyleaf}
+    
+  if the-flyleaf {
+    [= #the-terminology.extended-abstract]
     hide-page-number()
-    start-at-odd-page()
-  }
-  set page(columns: 2)
-  if not show-heading.get() [= Extended Abstract]
-    
-  set text(font: font) if font != auto 
-  set text(size: font-size) if type(font-size) == length 
-      
-  show math.equation: set text(font: math-font) if math-font != auto 
-  show math.equation: set text(size: if math-font-size==auto {base-font-size} else {math-font-size})
-
-  set math.equation(numbering: "(1)")  
-
-  show ref: it => {
-      let eq = math.equation
-      let el = it.element
-      if el != none and el.func() == eq {
-        link(el.location(), numbering(el.numbering,..counter(eq).at(el.location()))) 
-      } else { 
-       set text(..figure-settings.get().at(store.get()).ref-textargs) if el != none and el.func() == figure
-       it 
-      }
   }
   
+  start-at-odd-page()
+  set page(columns: 2)
+  
+  store.update(the-store)
+  
+  place(top + center, float: true, scope: "parent", {
+    if not the-flyleaf { 
+      show heading: it=>{}    // just create an entry for the toc
+      [= #the-terminology.extended-abstract]
+    }
+    par(
+      {
+      set text(size:2.4*base-font-size, hyphenate: false) // default title text size
+      set text(..title-text) if type(title-text)==dictionary
+      if type(title-text)==function {title-text(the-title)} else {the-title}
+      }
+    )
+    set text(size: 1.2*base-font-size) // default author text size
+    set text(..author-text) if type(author-text)==dictionary
+    let the-authors-text=if type(the-authors)==array {the-authors.join(", ", last: get-prefix-last(the-terminology,the-supervisors.len()) )} else {the-authors} 
+    par(if type(author-text)==function {author-text(the-authors-text)} else {the-authors-text} )
+    let the-supervisors-text={
+      if the-multiple-supervisors [#the-terminology.supervisor.at(1): ] else [#the-terminology.supervisor.at(0): ]
+      if type(the-supervisors)==array {the-supervisors.join(", ", last: get-prefix-last(the-terminology,the-supervisors.len()))} else {the-supervisors}
+      if the-counsellors!=none {
+        linebreak()
+        if the-multiple-counsellors [#the-terminology.counsellor.at(1): ] else [#the-terminology.counsellor.at(0): ] 
+        if type(the-counsellors)==array {the-counsellors.join(", ", last: get-prefix-last(the-terminology,the-supervisors.len()))} else {the-counsellors}
+      }
+    }
+    par(if type(author-text)==function {
+        show text: author-text
+        the-supervisors-text
+      } else {the-supervisors-text}
+    )
+    v(1em)
+    }
+  )
+  
+//   show math.equation: set text(font: math-font) if math-font != auto 
+//   let the-math-font-size=  if math-font-size==auto {font-size} else {math-font-size}
+//   show math.equation: set text(size: the-math-font-size) if type(the-math-font-size)==length
+  
+
+    
  
   let heading-numbering=("I.", "A.", "a.", "i.", "1.")  
   set heading(outlined: false, bookmarked: false, numbering: (..num) => numbering(heading-numbering.at(num.pos().len()-1), num.pos().last() )   )
 
-  // for level 1 it could be simply this:
-  // show heading.where(level:1): set heading(numbering: "I.")
   
   counter(heading).update(0)
   show heading: set text(
@@ -163,74 +212,97 @@
     align(center, 
       smallcaps(if it.numbering!=none {numbering(it.numbering, ..counter(heading).get())+h(0.35em)}+it.body))
   }
+  
 
-  place(top + center, float: true, scope: "parent", {
-    par({
-      set text(font: title-font) if title-font!=auto
-      text(
-        size: if title-font-size==auto {2.4*base-font-size} else {title-font-size}, 
-        hyphenate: false, 
-        the-title
-      )
-      }
-    )
-    set text(font: author-font) if author-font!=auto
-    set text(size: if author-font-size==auto{1.2*base-font-size} else {author-font-size})
-    par(if type(the-authors)==array {the-authors.join(", ", last:" and ")} else {the-authors} )
-    par({
-      if the-multiple-supervisors [Supervisors: ] else [Supervisor: ]
-      if type(the-supervisors)==array {the-supervisors.join(", ", last: " and ")} else {the-supervisors}
-      if the-counsellors!=none {
-        linebreak()
-        if the-multiple-counsellors [Counsellors: ] else [Counsellor: ] 
-        if type(the-counsellors)==array {the-counsellors.join(", ", last: " and ")} else {the-counsellors}
-      }
-    })
-    v(1em)
-    }
-  )
   
+  { show: set-figures(
+      base-font: base-font,
+      base-font-size: base-font-size,
+      figure-kinds: the-figure-kinds-names,
+      ..the-figure-settings,
+      store: the-store
+      )  
+    
+    show: set-terminology(the-terminology,  figure-kinds: the-figure-kinds-names, store: the-store)
+    
+    show: set-equations( 
+      math-font: math-font,
+      math-font-size: math-font-size,
+      base-font-size: base-font-size,
+      equation-numbering: equation-numbering,
+      store: the-store)
   
-  store.update("ea")
+//     show: alexandria(prefix: bib-prefix, read: read)
   
-  show: alexandria(prefix: "eab-", read: path => read(path))
+    if keywords!=auto {thesis-keywords.update(keywords)}
 
-  body
+    set bibliography(title: the-terminology.references)
 
-  if bibliography!=none {
-      set heading(numbering: none)
-      set par(leading: 0.65em, spacing: 0.65em)
-      bibliographyx(bibliography, title: [References])
-    }
+    set figure(outlined: false)
+
+    body
+
   
-  pagebreak()
-  // reset counters  (only needed if not per-chapter-numbering
+  }
+
+  store.update(store.get()) // previous store
+  
+  set page(columns: 1)
+  
+    // reset counters  (only needed if content without per-chapter-numbering follows)
   counter(math.equation).update(0)
   counter(figure.where(kind: image)).update(0)
   counter(figure.where(kind: table)).update(0)
   counter(figure.where(kind: raw)).update(0)
-  
-  set page(columns: 1)
-  store.update("m")
+  for kind in the-figure-kinds-names {
+     counter(figure.where(kind: kind)).update(0)
+  }
 }
 
 
-#let abstract-keywords(keywords: auto, body)=context{
-  set text(size: 0.9em, weight:"semibold") if store.get()=="ea"
+#let abstract-keywords(
+  keywords: auto, 
+  language: auto,
+  region: auto,
+  show-abstract: auto,
+  body
+  )=context{
+
+  let the-store=store.get()
+  let in-extended-abstract=the-store.match(regex("^ea-"))!=none
   
-  if body!=none {
-    block(context{
-      set par(spacing: 0.65em, first-line-indent: 1.5em)
-      [_*Abstract*_ --- ]
-      body
-    })
-  }
+  let the-show-abstract=if show-abstract==auto {in-extended-abstract} else {show-abstract}
+  let locale=get-locale(language, region, default: if in-extended-abstract {the-store.slice(3)} else {auto} ) 
+  // om een of andere reden werkt kan bij een ea the current-locale nog niet gevonden worden, hoewel die wel ingesteld is. store is wel aangepast (store.get() werkt), maar locales.get().at(the-store) gaat niet (toch niet in eerste instantie)  
   
-  let the-keywords = if keywords==auto {thesis-keywords.get()} else {keywords}
-  if the-keywords != none {
-    block({
-      [_*Keywords*_ --- ]
-      if type(the-keywords) == array {the-keywords.join(", ")} else {the-keywords}
-    })
+  let the-body= context {
+    let the-terminology=terminologies.get().at(store.get())
+    if body not in (none,[]) {
+      block({
+        set par(spacing: 0.65em, first-line-indent: 1.5em)
+        if the-show-abstract {
+          text(weight:"semibold", style:"italic", the-terminology.abstract)
+        }
+        body
+      })
+    }
+    let the-keywords = localise(locale:locale.locale, if keywords==auto {thesis-keywords.get()} else {keywords})
+    if the-keywords != none {
+      block({
+        text(weight:"semibold", style:"italic", the-terminology.keywords)
+        if type(the-keywords) == array {the-keywords.join(", ")} else {the-keywords}
+      })
+    }
   }
+  if in-extended-abstract {
+    set text(size: 0.9em, weight:"semibold", lang: locale.language, region: locale.region) 
+    the-body
+    // still in same context as at the start => the previous store
+    store.update(the-store)
+  } else {
+    change-locale(language: language, region: region,  the-body)
+  }  
+  
+
 }
+

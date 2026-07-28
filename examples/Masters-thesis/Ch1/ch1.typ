@@ -1,11 +1,13 @@
-#import "@preview/minerva-thesis:0.2.4": *
+#import "@local/minerva-thesis:0.3.0": *
 
 #import "../defs.typ": * // import your own definitions
 
 
 
 
-= The First Chapter <ch:firstchapter>
+= Introduction <ch:intro>
+
+
 
 #lorem(50)
 #abbr.add("DOF", "Degree of Freedom", "Degrees of Freedom")
@@ -14,16 +16,47 @@ This is the first occurrence of the term #abbr.a("DOF").
 
 This is the second occurrence of the term #abbr.a("DOF") or in plural: #abbr.pla("DOF").
 
-== The First Section  <sctn:firstsection>
+Single references:
+
+@ch:funda @app:A @eq:cosalphabeta @eq:sin2alpha @sctn:intro-overview @theo:add2
 
 
-$ cos^2alpha = frac(1+cos 2 alpha,2) $ <eq:cos2alpha>
+Some examples of references to lists:
+
+The basics are explained in #ref-list(<ch:intro>,<ch:funda>).
+
+In #ref-list(<sctn:intro-context>,<sctn:intro-overview>), it will be shown that ...
+
+The equations are explained in more detail in  #ref-list(<app:A>,<app:B>, <app:C>).
 
 
-In @eq:cos2alpha a well-known trigonometry formula is given.
-In @app:A you find some more, in particular in @sctn:Aformulas, e.g. @eq:sin2alpha. 
+// @ch:secondchapter contains #ref-list(<theorem1>,<theorem2>).
 
-=== The First Subsection <sbsctn:firstsubsection>
+
+== Context  <sctn:intro-context>
+
+
+$ cos^2alpha = (1+cos 2 alpha)/2 $ <eq:cos2alpha>
+$ cos(2 alpha) = cos^2alpha-sin^2alpha $ <eq:cos2xalpha>
+$ cos alpha cos beta  = 1/2 (cos(alpha+beta) + cos(alpha-beta)) $ <eq:cosalphabeta>
+
+
+Example of ``` ref-list```:
+
+``` ref-list( (<eq:cos2alpha>, <eq:cosalphabeta>), <eq:sin2alpha>) show ...``` gives:
+
+#ref-list( (<eq:cos2alpha>, <eq:cosalphabeta>), <eq:sin2alpha>) show well-known trigonometric formulas.
+
+Example of ``` ref-range```:
+
+``` ref-range(<eq:cos2alpha>, <eq:cosalphabeta>) ...``` gives:
+
+#ref-range(<eq:cos2alpha>, <eq:cosalphabeta>) ...
+
+
+In @app:A you find some more, in particular in @sctn:Aformulas, e.g. @eq:sin2alpha
+
+=== The First Subsection <sbsctn:introsubsection>
 
 See @AaBbb2025 and @CcDdd2025 for some more explanation.
 
@@ -37,18 +70,20 @@ label: <fig:examplefigure1>
 
 // Use the standard figure() function for the subfigures within m-subpar-grid()
 #m-subpar-grid(
-figure(image("img/subfigure_a.svg"), caption: [Subfigure a]),<subfiga>,
-figure(image("img/subfigure_b.svg"), caption: [Subfigure b]),<subfigb>,
-figure(image("img/subfigure_c.svg"), caption: [Subfigure c]),<subfigc>,
-figure(image("img/subfigure_d.svg"), caption: [Subfigure d]),<subfigd>,
+figure(image("img/subfigure_a.svg"), caption: [Subfigure a -- #lorem(10)]),<subfiga>,
+figure(image("img/subfigure_b.svg"), caption: [Subfigure b -- #lorem(10)]),<subfigb>,
+figure(image("img/subfigure_c.svg"), caption: [Subfigure c -- #lorem(2)]),<subfigc>,
+figure(image("img/subfigure_d.svg"), caption: [Subfigure d -- #lorem(2)]),<subfigd>,
 columns: 2,
-caption: [A figure with subfigures],
+caption: [A figure with subfigures. The layout of the captions of the (sub)figures (position, alignment, font, ...) is set via arguments of ``` thesis()```.],
 outline-caption: [A figure with subfigures],
 label: <fig:examplefigure2>, 
 )
 
 
 #lorem(30)
+
+In #ref-list(<fig:examplefigure1>,<fig:examplefigure2>), some results are shown.
 
 @fig:examplefigure2 consists of 4 subfigures:
 - @subfiga: case a
@@ -77,9 +112,16 @@ outline-caption: [A short caption for the outline],
 label: <tbl:table2>
 )
 
-@tbl:table1 and @tbl:table2 are very basic tables.
 
-== The Second Section
+#ref-list(<tbl:table1>, <tbl:table2>) are very basic tables.
+
+Figure of user-defined kind ``` theorem```.
+
+#m-figure([$x=y<=>y=x$], kind:"theorem", caption: [A very short theorem],label: <theo:equality>)
+
+According to @theo:equality, ...
+
+== Overview <sctn:intro-overview>
 
 === A Subsection
 
@@ -95,3 +137,23 @@ The expression given by @eq:TM has been derived by #cite(<EeFff2025>, form: "pro
 === Another Subsection
 
 #lorem(5)
+
+== The Third Section
+
+#lorem(10)
+
+#m-subpar-super(
+grid(
+  grid.cell(colspan: 2, [#figure(image("img/subfigure_a.svg"), caption: [Subfigure a -- #lorem(20)]) <subfig2a>]),
+  [#figure(image("img/subfigure_b.svg"), caption: [Subfigure b]) <subfig2b>],
+  [#figure(image("img/subfigure_c.svg"), caption: [/*Subfigure c*/]) <subfig2c>],
+  grid.cell(colspan: 2, [#figure(image("img/subfigure_d.svg"), caption: [Subfigure d -- #lorem(25)]) <subfig2d>]),
+  columns: 2, gutter: 1em,
+),
+caption: [A long caption for a figure with subfigures (via ``` m-subpar-super```) -- #lorem(30)],
+outline-caption: [A short caption for a figure with subfigures (via ``` m-subpar-super```)],
+label: <fig:examplefigure3>
+)
+
+
+

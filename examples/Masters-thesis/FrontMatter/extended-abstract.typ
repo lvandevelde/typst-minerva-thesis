@@ -1,16 +1,24 @@
-#import "@preview/minerva-thesis:0.2.4": *
+#import "@local/minerva-thesis:0.3.0": *
 
 #import "../defs.typ": *
 
 #show: extended-abstract.with(
+  flyleaf: false,
   font-size: 10pt,
   caption-align: center,
-  bibliography: "../references.yaml",
-  read: path => read(path)
+//   caption-text: (theorem: smallcaps),
+//   caption-text-align: center,
+  caption-prefix-text: (weight: "semibold"),
+  subfigure-numbering: default-subfigure-numbering, //restore the default value (instead of the value set by "thesis.with(...)" in thesis.typ
+  subfigure-caption-sep: default-caption-separator, //restore the default value  
+  subfigure-caption-prefix-text: (weight: "semibold"), // set the number of subfigures in semibold
   )
 
+#set figure(outlined: false)
 
-#abstract-keywords[
+//in an extended abstract (in English) the abstract should follow directly "#abstract-keywords["  (without spaces or a newline) in order to continue the text directly after "Abstract-"
+#abstract-keywords[In this thesis ...
+
 #lorem(30)
 
 #lorem(40)
@@ -31,20 +39,22 @@ The Maxwell stress tensor $tTM$ is given by:
 $ tTM =  vB vH - 1/2 mu_0 H^2 tI $ <ea-eq:TM>
 where $vB$, $vH$ are the magnetic flux density and field strength respectively and $tI$ is the unity tensor.
 
-The expression given by @ea-eq:TM has been derived by #cite(<eab-EeFff2025>, form: "prose") and is widely used  @eab-GgHhh2025, @eab-IiJjj2025.
+The expression @ea-eq:TM has been derived by #cite(<EeFff2025>, form: "prose") and is widely used  @GgHhh2025, @IiJjj2025.
  //In the extended abstract commas have to be added manually between the citations.
 
 === Example
 
-#lorem(20)
+#lorem(20) See @ea-table1
 
 #m-figure(
 table(
 columns:2,
 [x], [y], 
 [1], [2]),
-caption: [A Simple Table], 
-) <ea-table1>
+caption: [A Simple Table],
+label: <ea-table1>
+) 
+
 
 
 #m-subpar-grid(
@@ -73,7 +83,7 @@ In @ea-examplefigure1, four subfigures are shown:
  + @ea-subfig1c
  + @ea-subfig1d
 
-#colbreak() // Manual balancing of the 2 columns at the last page of the extended abstract.
+#colbreak() // column break to keep the following list together
  
 In @ea-table2 we see two subtables:
  + @ea-table2a
@@ -81,12 +91,21 @@ In @ea-table2 we see two subtables:
  
 ==  Method 2
 
-#lorem(50)
+#lorem(100)
 
-See @eab-AaBbb2025 and @eab-CcDdd2025 for more explanation.
+See @AaBbb2025 and @CcDdd2025 for more explanation.
+
+#m-figure([$x=y<=>y=x$], kind:"theorem", caption: [A very short theorem],label: <ea-the1>)
+
+According to  @ea-the1, ...
+
 
 = Conclusion
 
-#lorem(10)
+#lorem(120)
 
+#show bibliography: set par(spacing: 0.65em, leading: 0.65em) // decrease spacing between entries
+#show bibliography: set block(above: 1.2em) // some extra space between heading and first entry (entries are in a block)
+// from Typst v0.15.0 onwards:
+#bibliography("../references.yaml",group: none)
 

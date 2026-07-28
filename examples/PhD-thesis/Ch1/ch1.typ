@@ -1,9 +1,10 @@
-#import "@preview/minerva-thesis:0.2.4": *
-
+#import "@local/minerva-thesis:0.3.0": *
+// #import "@preview/cetz:0.4.2"
+// #import cetz.draw: line, content
 #import "../defs.typ": * // import your own definitions
 
 
-= The First Chapter <ch:firstchapter>
+= The First Chapter  <ch:firstchapter>
 
 #lorem(50)
 
@@ -60,6 +61,15 @@ label: <fig:examplefigure3>
 )
 
 #lorem(30)
+
+// #m-figure(
+//   caption: [`cetz` example],
+//       cetz.canvas({
+//         line((0, 0), (5, 0), mark: (end: "stealth"))
+//         content((2.5, 0.2))[$L$]
+//     }),
+//   outlined: false
+// )
 
 === The Second Subsection <sbsctn:secondsubsection>
 

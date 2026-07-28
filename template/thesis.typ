@@ -1,22 +1,41 @@
-#import "@local/minerva-thesis:0.2.4": *
-
-
+#import "@local/minerva-thesis:0.3.0": *
 
 #show: thesis.with(
-  authors: "The Student", // or array: ("Student 1", "Student 2") 
-  title: [The thesis title],
-  keywords: ("Keyword 1", "Keyword 2", "Keyword 3"),
+  authors: ("Student 1", "Student 2"),
+  title: (en: [A nice thesis title -- #lorem(10)], nl: [Een mooie masterproeftitel -- #lorem(10) ]  ),
+// if only one language is used:
+//   title: [A nice thesis title -- #lorem(10)],
+  keywords: (en: ("Master's thesis", "Typst"), nl: ("Masterproef", "Typst") ),
   date: [Academic year XXXX-YYYY],
-  description: [Master's disseration submitted to obtain the academic degree of Master of Science in Some Discipline],
-  supervisors: ([Prof. Aa Bbb, Ph.D.], [Prof. Cc Dddd, Ph.D.]), 
-  counsellors: [Ee Ffff], // or array
+  description: [Master's dissertation submitted to obtain the academic degree of Master of Science in Some Discipline],
+  supervisors: (
+    (
+      en: [Prof. Aa Bbbb, Ph.D.],
+      nl: [Prof. dr. Aa Bbbb]
+    ), (
+      en: [Prof. Cc Dddd, Ph.D.],
+      nl: [Prof. dr. Cc Dddd]
+    )
+  ),
+// if only one language is used:
+//   supervisors: ( [Prof. Aa Bbbb, Ph.D.], [Prof. Cc Dddd, Ph.D.]),
+  counsellors: (
+    en: [Ee Ffff, Ph.D.],
+    nl: [Dr. Ee Ffff]
+  ),
   faculty: "EA",
-  language: "EN",
+  language: "en",
   paper: "a4",
-//   font-size: auto, // auto (= default) means default Typst text size (11pt)    
-  figure-fill: auto, // auto = default-figure-fill (light-gray), none = no background
-//   subfigure-numbering: "a", 
-//   subfigure-ref-numbering: ".a",
+  font-size: 11pt,
+  chapter-show: false, // do not show "Chapter", just the number
+  figure-fill: none, //  auto = light gray, none = no background
+  subfigure-numbering: "(a)", // default: "a"
+  subfigure-caption-sep: sym.space, // default: sym.colon+sym.space (": ")
+//   figure-ref-text: (weight: "semibold"), // References to figures (of all kinds) put in bold characters.
+  caption-position: (table: top),
+  header-text: (smallcaps, (size: 0.9em) ),
+//   per-chapter-numbering: false,
+
   )
 
   
@@ -26,18 +45,20 @@
 
 // The title-page function can only be used for Ghent University theses.
 // Install the UGent Panno Text font on your system for a Ghent University thesis and uncomment the "font: ..." line below.
-// Take care that the font name on your system is exactly the same as the font argument below.
+// Take care that the font name on your system is the same as the font argument below.
+
+#show: front-matter.with(show-headings: false) 
+
 #title-page( 
 //   font: "UGent Panno Text"  
 )
 
-#show: front-matter.with(show-headings: false) 
 // optional:
-  #include "FrontMatter/confidentiality.typ"
-  #hide-page-number()
+#include "FrontMatter/confidentiality.typ"
+#hide-page-number()
   
-  #include "FrontMatter/explanation-exam.typ"
-  #hide-page-number()
+#include "FrontMatter/explanation-exam.typ"
+#hide-page-number()
 
 
 #show: front-matter
@@ -48,60 +69,53 @@
 
 #include "FrontMatter/abstract.typ"
 
-#show: front-matter.with(show-headings: false) // commenting this line will insert a flyleaf with "Extended Abstract"
+#include "FrontMatter/samenvatting.typ"
+
 #include "FrontMatter/extended-abstract.typ"
 
-#show: front-matter // is not needed if the line #show: front-matter.with(show-headings: false) above is commented
+#include "FrontMatter/uitgebreide-samenvatting.typ"
 
-// #set-page-number-width(2em) // use this function to adjust the space for the page number in the outlines
 
-#outline(
-  title:[Table of Contents], 
-  target: heading
-)
+#set-page-number-width(2.3em) // manual setting of the width of the page numbering in the Table of contents such that the "fill" (dotted lines) does not overlap with the page numbers
 
-#outline(
-  title: [List of Tables],
-  target: figure.where(kind: table),
-)
+#table-of-contents
 
-#outline(
-  title: [List of Figures],
-  target: figure.where(kind: image)
-)
+#set-page-number-width(1.2em)
 
+#list-of-tables
+
+#list-of-figures
+
+// #list-of-figure-kind("theorem") // user-defined kinds of figures
 
 // List of Abbreviations via package abbr (which has been automatically imported)
-#abbr.list()
-
-
+#list-of-abbreviations
 
 #show: chapter
 
 // Parts are optional. 
-#part("First Part") 
+#part("Introduction", label: <part:intro>) 
 
 #include "Ch1/ch1.typ"
-
 // #include "Ch2/ch2.typ"
-// 
-// 
-// #part("Methods") 
-// 
+
+// #part("Methods", label: <part:methods>)
+//
 // #include "Ch3/ch3.typ"
-// 
 // #include "Ch4/ch4.typ"
-// 
-// #part("Results")
-// 
+//
+// #part("Results", label: <part:results>)
+//
 // #include "Ch5/ch5.typ"
 
-// #show: appendix.with(flyleaf:[Appendix]) // if there is only one Appendix
-#show: appendix //otherwise
+
+#show: appendix
 
 #include "AppA/appA.typ"
 // #include "AppB/appB.typ"
+// #include "AppC/appC.typ"
 
 #show: back-matter
-
-// #bibliography("references.bib", style: "ieee")  // refer to your bibliography  file here
+//
+// // #bibliography("references.bib")
+#bibliography("references.yaml")

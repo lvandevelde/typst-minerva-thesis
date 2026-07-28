@@ -1,4 +1,4 @@
-#import "@preview/minerva-thesis:0.2.4": *
+#import "@local/minerva-thesis:0.3.0": *
 
 #let showperson(person) = [
 #person.prefix #person.given-name #person.surname#{if person.suffix!=none [, #person.suffix]}
@@ -13,7 +13,7 @@
 #title-page( 
   faculty: "EA", // Ghent University faculty code (see comment above), only used for selecting the proper faculty icon 
   date: [Month Year],
-  language: "EN",
+//   language: "EN",
   supervisors: [#(for member in yaml("jury.yaml").at("supervisors") {(showperson(member),)}).join([ -- ])\  Department of X, Y and Z],
   multiple-supervisors: true,
   ids: ([ISBN vvv-uu-zzzz-yyy-x], [NUR XXX], [Wettelijk depot: D/YYYY/aa.bbb/cc]), 

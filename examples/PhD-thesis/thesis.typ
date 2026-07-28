@@ -1,4 +1,4 @@
-#import "@preview/minerva-thesis:0.2.4": *
+#import "@local/minerva-thesis:0.3.0": *
 
 #show: thesis.with(
 //   font: "Libertinus Serif", 
@@ -6,16 +6,20 @@
 //   figure-font: "Libertinus Serif",
 //   subfigure-caption-font: "Libertinus Sans"
 //   math-font: "New Computer Modern Math",
+  language: "en",
   authors: "The PhD Candidate",
   description: [Dissertation submitted to obtain the academic degree of Doctor of Engineering],
   keywords: ("Typst", "thesis", "template"),
-  title: text(hyphenate:false,[Thesis Title -- #lorem(10)]),
+  title: [Thesis Title -- #lorem(10)],
   font-size: 10pt,
-  chapter-title-font-size: 24pt, // slightly less than "auto" (= the default) 
-  chapter-number-font-size: 60pt, // slightly less than "auto" (= the default)
+  chapter-title-text: (size: 20pt),
+  chapter-number-text: (size: 30pt),
+  part-title-text: (size: 30pt),
+  part-number-text: (size: 40pt),
   equation-left-margin: 5%, // left aligned equations (with some left margin),  auto = centred equations (which is the default)
   figure-fill: auto, // auto = light-gray, none = no background
-  caption-indent: true,
+  caption-text-align: "indent",
+  figure-text: (font: "Arial"),
 //   subfigure-numbering: "(a)", 
 //   subfigure-caption-sep: [ ],
 )
@@ -25,12 +29,12 @@
 
 // #set figure(placement: auto) // puts figures at the top or bottom of pages
 
+#show: front-matter
 
 #include "FrontMatter/title-page.typ"
 
-
 #show: front-matter.with(show-headings:false)
-= Examination Board // shown in the Table of Contents but not on the page itself
+= Examination Board // heading shown in the Table of Contents but not on the page itself
 #hide-page-number()
 #include "FrontMatter/jury.typ"
 
@@ -46,26 +50,17 @@
 
 // #set-page-number-width(2em) // 2em is the default value
 
-#outline(
-  title:[Table of Contents], 
-  target: heading
-)
+#table-of-contents
 
 #set-page-number-width(1.3em)
 
+#list-of-tables
 
-#outline(
-  title: [List of Tables],
-  target: figure.where(kind: table),
-)
+#list-of-figures
 
-#outline(
-  title: [List of Figures],
-  target: figure.where(kind: image)
-)
 
 // List of abbreviations
-#abbr.list()
+#list-of-abbreviations
 
 #show: chapter
 

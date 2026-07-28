@@ -1,8 +1,10 @@
-#import "@local/minerva-thesis:0.2.4": *
+#import "@local/minerva-thesis:0.3.0": *
 
 #import "../defs.typ": *
 
 
 = The First Appendix <app:A>
+
+== First Section <sctn:A1>
 
 

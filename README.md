@@ -1,35 +1,35 @@
 <img width="2146" height="302" alt="Typst-minerva-thesis-banner" src="https://github.com/user-attachments/assets/0a116493-7518-46c2-bd72-c51f20adbee0" />
 
 ---
-
 # `minerva-thesis` - a Typst thesis template
 
 The `minerva-thesis` package provides a template for writing doctoral and master's theses with [Typst](https://typst.app/) presenting both [Ghent University](https://www.ugent.be/en) specific features and additional generic functions and features:
 
-- A Ghent University specific title page. 
-- Improved layout of outlines (in particular for outline entries spanning multiple lines)
-- Support of Parts and Appendices
-- Figure and equation numbers including the chapter/appendix number
-- Omission of page numbers on blank pages before the beginning of a chapter
-- Customised captions and references
-- Support of subfigures via package [`subpar`](https://typst.app/universe/package/subpar)
-- Optional (short) versions of figure captions for outlines (List of Figures, List of Tables)
-- Possibility of left-aligned equations (with a settable left margin)
-- Possibility to set a background colour (`fill`) for figures and a `breakable` feature for figures (possible span over multiple pages, *experimental*)
-- Possibility to include an extended abstract, i.e. an abstract in two-column format with a separate bibliography (via package [`alexandria`](https://typst.app/universe/package/alexandria))
-- Handling of abbreviations via package [`abbr`](https://typst.app/universe/package/abbr)
+- A Ghent University specific title page;
+- Improved layout of outlines (in particular for outline entries spanning multiple lines);
+- Support of Parts, Chapters and Appendices;
+- Multi-language support: The terminology for English and Dutch dissertations (including terms for "chapter", "part", "section", etc. and various supplements) is pre-definded (and settable), but can be defined by the user for other languages.
+- Figure and equation numbers including the chapter/appendix number;
+- Support of user-defined kinds of figures, next to the standard kinds (`image`, `table` and `raw`), with respect to captions, references and outlines;
+- Automised references to a list or a range of elements, e.g. references to multiple figures: "Figures 1.1, 1.4, and 1.5" or "Figures 1.1-1.3"; 
+- Omission of page numbers on blank pages before the beginning of a chapter;
+- Support of subfigures via package [`subpar`](https://typst.app/universe/package/subpar);
+- Optional (short) versions of figure captions for outlines (List of Figures, List of Tables);
+- Optional headers via package [`hydra`](https://typst.app/universe/package/hydra);
+- Possibility of left-aligned equations (with a settable left margin);
+- Support of background colour (`fill`) for figures and a `breakable` feature for figures (possible span over multiple pages, *experimental*);
+- Possibility to include an extended abstract, i.e. an abstract in two-column format;
+- Handling of abbreviations via package [`abbr`](https://typst.app/universe/package/abbr);
+- Highly-configurable layout (text parameters (font, size, weight, etc.) and functions (smallcaps, etc.), alignment, ...) of chapter titles, headers, captions, etc.
 
-Due to a breaking change in Typst 0.15 with respect to the baseline of boxes, `minerva-thesis` v0.2.3 and v0.2.4 should be used with Typst 0.14 and 0.15 respectively. 
 
 ## Installation and usage
 
-The tagged versions (releases) have been published on [Typst Universe](https://typst.app/universe/package/minerva-thesis/).
-
-
 ### Typst Universe
-As the package is available in the [Typst Universe](https://typst.app/universe/package/minerva-thesis/), you can use the package in the `preview` namespace via the Typst app and via the Typst CLI:
 
-    typst init @preview/minerva-thesis:0.2.4  
+The [released versions](https://github.com/lvandevelde/typst-minerva-thesis/releases) (from 0.1.3) are available in the [Typst Universe](https://typst.app/universe/package/minerva-thesis/). For these versions, you can use the package in the `preview` namespace via the Typst app and via the Typst CLI, e.g. for version 0.2.4:
+
+    typst init @preview/minerva-thesis:0.2.4 
     cd minerva-thesis
     typst watch thesis.typ
 
@@ -59,7 +59,7 @@ The documentation on the functions of this package can be found in [`docs/Docume
  
 ## Examples
 
-In the folder `examples` basic examples of a PhD and a master's thesis are given. 
+In the folder [examples](examples) basic examples of a PhD and a master's thesis are given. 
 
 These example files illustrate most of the functions of the package, in particular:
 

@@ -1,8 +1,13 @@
-#import "@local/minerva-thesis:0.2.4": *
+#import "@local/minerva-thesis:0.3.0": *
 
-= Abstract
+= Abstract 
 
-#abstract-keywords[
-The abstract
-]
+#show: abstract-keywords // By default, no "Abstract---" label is shown. 
+In this thesis ...
 
+  
+  
+// For showing the abstract label ("Abstract---"):
+// #abstract-keywords(show-abstract:true)[In this thesis ...
+//  #lorem(20)
+// ]

@@ -1,6 +1,6 @@
 [package]
 name = "minerva-thesis"
-version = "0.2.4"
+version = "0.3.0"
 license = "MIT"
 entrypoint = "lib/lib.typ"
 authors = ["Lieven Vandevelde"]
@@ -10,8 +10,8 @@ keywords = [
     "template",
     "thesis",
     "Ghent University",
-    "UGent",
-    "Universiteit Gent"
+    "Universiteit Gent",
+    "UGent"
 ]
 categories = [
     "model",

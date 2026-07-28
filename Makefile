@@ -5,7 +5,7 @@ FILES=typst.toml lib img template
 
 .PHONY: install
 
-UPDATE=cp -auL
+UPDATE=cp -rL
 
 typst.toml: tmplt/typst.toml $(MINERVA)
 	@ sed -e 's/§package§/$(PACKAGE)/g' -e 's/§version§/$(VERSION)/g' -e 's/§typst-version§/$(TYPST-VERSION)/g' $< > $@	

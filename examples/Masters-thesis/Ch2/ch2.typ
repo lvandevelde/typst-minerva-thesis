@@ -1,32 +1,42 @@
-#import "@preview/minerva-thesis:0.2.4": *
+#import "@local/minerva-thesis:0.3.0": *
 
 #import "../defs.typ": *
 
 
-= The Second Chapter <ch:secondchapter>
+= Fundamentals of the subject <ch:funda>
 
-In this chapter we build further on @ch:firstchapter, and on @sbsctn:firstsubsection in particular.
-
-
-
-== A Section 
+In this chapter we build further on @ch:intro, and on @sbsctn:introsubsection in particular.
 
 
-#m-figure(image("img/figure_2.svg"), caption: [First figure of chapter 2])
+
+== History <sctn:fundahist>
+
+
+#m-figure(image("img/figure_2.svg"), caption: [The first figure of the second chapter], placement: bottom , label: <fig:funda-1>)
 
 $
 
 A &= a sin alpha
 
-$
+$ <eq:asinalpha>
+
+Examples of figures of the user-defined kind ``` theorem```:
+
+#m-figure([$a+b=c<=>a=c-b$], kind: "theorem", caption: [A figure of kind ``` theorem``` ], label: <theo:add>)
+#m-figure([$a+b=c<=>b=c-a$], kind: "theorem", caption: [Another figure of kind ``` theorem```], label: <theo:add2>)
+
+In @theo:add, ...
+
+#ref-list(<theo:add>,<theo:add2>)
 
 
 === A Subsection 
 
-== A Section with a Long Title for Checking the Layout of the Table of Contents with Titles Spanning Multiple Lines
 
-== Another Section
+@fig:appA 
 
-=== Another Subsection
+== A Section with a Very Long Title for Checking the Layout of the Table of Contents with Titles Spanning Multiple Lines
+
+
 
 
