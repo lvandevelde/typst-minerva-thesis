@@ -419,6 +419,10 @@
 #let m-subpar-super = m-subpar.with(subpar-function: subpar.super)
 #let m-subpar-grid = m-subpar.with(subpar-function: subpar.grid)
 
+#let set-header-title(title)={
+  header-title.update(title)
+}
+
 #let convert-figure-arg(
   arg,
   default: none,
@@ -882,7 +886,9 @@
   font: auto,
   font-size: 11pt,
   header-heading-levels: (even: 1, odd: 2),
-  header-text: auto,
+  header-text: none,
+  header-prefix-text: none,
+  header-separator: [ -- ],
   chapter-title-text: auto,
   chapter-show: auto,
   chapter-number-text: auto,
@@ -903,18 +909,18 @@
   figure-fill: none, // auto = default-figure-fill
   figure-inset: 0.5em, // default-figure-inset
   figure-text: auto,
-  caption-position: (table: top, rest: bottom), // default-caption-position
+  caption-position: (table: top, rest: bottom), // = default-caption-position
   caption-align: center,
   caption-text-align: "indent",
-  caption-separator: sym.colon + sym.space, // default-caption-separator
+  caption-separator: sym.colon + sym.space, // = default-caption-separator, not [: ] because caption may be set via table which "eats" the space
   caption-text: none,
-  caption-prefix-text: (weight: "semibold"), // default-caption-prefix-text
+  caption-prefix-text: (weight: "semibold"), // = default-caption-prefix-text
+  subfigure-numbering: "a", // default-subfigure-numbering
+  subfigure-ref-numbering: auto,
   subfigure-caption-position: top,
   subfigure-caption-align: auto,
   subfigure-caption-text-align: auto,
   subfigure-caption-sep: auto,
-  subfigure-numbering: "a", // default-subfigure-numbering
-  subfigure-ref-numbering: auto,
   subfigure-caption-text: auto,
   subfigure-caption-prefix-text: auto,
   figure-ref-text: none,
@@ -966,6 +972,10 @@
   ))
 
   let the-figure-kind-names = figure-kinds.keys() // names of user-defined figure kinds (without the prefix "figure-")
+
+  let the-chapter-show() = if chapter-show == auto {
+      part-number.final().first() > 0
+  } else { chapter-show }
 
   abbr.config(style: it => { it })
 
@@ -1020,10 +1030,6 @@
     } else { (even: header-heading-levels, odd: header-heading-levels) }
   }
 
-  let highest(level) = {
-    let the-hydra = hydra(book: true, skip-starting: false, level)
-    if the-hydra == none and level > 1 { highest(level - 1) } else { the-hydra }
-  }
 
   set page(
     margin: if page-margin == auto {
@@ -1052,6 +1058,33 @@
       if /*store.get()=="m" and*/ has-header and content-switch.get() {
         let the-align
         let the-level
+        let highest(level) = {
+//        let the-hydra = hydra(book: true, skip-starting: false, level)
+          let the-hydra=hydra(
+            book:true,
+            skip-starting: false,
+            display: (ctx,cand) => {
+              if cand.at("numbering", default:none) != none {
+//                 if cand.at("supplement", default:none) != none  {
+                show: convert-text-arg(header-prefix-text)
+                if level==1 and the-chapter-show() {
+                  cand.at("supplement")
+                  [ ]
+                }
+                numbering(cand.numbering, ..counter(heading).at(cand.location()))
+                header-separator
+              }
+              let the-custom-title=header-title.at(cand.location())
+              if the-custom-title!=auto {
+                the-custom-title
+              } else {
+                cand.body
+              }
+            },
+            level
+          )
+          if the-hydra == none and level > 1 { highest(level - 1) } else { the-hydra }
+        }
         if calc.odd(counter(page).get().first()) {
           the-align = right
           the-level = the-levels.at("odd", default: 2)
@@ -1107,10 +1140,6 @@
         the-kind,
         default: settings.caption-separator.at("rest"),
       )
-    }
-
-    if type(settings.caption-prefix-text) == function {
-      the-prefix = settings.caption-prefix-text(the-prefix)
     }
 
     let the-caption-text-align = settings.caption-text-align.at(
@@ -1415,11 +1444,11 @@
     // nog anders: altijd patronen/functies zonder haakjes nemen en dus altijd toevoegen bij het zetten van de vgl.  "type(it.numbering) == function and" hierboven dan weggelaten
     // in ieder geval moet dan de show-rule van ref aangepast worden (en is dan eenvoudiger dan de huidige met numbering patronen/functies met haakjes )
 
-    let the-chapter-show = if chapter-show == auto {
-      part-number.final().first() > 0
-    } else { chapter-show }
-
-    show heading: set block(below: 1em)
+    show heading: it => {
+      set block(below: 1em)
+      it
+      set-header-title(auto)
+    }
 
     show heading.where(level: 1): it => {
       if per-chapter-numbering not in (none, false) {
@@ -1481,7 +1510,7 @@
               the-chapter-type,
             )
             let non-empty-term = (
-              the-term not in (none, [], "") and the-chapter-show
+              the-term not in (none, [], "") and the-chapter-show()
             )
             //             show text: convert-text-arg(chapter-number-text, default: (size: 3.2*base-font-size, fill: gray) )
             align(
@@ -1516,6 +1545,7 @@
         }
       }
       content-switch.update(true)
+      set-header-title(auto)
     }
 
     show outline: set heading(outlined: true)
@@ -1535,7 +1565,7 @@
       let firstlevelheading = el.func() == heading and it.level == 1
       set text(weight: "semibold") if firstlevelheading
       let thefill = if firstlevelheading { none } else { it.fill }
-      let firstlevelheading = firstlevelheading and the-chapter-show
+      let firstlevelheading = firstlevelheading and the-chapter-show()
       let is-page-number-shown = page-number-shown.at(loc)
       link(loc, block(
         width: 100%,

@@ -3,7 +3,7 @@
 #import "../defs.typ": *
 
 
-= Fundamentals of the subject <ch:funda>
+= Fundamentals of the Subject <ch:funda>
 
 In this chapter we build further on @ch:intro, and on @sbsctn:introsubsection in particular.
 

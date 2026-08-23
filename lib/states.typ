@@ -41,3 +41,5 @@
 
 #let terminology-defaults=state("terminology-defaults", default-terminology)
 
+#let header-title=state("header-title", auto)
+

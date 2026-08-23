@@ -41,13 +41,14 @@
   ),
   paper: "a4",
   font-size: 11pt,
-  chapter-show: false, // do not show "Chapter", just the number
+//   chapter-show: false, // do not show "Chapter", just the number
   figure-fill: auto, //  auto = light gray, none = no background
   subfigure-numbering: "(a)", // default: "a"
   subfigure-caption-sep: sym.space, // default: sym.colon+sym.space (": ")
 //   figure-ref-text: (weight: "semibold"), // References to figures (of all kinds) put in bold characters.
   caption-position: (theorem: top, table: top),
   header-text: (smallcaps, (size: 0.9em) ),
+  header-prefix-text: (weight: "semibold"),
 //   per-chapter-numbering: false,
 //   appendix-numbering: "Α.1", // Α = Greek capital Alpha (U+0391)
 //   appendix-numbering: "A.1", // A = Latin capital A (U+0041) = default

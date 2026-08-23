@@ -3,10 +3,9 @@
 #import "../defs.typ": * // import your own definitions
 
 
+#set-header-title[Introduction]
 
-
-= Introduction <ch:intro>
-
+= Introduction to the Subject <ch:intro>
 
 
 #lorem(50)

@@ -11,12 +11,15 @@ In the code blocks the default values of the named arguments are shown.
 + [Figures and tables](#figures-and-tables)
 + [Title page and logos](#title-page-and-logos)
 + [Functions for an (extended) abstract](#functions-for-an-extended-abstract)
++ [Miscellaneous functions](#miscellaneous-functions)
 + [Pre-defined variables](#pre-defined-variables)
 
 
 ## Functions and variables for the main file
 
-The following functions are typically used in the main file containing settings and imports of all contents (title page, front matter, chapters, appendices and back matter (such as a bibliography)).
+The functions described in this section are typically used in the main file containing settings and imports of all contents (title page, front matter, chapters, appendices and back matter (such as a bibliography)).
+
+### Main functions
 
 - <a name="thesis"></a> `thesis`  
   This function sets the total manuscript.
@@ -42,7 +45,11 @@ The following functions are typically used in the main file containing settings 
         font: auto,
         font-size: auto,
         math-font: auto,
-        math-font-size: auto,        
+        math-font-size: auto,
+        header-heading-levels: (even: 1, odd: 2),
+        header-text: none,
+        header-prefix-text: none,
+        header-separator: [ -- ],
         part-numbering: "I",
         part-number-text: auto,
         part-title-text: auto,
@@ -67,14 +74,14 @@ The following functions are typically used in the main file containing settings 
         caption-separator: sym.colon+sym.space,
         caption-textargs: (:),
         caption-num-text: (weight: "semibold"),
+        subfigure-numbering: "a",
+        subfigure-ref-numbering: auto,
         subfigure-caption-text: auto,
         subfigure-caption-pos: top,
         subfigure-caption-align: left,
         subfigure-caption-sep: auto,
-        subfigure-numbering: "a",
-        subfigure-ref-numbering: auto,
         subfigure-caption-text: auto,
-        subfigure-caption-num-text: auto,
+        subfigure-caption-prefix-text: auto,
         figure-ref-text: (:),
         body,
       )
@@ -111,7 +118,7 @@ The following functions are typically used in the main file containing settings 
   - `date`:  
     If `date` is of type `datetime`, it is added to the document properties.
   - `terminology`:  
-    Dictionary with localised terms for parts, chapters, etc. and localised titles __ 
+    Dictionary with localised terms for parts, chapters, etc. and localised titles  
     `auto` means the default terminology is used, which is defined by `default-terminology` (see `lib/settings.typ`), but only for English (en) and Dutch (nl).  
     The possible keys of the dictionary are the following (while other keys are ignored):
       - `part`: supplement for parts
@@ -148,15 +155,19 @@ The following functions are typically used in the main file containing settings 
             )
       
     The values in the dictionary can be dictionaries themselves with values for different locales. E.g., the title of the bibliography can be set by adding the following key/value pair to the `terminology` argument:
-            
-          bibliography: (
-            en: "References",
-            nl: "Referenties")
-      
-    
+
+        bibliography: (
+          en: "References",
+          nl: "Referenties"
+        )
+
     The values for the locale set by `language` and `region` will be automatically selected. E.g. if the locale is `en-GB` the values with key `en-GB` will be used. If this key is not present, the value with key `en` will be used.
     
-    For the supplements, singular and plural forms can be given as an array. If only one value is given, this will be used for the singular form. The plural form will then be the singular form with a "s" at the end (only useful in some languages).   
+    For the supplements, singular and plural forms can be given as an array, e.g.:
+    
+        chapter: ("Hoofdstuk", "Hoofdstukken")
+    
+    If only one value is given, this will be used for the singular form. The plural form will then be the singular form with a "s" at the end (only useful in some languages).   
     For keys corresponding to standard elements (indicated with <sup>*</sup> in the list above), a value `auto` (e.g. for the singular form of the supplement) means that the default Typst value is used.  
     When `math-equation` (i.e. the supplement for equations) is set to `none`, references to equations consist of the equation number between parentheses.  
 
@@ -170,18 +181,25 @@ The following functions are typically used in the main file containing settings 
       For `font`, `auto` means no text font is set, such that the default Typst font is used. For the other fonts `auto` means no font is set such that the current or default text font is used.  
       It is recommended to not use many different fonts, e.g., to set the same value for all fonts except `math-font`.  
       For `font-size`, `auto` means that no font size is set for the main text, such that the default Typst font size is used. For the other font sizes (`figure-font-size` etc.) , `auto` means that a pre-defined size relative to `font-size` is used.
-      
+  - Page `header` settings (for headers showing the heading of the current chapter/appendix or section):
+    - `header-heading-levels`: level or dictionary of levels of the headings shown in the page header.  
+      The dictionary should have two keys: `even` and `odd`, with the levels of the headings to be shown on even and odd pages. A single value (instead of a dictionary) sets the level for both even and odd pages.  
+      `none` means that no header will be shown.
+      E.g. `(even: 1, odd: 2)`: On even pages the chapter title is shown in the header and on odd pages the section title. 
+    - `header-text` and `header-prefix-text`: [text-settings](#text-settings) for the total header and the prefix (supplement and number) respectively
+    - `header-separator`: separator between the prefix and the title
+          
   - `part-numbering`, `part-number-text`,  `part-title-text`: 
     numbering format and [text settings](#text-settings) of the part number and title on the part flyleaf  
     Only relevant if the thesis is divided in [parts](#parts).
   - `chapter-numbering`, `chapter-title-text`, `chapter-show`, `chapter-number-text`, `chapter-number-align`, `chapter-title-align`: heading numbering in chapters and settings for the layout of chapter headings  
-    `chapter-show` determines if the term for chapter is added to the chapter number in the chapter heading and the table of contents. When `auto`, the term for chapter is only added if the thesis is divided into [parts](#parts).  
+    `chapter-show` determines if the term for chapter is added to the chapter number in the chapter heading, the table of contents and the page header (when first-level headings are shown in the header). When `auto`, the term for chapter is only added if the thesis is divided into [parts](#parts).  
     The alignment of the number and title in the chapter heading is also applied in part and appendix headings.
   - `appendix-numbering`: heading numbering in appendices  
     Other settings are equal to these of chapters.
   - `equation-numbering`, `figure-numbering`, `per-chapter-numbering`: numbering of equations and figures  
     The pattern for equation numbering usually contains parentheses.  
-    The `figure-numbering` may be a dictionary for setting values for one or more specific kinds of figures, see [figure-settings](#figure-settings).   
+    The `figure-numbering` may be a dictionary for setting values for one or more specific kinds of figures, see [figure-settings](#figure-settings).  
     <a name="per-chapter-numbering"></a>If `per-chapter-numbering` is set `true`, `auto` or a string (`str`), equations and figures are numbered per chapter/appendix.  The figure number (withing a chapter/appendix) is preceeded by the chapter/appendix number and a separator. If `per-chapter-numbering` is a string, this will be used as separator, otherwise the default separator (`"."`) is used.
     The combined number is then determined by  `chapter-numbering`/`appendix-numbering`, the separator and `equation-numbering`/`figure-numbering`.  
     For equations the prefix and suffix (usually parentheses) of the `equation-numbering` pattern will be applied.  
@@ -192,7 +210,7 @@ The following functions are typically used in the main file containing settings 
 
   - <a name="figure-kinds"></a>`figure-kinds`:  `dictionary` 
     Definition of kinds of figures, additional to the standard kinds, i.e. the functions `image` ("figure"), `table` ("table") and `raw` ("listing").
-    The user-defined kinds are of type `str` and their definition is given by the dictionary `figure-kinds`, the keys of which are the newly defined kinds._
+    The user-defined kinds are of type `str` and their definition is given by the dictionary `figure-kinds`, the keys of which are the newly defined kinds.  
     The format of this dictionary is:
     
           (
@@ -217,8 +235,7 @@ The following functions are typically used in the main file containing settings 
               )
             )
           ),
-    
-    
+
     This way theorems can be set via an [`m-figure`](#m-figure) (or standard `figure`):
         
         m-figure(kind: "theorem", caption: [...], ...)
@@ -240,9 +257,9 @@ The following functions are typically used in the main file containing settings 
     - `caption-align`: alignment of the caption (within the figure)
     - `caption-text-align`: alignment of the caption text: an alignment (e.g. `left` or `center`) or `"indent"`. In case of the latter, the caption will be set with a hanging indent.  
     - `caption-separator`: separator between the figure number and the caption body
-    - `caption-text:` [`text` settings](#text settings) for `figure` captions
-    - `caption-num-text`: [`text` settings](#text-settings) for the supplement and number in the caption
-    - `figure-ref-text`: [`text` settings](#text settings) for figure references
+    - `caption-text:` [`text` settings](#text-settings) for `figure` captions
+    - `caption-prefix-text`: [`text` settings](#text-settings) for the supplement and number in the caption
+    - `figure-ref-text`: [`text` settings](#text-settings) for figure references
     
     
     The figure settings can be set for all (standard and [user-defined](#figure-kinds)) kinds of figures at once or for specific kinds. In the latter case, `rest` can be used for selecting all non-mentioned kinds.
@@ -258,23 +275,17 @@ The following functions are typically used in the main file containing settings 
     sets table captions in `smallcaps`, theorem captions italic and all other captions in font Arial.
 
   - Settings of subfigures (made by means of [`m-subpar-super`](#m-subpar-super) or [`m-subpar-grid`](#m-subpar-grid):
-    - `subfigure-caption-text`: `text` ettings of the captions  
+    - `subfigure-numbering`: numbering of the subfigure
+    - `subfigure-ref-numbering`: numbering of the subfigure in references; `auto` means the same value as `subfigure-numbering`  
+      In references to subfigures, the figure number and the subfigure number are joined. By means of `subfigure-ref-numbering` the pattern of the subfigure number in this combined number can be controlled. E.g. when `subfigure-numbering` is `"a"` and  `subfigure-ref-numbering` is `".a"`, the subfigures are numbered `a`, `b`, `c` etc. in the figure and in references to the subfigures, the figure and subfigure numbers will be joined with a dot (`.`) in between.
+    - `subfigure-caption-text`: [`text` settings](#text-settings) of the captions  
     - `subfigure-caption-pos`: position of the caption (`top` or `bottom`)
       For figures of kind `table` the caption position is always `top`. 
     - `subfigure-caption-align`: alignment of the caption with respect to the whole subfigure
     - `subfigure-caption-sep`: separator of the caption; `auto` means the value set via `caption-separator`.
-    - `subfigure-numbering`: numbering of the subfigure
-    - `subfigure-ref-numbering`: numbering of the subfigure in references; `auto` means the same value as `subfigure-numbering`  
-      In references to subfigures, the figure number and the subfigure number are joined. By means of `subfigure-ref-numbering` the pattern of the subfigure number in this combined number can be controlled. E.g. when `subfigure-numbering` is `"a"` and  `subfigure-ref-numbering` is `".a"`, the subfigures are numbered `a`, `b`, `c` etc. in the figure and in references to the subfigures, the figure and subfigure numbers will be joined with a dot (`.`) in between.
-    - `subfigure-num-text`: [`text` settings](#text settings) for the number in the captions
-    - `subfigure-caption-text` and `subfigure-caption-num-text`: analogous to `caption-text` and `caption-num-text`.
-  - `header` settings:
-    - `header-heading-levels`: level or dictionary of levels of the headings shown in the header.  
-      The dictionary should have two keys: `even` and `odd`, with the levels of the headings to be shown on even and odd pages. A single value (instead of a dictionary) sets the level for both even and odd pages.  
-      `none` means that no header will be shown.
-      E.g. `(even: 1, odd: 2)`: On even pages the chapter title is shown in the header and on odd pages the section title. 
-    - `header-text`: [text-settings](#text-settings) for the header.       
-    
+    - `subfigure-caption-text` and `subfigure-caption-prefix-text`: analogous to `caption-text` and `caption-prefix-text`.
+
+
   - <a name="text-settings"></a> Settings for `text` can be given in the form of:
       - a dictionary with arguments passed to the `text` function (e.g. by means of a set-rule)__
         e.g. `(weight: "semibold", size: 9pt, font: "Arial")` 
@@ -284,50 +295,49 @@ The following functions are typically used in the main file containing settings 
         e.g. `(smallcaps, (size: 9pt, font: "Arial") )`
             
       
-The following functions are used for setting the different parts of a thesis:
+- The following functions are used for setting the different parts of a thesis:
   
-- `front-matter`
+  - `front-matter`
 
-      front-matter(
-        show-headings: true,
-        body
-      )
+        front-matter(
+          show-headings: true,
+          body
+        )
 
-- `chapter`
+  - `chapter`
 
-      chapter(
-        body
-      )
+        chapter(
+          body
+        )
 
+  - `appendix`
 
-- `appendix`
-
-      appendix(
-        flyleaf: auto,
-        body
-      )
+        appendix(
+          flyleaf: auto,
+          body
+        )
 
     - `flyleaf`:  
         sets the title on the flyleaf before the appendices  
         `auto` means the localised term for appendix/appendices (settable via the `terminology` argument of `thesis`)  
         `none` means no flyleaf
 
-- `back-matter`
+  - `back-matter`
 
-      back-matter(
-        show-headings: true,
-        body
-      )
+        back-matter(
+          show-headings: true,
+          body
+        )
 
-Setting the argument `show-headings` to `false` in `front-matter` or `back-matter` can be used to add pages with a first-level heading to the Table of Contents without showing this heading on the page itself.
+  Setting the argument `show-headings` to `false` in `front-matter` or `back-matter` can be used to add pages with a first-level heading to the Table of Contents without showing this heading on the page itself.
   
 The functions `thesis`, `front-matter`, `chapter`, `appendix` and `back-matter` are typically used in show rules, such as
     
 `#show: thesis.with(...)`
-    
-<a name="parts"></a> You can group the chapters in parts by means of the `part` function:
 
-- `part`
+### Parts
+
+<a name="parts"></a> You can group the chapters in parts by means of the `part` function:
   
       part(
         page-number: false, 
@@ -337,6 +347,7 @@ The functions `thesis`, `front-matter`, `chapter`, `appendix` and `back-matter` 
   The `part` function creates a flyleaf, indexed in the Table of Contents.  
   If `page-number` is `true` a page number is shown on the part flyleaf.
   
+### Outlines
   
 Outlines can be made by means of the following variables/functions:
 
@@ -352,60 +363,15 @@ Outlines can be made by means of the following variables/functions:
       list-of-figures = list-of-figure-kind(image)
       list-of-tables = list-of-figure-kind(table)
       list-of-listings = list-of-figure-kind(raw)
-  
-    
-The following auxilliary functions are available:
 
-- References to a list of elements:
-
-  - `ref-list()`: Reference to a list of elements (of the same kind)  
-  
-        ref-list(
-          ..args, 
-          supplement: auto, 
-          )
-          
-     `..args` is a series of labels and/or pairs of labels (arrays) of elements (of the same kind). A pair of labels refers to a range of elements and the references to the first and the last element are joined with a hyphen. If more than 2 labels are given in an array, only the first and the last ones are considered.  
-     The supplement (plural form) is pre-defined for standard elements (in English and Dutch) and can be changed or added (for other locales) via the `terminology` argument of `thesis` or `extended-abstract`. For user-defined kinds of figures, the supplements (singular and plural) are defined via the [`figure-kinds`](#figure-kinds) argument.  If needed another supplement can be provided to the `ref-list` function. 
-     
-     E.g., when `<fig1-1>`, `<fig1-4>`, `<fig1-7>`, `<fig1-9>` are the labels of figures 1.1, 1.4, 1.7 and 1.9(`figure` of kind `image`),
-     
-        ref-list( <fig1-1>, (<fig1-4>, <fig1-7>), <fig1-9> )
-          
-    will produce a reference in the form of "Figures 1.1, 1.4-1.7, and 1.9". 
-  
-  - `ref-range()`: Reference to a range of elements
-  
-        ref-range(
-          ..labels,
-          supplement: auto)
-          
-     Here two labels have to be given, producing a reference in the form "Figures 1.1-1.7". If more than two labels are given, only the first and the last one are used for determining the range.  
-     `ref-range` is a convenience function which calls `ref-list()`, e.g. `ref-range(<fig-1>,<fig-4>)` is equal to `ref-list((<fig-1>,<fig-4>))`
-  
-          
-- The package [`abbr`](https://typst.app/universe/package/abbr) is pre-loaded, such that the functions of this package for handling abbreviations can be used.
-
-- `set-page-number-width` 
+The space for setting the page numbers in outlines can be tuned by means of the `set-page-number-width` function: 
 
       set-page-number-width(pgnum-width)
       
-    The positional argument `pgnum-width` is of type `length`. The function sets the available space for the page numbers in the following outlines (Table of Contents, List of Figures, List of Tables).
-    The default value of this space is `2em`.
+  The positional argument `pgnum-width` is of type `length`. The function sets the available space for the page numbers in the following outlines (Table of Contents, List of Figures, List of Tables).
+  The default value of this space is `2em`.
+      
 
-- `hide-page-number`
-
-      hide-page-number()
-  
-  This function hides the page number on the current page. 
-  
-- `start-at-odd-page`
-  
-      start-at-odd-page(weak: true)
-  
-  This function goes to the next odd page. If a blank (even) page is inserted, its page number is hidden.__
-  If `weak` is `true` (= the default), no page will be inserted if the current page is blank.
-  
 ## Figures
 
 
@@ -440,8 +406,6 @@ The functions `m-subpar-super` and `m-subpar-grid` have some additional argument
     
 The standard arguments of `figure`, `subpar.super` and `subpar.grid` can be used in `m-figure`, `m-subpar-super` and `m-subpar-grid` respectively, but the `m-subpar-super` and `m-subpar-grid` functions have tailored default values for `numbering`, `show-sub`, `numbering-sub` and `numbering-sub-ref`.
 
-
-
 ## Title page and logos
 
 For creating the title page and the use of Ghent University logos the following functions are available.
@@ -473,7 +437,7 @@ For creating the title page and the use of Ghent University logos the following 
         supervisor-font-size: auto,
         date-font-size: auto,
       )
-  
+
     The arguments from `authors` till `terminology` can already be set via the `thesis` function. Here, `auto` means that the current values (set by `thesis`) are used.  
     The arguments related to the font and font sizes are analogous to the font related arguments of the `thesis` function.  
     Argument `additional-logo` can be used to add one or more additional logos, besides the Ghent University logo. This argument has to be a `dictionary` or an array of `dictionary` where each `dictionary` has two fields (key/value pairs): 
@@ -551,11 +515,9 @@ An extended abstract, i.e. an abstract in double-column format and with a separa
         subfigure-caption-text: auto,
         subfigure-caption-prefix-text: auto,
         figure-ref-text: (:),
-        bibliography: none,
-        read: none,
         body
       )
-      
+
     Most arguments can already be set via the `thesis` function.  
     For most arguments, `auto` means that the value set via the `thesis` function is used.  
     The locale can be changed with respect to the main document by means of the `language` and `region` arguments.  
@@ -565,11 +527,6 @@ An extended abstract, i.e. an abstract in double-column format and with a separa
     
     An extended abstract inherits the `terminology` and the `figure-kinds` set via `thesis()`, possibly for different locales, and new values can be added via the `terminology` and the `figure-kinds` arguments of `extended-abstract`. If the locale of an extended abstract is different from the main text, the `terminology` and `figure-kinds` for the abstract's locale can thus already be given via `thesis()`.  
     
-    A separate bibliography can be added by means of the following arguments:
-    - `bibliography`: path to the bibliography file
-    - `read`: has to be set to `(path) => read(path)`
-    
-    These arguments are passed to the `bibliographyx` and `alexandria` functions of the [`alexandria` package](https://typst.app/universe/package/alexandria). For referring to this bibliography in the extended abstract, the prefix `"eab-"` (meaning "extended abstract bibliography") has to be added to the label. E.g., a citation to the publication with label `"pub1"` in the bibliography file is given by `@eab-pub1`.
 
 
 For both a regular (single-page) abstract and the extended abstract, the following function can be used for setting the abstract and keywords:
@@ -622,11 +579,69 @@ The locale (language and region) can be changed via the `change-locale` function
       = Dankwoord
       
       Een dankwoord in het Nederlands...
-      
-      
-      
 
+## Miscellaneous functions      
       
+- Headers
+
+  The titles of the headings shown in the page header can be modified by means of the `set-header-title` function:
+
+      set-header-title(
+        title
+      )
+  
+  By using this function an alternative title will be shown in the header. E.g., if a header shows the first-level heading (chapter title), an alternative title can be given by applying `set-header-title` before the first-level heading: 
+    
+      #set-header-title[Introduction]
+    
+      = Introduction to the Subject of the Thesis
+
+  In this case, the shorter title "Introduction" will be used in the header instead of the real chapter title "Introduction to the ...". 
+
+- References to a list of elements:
+
+  - `ref-list()`: Reference to a list of elements (of the same kind)  
+  
+        ref-list(
+          ..args, 
+          supplement: auto, 
+          )
+
+     `..args` is a series of labels and/or pairs of labels (arrays) of elements (of the same kind). A pair of labels refers to a range of elements and the references to the first and the last element are joined with a hyphen. If more than 2 labels are given in an array, only the first and the last ones are considered.  
+     The supplement (plural form) is pre-defined for standard elements (in English and Dutch) and can be changed or added (for other locales) via the `terminology` argument of `thesis` or `extended-abstract`. For user-defined kinds of figures, the supplements (singular and plural) are defined via the [`figure-kinds`](#figure-kinds) argument.  If needed another supplement can be provided to the `ref-list` function. 
+     
+     E.g., when `<fig1-1>`, `<fig1-4>`, `<fig1-7>`, `<fig1-9>` are the labels of figures 1.1, 1.4, 1.7 and 1.9(`figure` of kind `image`),
+     
+        ref-list( <fig1-1>, (<fig1-4>, <fig1-7>), <fig1-9> )
+
+    will produce a reference in the form of "Figures 1.1, 1.4-1.7, and 1.9". 
+  
+  - `ref-range()`: Reference to a range of elements
+  
+        ref-range(
+          ..labels,
+          supplement: auto)
+
+     Here two labels have to be given, producing a reference in the form "Figures 1.1-1.7". If more than two labels are given, only the first and the last one are used for determining the range.  
+     `ref-range` is a convenience function which calls `ref-list()`, e.g. `ref-range(<fig-1>,<fig-4>)` is equal to `ref-list((<fig-1>,<fig-4>))`
+  
+          
+- The package [`abbr`](https://typst.app/universe/package/abbr) is pre-loaded, such that the functions of this package for handling abbreviations can be used.
+
+
+
+- `hide-page-number`
+
+      hide-page-number()
+  
+  This function hides the page number on the current page. 
+  
+- `start-at-odd-page`
+  
+      start-at-odd-page(weak: true)
+  
+  This function goes to the next odd page. If a blank (even) page is inserted, its page number is hidden.  
+  If `weak` is `true` (= the default), no page will be inserted if the current page is blank.
 
 ## Pre-defined variables
 
