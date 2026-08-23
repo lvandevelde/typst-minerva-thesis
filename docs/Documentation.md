@@ -287,7 +287,7 @@ The functions described in this section are typically used in the main file cont
 
 
   - <a name="text-settings"></a> Settings for `text` can be given in the form of:
-      - a dictionary with arguments passed to the `text` function (e.g. by means of a set-rule)__
+      - a dictionary with arguments passed to the `text` function (e.g. by means of a set-rule)  
         e.g. `(weight: "semibold", size: 9pt, font: "Arial")` 
       - a function used as a show rule for `text`  
         e.g. `smallcaps` 
@@ -662,7 +662,7 @@ The locale (language and region) can be changed via the `change-locale` function
       + `default-figure-fill`: `light-gray` 
       + `default-figure-inset`: `0.5em` 
       + `default-figure-font-size`: `90%`
-      + `default-caption-separator`: `sym.colon+sym.space` (`[: ]`)
+      + `default-caption-separator`: `sym.colon+sym.space` (`": "`)
       + `default-subfigure-numbering`: `"a"`
       + `default-caption-num-textargs`: `(weight: "semibold")`
   
