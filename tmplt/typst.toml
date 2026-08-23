@@ -4,7 +4,7 @@ version = "§version§"
 license = "MIT"
 entrypoint = "lib/lib.typ"
 authors = ["Lieven Vandevelde"]
-description = "Doctoral and master's theses following guidelines at Ghent University and providing some additional functions and features."
+description = "Doctoral and master's theses using both generic and Ghent University specific functions and features."
 repository = "https://github.com/lvandevelde/typst-minerva-thesis"
 keywords = [
     "template",

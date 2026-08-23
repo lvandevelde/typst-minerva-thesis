@@ -3,19 +3,19 @@
 ---
 # `minerva-thesis` - a Typst thesis template
 
-The `minerva-thesis` package provides a template for writing doctoral and master's theses with [Typst](https://typst.app/) presenting both [Ghent University](https://www.ugent.be/en) specific features and additional generic functions and features:
+The `minerva-thesis` package provides a template for writing doctoral and master's theses with [Typst](https://typst.app/) using both generic and [Ghent University](https://www.ugent.be/en) specific functions and features:
 
-- A Ghent University specific title page;
+- A Ghent University specific title page (optional);
 - Improved layout of outlines (in particular for outline entries spanning multiple lines);
 - Support of Parts, Chapters and Appendices;
-- Multi-language support: The terminology for English and Dutch dissertations (including terms for "chapter", "part", "section", etc. and various supplements) is pre-definded (and settable), but can be defined by the user for other languages.
+- Multi-language support: The terminology (including terms for "chapter", "part", "section", etc. and various supplements) is pre-defined (and settable) for English and Dutch dissertations, but can be defined for other languages by the user.
 - Figure and equation numbers including the chapter/appendix number;
 - Support of user-defined kinds of figures, next to the standard kinds (`image`, `table` and `raw`), with respect to captions, references and outlines;
 - Automised references to a list or a range of elements, e.g. references to multiple figures: "Figures 1.1, 1.4, and 1.5" or "Figures 1.1-1.3"; 
 - Omission of page numbers on blank pages before the beginning of a chapter;
 - Support of subfigures via package [`subpar`](https://typst.app/universe/package/subpar);
 - Optional (short) versions of figure captions for outlines (List of Figures, List of Tables);
-- Optional headers via package [`hydra`](https://typst.app/universe/package/hydra);
+- Optional page headers via package [`hydra`](https://typst.app/universe/package/hydra);
 - Possibility of left-aligned equations (with a settable left margin);
 - Support of background colour (`fill`) for figures and a `breakable` feature for figures (possible span over multiple pages, *experimental*);
 - Possibility to include an extended abstract, i.e. an abstract in two-column format;
