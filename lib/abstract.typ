@@ -1,7 +1,7 @@
 #import "@preview/subpar:0.2.2"
 #import "states.typ": *
 #import "utils.typ": *
-#import "main.typ":  change-locale, hide-page-number, set-equations, set-figures, set-terminology, set-locale, start-at-odd-page, split-locale, localise
+#import "main.typ":  change-locale, hide-page-number, set-equations, set-figures, set-terminology, set-locale, start-at-odd-page, split-locale, localise, convert-text-arg
 
 #let extended-abstract(
   authors: auto,
@@ -43,13 +43,14 @@
   subfigure-caption-text: auto,
   subfigure-caption-prefix-text: auto,
   figure-ref-text: none,
+  label: none,
   body,
 ) = context {
   let locale = split-locale(language, region: region)
 
   //   let the-store = "ea-" + locale.locale  // store name dependent on context gives convergence problems
 
-  let the-store = "ea-" + if type(language)==str {language} else {repr(language)} + "-" + if type(region)==str {region} else {repr(region)} + "-" + str(repr(body).len())
+  let the-store = "ea-" + if type(language)==str {language} else {repr(language)} + "-" + if type(region)==str {region} else {repr(region)} + "-" + if type(label)==std.label {str(label)} else {str(repr(body).len())}
 
   let the-localise = localise.with(locale: locale.locale)
 
@@ -200,10 +201,11 @@
       }
       par({
         set text(size: 2.4 * base-font-size, hyphenate: false) // default title text size
-        set text(..title-text) if type(title-text) == dictionary
-        if type(title-text) == function { title-text(the-title) } else {
-          the-title
-        }
+//         set text(..title-text) if type(title-text) == dictionary
+//         if type(title-text) == function { title-text(the-title) } else {
+//           the-title
+//         }
+        [ #convert-text-arg(title-text)(the-title) #label]
       })
       set text(size: 1.2 * base-font-size) // default author text size
       set text(..author-text) if type(author-text) == dictionary

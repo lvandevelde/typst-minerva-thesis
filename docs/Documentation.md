@@ -12,7 +12,7 @@ In the code blocks the default values of the named arguments are shown.
 + [Title page and logos](#title-page-and-logos)
 + [Functions for an (extended) abstract](#functions-for-an-extended-abstract)
 + [Miscellaneous functions](#miscellaneous-functions)
-+ [Pre-defined variables](#pre-defined-variables)
++ [Pre-defined variables](#predefined-variables)
 
 
 ## Functions and variables for the main file
@@ -37,13 +37,13 @@ The functions described in this section are typically used in the main file cont
         counsellors: none,
         multiple-counsellors: auto,
         date: none,
-        terminology: auto,
+        terminology: (:),
         paper: none,
         page-width: 160mm, 
         page-height: 240mm,
         page-margin: auto,
         font: auto,
-        font-size: auto,
+        font-size: 11pt,
         math-font: auto,
         math-font-size: auto,
         header-heading-levels: (even: 1, odd: 2),
@@ -68,7 +68,7 @@ The functions described in this section are typically used in the main file cont
         figure-fill: none,
         figure-inset: 0.5em, 
         figure-text: auto, 
-        caption-text: auto,
+        caption-text: none,
         caption-indent: true,
         caption-align: center,
         caption-separator: sym.colon+sym.space,
@@ -180,7 +180,7 @@ The functions described in this section are typically used in the main file cont
       
       For `font`, `auto` means no text font is set, such that the default Typst font is used. For the other fonts `auto` means no font is set such that the current or default text font is used.  
       It is recommended to not use many different fonts, e.g., to set the same value for all fonts except `math-font`.  
-      For `font-size`, `auto` means that no font size is set for the main text, such that the default Typst font size is used. For the other font sizes (`figure-font-size` etc.) , `auto` means that a pre-defined size relative to `font-size` is used.
+      For `font-size` and `math-font-size`, `auto` means that no font size is set for the main text or equations respectively, such that the default font size is used. 
   - Page `header` settings (for headers showing the heading of the current chapter/appendix or section):
     - `header-heading-levels`: level or dictionary of levels of the headings shown in the page header.  
       The dictionary should have two keys: `even` and `odd`, with the levels of the headings to be shown on even and odd pages. A single value (instead of a dictionary) sets the level for both even and odd pages.  
@@ -252,14 +252,14 @@ The functions described in this section are typically used in the main file cont
       `auto` means `default-figure-fill` (which is light gray).
     - `figure-inset`: the default inset of the outer block of `figure` elements if a background colour (`figure-fill`) is given  
     - `figure-text`: [`text` settings](#text settings) for `figure` elements   
-      `auto` means the font set via `font` and `default-figure-font-size` (=90%) of the size set via `font-size`
-    - `caption-font` and `caption-font-size`: font of figure captions; `auto` has the same meaning as for `figure-font` and `figure-font-size`
+      `auto` means the font set via the `font` argument is used and the size given by `font-size` multiplied by `default-figure-font-size` (=90%).
     - `caption-align`: alignment of the caption (within the figure)
     - `caption-text-align`: alignment of the caption text: an alignment (e.g. `left` or `center`) or `"indent"`. In case of the latter, the caption will be set with a hanging indent.  
     - `caption-separator`: separator between the figure number and the caption body
-    - `caption-text:` [`text` settings](#text-settings) for `figure` captions
+    - `caption-text:` [`text` settings](#text-settings) for `figure` captions  
+    `none` means the text settings of `figure-text` are used.
     - `caption-prefix-text`: [`text` settings](#text-settings) for the supplement and number in the caption
-    - `figure-ref-text`: [`text` settings](#text-settings) for figure references
+    - `figure-ref-text`: [`text` settings](#text-settings) for references (`ref`) to figures.
     
     
     The figure settings can be set for all (standard and [user-defined](#figure-kinds)) kinds of figures at once or for specific kinds. In the latter case, `rest` can be used for selecting all non-mentioned kinds.
@@ -267,7 +267,7 @@ The functions described in this section are typically used in the main file cont
     
         caption-text: ( smallcaps, (font: "Arial") ),
         figure-ref-text: (weight: "semibold")
-    
+
     sets captions in `smallcaps` and font Arial, and references to figures in `"semibold"` for all kinds,  while
     
         caption-text: (table: smallcaps, theorem: (style: "italic"), rest: (font: "Arial") )
@@ -297,7 +297,7 @@ The functions described in this section are typically used in the main file cont
       
 - The following functions are used for setting the different parts of a thesis:
   
-  - `front-matter`
+  - <a name="front-matter"></a> `front-matter` 
 
         front-matter(
           show-headings: true,
@@ -482,51 +482,54 @@ An extended abstract, i.e. an abstract in double-column format and with a separa
         multiple-counsellors: auto,
         language: auto,
         region: auto,
-        terminology: auto,
         keywords: auto,
+        terminology: (math-equation: (supplement: none)),
+        flyleaf: auto,
         font: auto,
         font-size: 10pt,
-        title-font: auto,
-        title-font-size: auto,
-        author-font: auto,
-        author-font-size: auto,
         math-font: auto,
         math-font-size: auto,
+        equation-numbering: "(1)",
         equation-left-margin: auto,
+        title-text: auto,
+        author-text: auto,
         figure-kinds: (:),
+        figure-numbering: (table: "I"),
         figure-fill: none,
         figure-inset: auto,
-        figure-font: auto,
-        figure-font-size: auto,
-        caption-font: auto,
-        caption-font-size: auto,
+        figure-text: auto,
+        caption-position: auto,
         caption-align: auto,
-        caption-text-align: auto,
+        caption-text-align: left,
         caption-separator: auto,
-        caption-text: (:),
-        caption-num-text: (:),
-        subfigure-caption-font: auto,
-        subfigure-caption-font-size: auto,
-        subfigure-caption-pos: auto,
+        caption-text: auto,
+        caption-prefix-text: none,
+        subfigure-caption-position: auto,
         subfigure-caption-align: auto,
+        subfigure-caption-text-align: auto,
         subfigure-caption-sep: auto,
         subfigure-numbering: auto,
         subfigure-ref-numbering: auto,
         subfigure-caption-text: auto,
         subfigure-caption-prefix-text: auto,
-        figure-ref-text: (:),
+        figure-ref-text: none,
+        label: none,
         body
       )
 
     Most arguments can already be set via the `thesis` function.  
     For most arguments, `auto` means that the value set via the `thesis` function is used.  
     The locale can be changed with respect to the main document by means of the `language` and `region` arguments.  
-    Some values for the figure related arguments have been predefined:  `default-figure-fill`, `default-figure-inset`, `default-figure-font-size`, `default-figure-numbering`,  `default-caption-position`,  `default-caption-separator`,  `default-subfigure-numbering`, `default-subfigure-ref-numbering`,  `default-caption-prefix-text`, e.g., for resetting non-default arguments set via the `thesis` function to their default value,  
+    The arguments `title-text` and `author-text` are the [`text` settings](#text-settings) of the title and the rest of the heading respectively. `auto` means some predefined settings.
+     
+    Some values for the figure related arguments have been predefined:  `default-figure-fill`, `default-figure-inset`, `default-figure-font-size`, `default-figure-numbering`,  `default-caption-position`,  `default-caption-separator`,  `default-subfigure-numbering`, `default-subfigure-ref-numbering`,  `default-caption-prefix-text`, e.g., for resetting non-default arguments set via the `thesis` function to their default value.  
     If `keywords` is not `auto` the keywords set via the `thesis` function are overwritten (for the rest of the thesis, not only for the current abstract).  
     The additional font related arguments are analogous to the font related arguments of the `thesis` function.
     
     An extended abstract inherits the `terminology` and the `figure-kinds` set via `thesis()`, possibly for different locales, and new values can be added via the `terminology` and the `figure-kinds` arguments of `extended-abstract`. If the locale of an extended abstract is different from the main text, the `terminology` and `figure-kinds` for the abstract's locale can thus already be given via `thesis()`.  
+    The `flyleaf` argument (of type `bool` (boolean) or `auto`) sets whether the extended abstract is preceeded by a flyleaf. `auto` means a flyleaf is shown if it appears in a environment where `show-headings` is switched on, e.g. in [`front-matter`](#front-matter) where `show-headings` is `true`.  
     
+    The `label` argument (of type `label` or `none`) sets the label attached to the title of the extended abstract.   
 
 
 For both a regular (single-page) abstract and the extended abstract, the following function can be used for setting the abstract and keywords:
@@ -608,7 +611,7 @@ The locale (language and region) can be changed via the `change-locale` function
           )
 
      `..args` is a series of labels and/or pairs of labels (arrays) of elements (of the same kind). A pair of labels refers to a range of elements and the references to the first and the last element are joined with a hyphen. If more than 2 labels are given in an array, only the first and the last ones are considered.  
-     The supplement (plural form) is pre-defined for standard elements (in English and Dutch) and can be changed or added (for other locales) via the `terminology` argument of `thesis` or `extended-abstract`. For user-defined kinds of figures, the supplements (singular and plural) are defined via the [`figure-kinds`](#figure-kinds) argument.  If needed another supplement can be provided to the `ref-list` function. 
+     The supplement (plural form) is predefined for standard elements (in English and Dutch) and can be changed or added (for other locales) via the `terminology` argument of `thesis` or `extended-abstract`. For user-defined kinds of figures, the supplements (singular and plural) are defined via the [`figure-kinds`](#figure-kinds) argument.  If needed another supplement can be provided to the `ref-list` function. 
      
      E.g., when `<fig1-1>`, `<fig1-4>`, `<fig1-7>`, `<fig1-9>` are the labels of figures 1.1, 1.4, 1.7 and 1.9(`figure` of kind `image`),
      
@@ -645,7 +648,7 @@ The locale (language and region) can be changed via the `change-locale` function
 
 ## Pre-defined variables
 
-  Some pre-defined variables are available to the user, amongst others:
+  Some predefined variables are available to the user, amongst others:
   
   + colours of Ghent University corporate identity:
       
@@ -666,4 +669,4 @@ The locale (language and region) can be changed via the `change-locale` function
       + `default-subfigure-numbering`: `"a"`
       + `default-caption-num-textargs`: `(weight: "semibold")`
   
-  The full list of pre-defined variables can be found in `lib/settings.typ`.
+  The full list of predefined variables can be found in `lib/settings.typ`.

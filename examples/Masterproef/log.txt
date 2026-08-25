@@ -1,0 +1,32 @@
+error: type none has no method `at`
+   ┌─ ../../lib/utils.typ:57:25
+   │
+57 │       if language==auto {default.at("language",default:none)} else {language},
+   │                          ^^^^^^^^^^
+
+  while calling `get-locale` at ../../lib/abstract.typ:278:13
+    get-locale(language, region)
+
+warning: document did not converge within five attempts
+ = hint: see 1 additional warning for more details
+ = hint: see https://typst.app/help/convergence for help
+
+warning: page number of the heading did not stabilize
+     ┌─ ../../lib/main.typ:1056:23
+     │
+1056 │             .map(it => it.location().page())
+     │                        ^^^^^^^^^^^^^^^^^^^^
+     │
+     ┌─ FrontMatter/uitgebreide-samenvatting.typ:97:0
+     │
+  97 │ = Besluit
+     │ --------- heading was created here
+     │
+     = hint: the following page numbers were observed:
+       - run 1: page 1
+       - run 2: page 13
+       - run 3: page 17
+       - run 4: page 18
+       - run 5: page 18
+       - final: page 17
+

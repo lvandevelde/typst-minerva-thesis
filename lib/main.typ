@@ -1539,6 +1539,7 @@
         }
       }
       start-at-odd-page()
+      set par(justify: false)
       if show-heading.get() {
         let the-term
         let non-empty-term
