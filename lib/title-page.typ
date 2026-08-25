@@ -1,6 +1,6 @@
 #import "states.typ": *
 #import "utils.typ": *
-#import "main.typ": hide-page-number
+#import "main.typ": hide-page-number, split-locale, localise
 
 #let ugent-logo(language: auto, ..args) = context{
   let the-language=upper(if language==auto{split-locale(auto).language} else {language})
@@ -21,7 +21,7 @@
   counsellors: auto,
   multiple-counsellors: auto,
   date: auto,
-  language: auto, // "en" or "nl", case-insensitive
+  language: auto, // case-insensitive
   region: auto,
   faculty: auto, // faculty code, case-insensitive
   description: auto,

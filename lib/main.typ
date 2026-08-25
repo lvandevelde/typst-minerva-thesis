@@ -481,6 +481,80 @@
   the-args
 }
 
+
+#let compose-locale(language, region: auto)={
+  let the-region=if region==auto {default-region.at(language, default: none)} else {region}
+  lower(language)+if the-region!=none {locale-sep+upper(the-region)}
+}
+
+#let locales=state("locales",(m: compose-locale(default-language))) // must be initialised, otherwise problems with getting current locale
+// #let locales=state("locales",(m: "nl-BE"))
+// #let locales=state("locales",(:))
+
+#let current-locale()={locales.get().at(store.get(), default: none)}
+
+#let set-locale(locale, store: none)= body => {
+  locales.update(it => {
+    it.insert(store, locale.locale)
+    it
+    }
+  )
+  set text(
+      lang: locale.language,
+      region: locale.region,
+  )
+  body
+}
+
+#let split-locale(locale, region: auto)={
+  let the-locale=(if type(locale)==str {locale}  else {current-locale()})
+  if the-locale!=none {
+    the-locale=the-locale.split(locale-sep)
+    let language=the-locale.at(0)
+    let region=if the-locale.len()>1 {the-locale.at(1)} else { if region==auto  {default-region.at(language, default: none)} else {region}  }
+    (language: language,  region: region, locale: compose-locale(language, region: region))
+  } /*else {
+    split-locale(locales.get().at("m")) // if current-locale() is not found, then the default locale (m)
+  }*/
+}
+
+
+#let localise(item, locale: auto, final: true)={
+//   let not-found=(found:false)
+  let is-locale(dict)={
+    let is-loc=dict.len()>0
+    for key in dict.keys() {
+      is-loc=is-loc and (key.len()==2 or (key.len()==5 and key.at(2)==locale-sep))
+    }
+    is-loc
+  }
+
+
+  let the-locale=split-locale(locale)
+  let localised= if type(item)==dictionary {
+    if is-locale(item) {
+      if the-locale.locale in item {
+        localise(item.at(the-locale.locale), locale: the-locale.locale, final: false )
+      } else if the-locale.region!=none and the-locale.language in item {
+        localise(item.at(the-locale.language), locale: the-locale.locale, final: false)
+      } else { (found:false) }
+    } else {
+      let dict=(:)
+      for (key,value) in item {
+        value=localise(value, locale: the-locale.locale, final: false)
+        if value.found  {dict.insert(key,value.value)}
+      }
+      (found: true, value: dict)
+    }
+  } else if type(item)==array {
+      (found: true, value: item.map(it=>localise(it, locale: the-locale.locale)) )
+  } else {
+    (found: true, value: item)
+  }
+  if final {if localised.found {localised.value} else {none}} else {localised}
+}
+
+
 #let set-figures(
   base-font: none,
   base-font-size: none,
@@ -931,7 +1005,9 @@
   store.update(the-store)
 
   let locale = split-locale(language, region: region)
-  set-locale(locale.locale, store: the-store)
+//   set-locale(locale.locale, store: the-store)
+
+
 
   let the-localise = localise.with(locale: locale.locale)
   let the-terminology = the-localise(default-terminology)
@@ -1011,10 +1087,10 @@
   set text(font: font) if font != auto
   set text(size: font-size) if type(font-size) == length
 
-  set text(
-    lang: locale.language,
-    region: locale.region,
-  )
+//   set text(
+//     lang: locale.language,
+//     region: locale.region,
+//   )
 
   set par(justify: true)
   set list(indent: 0.5em)
@@ -1385,6 +1461,8 @@
       } else { per-chapter-numbering },
     )
 
+    show: set-locale(locale, store: the-store)
+
     show: set-figures(
       base-font: text.font,
       base-font-size: base-font-size,
@@ -1650,7 +1728,10 @@
     set document(date: date) if type(date) == datetime
 
     body
+
   }
+
+
 }
 
 
@@ -1986,21 +2067,16 @@
       + the-per-chapter-numbering
   )
 
-  let the-store = "cl-" + locale.locale
+
+  let the-store = "cl-" + if type(language)==str {language} else {repr(language)} + "-" + if type(region)==str {region} else {repr(region)} + "-" + str((repr(body)+repr(terminology)+repr(figure-set)+repr(equation-set)+repr(per-chapter-numbering)).len())
 
   store.update(the-store)
 
-  set-locale(locale.locale, store: the-store)
-
   {
+    show: set-locale(locale, store: the-store)
     show: set-terminology(the-terminology, store: the-store)
     show: set-figures(..the-figure-settings, store: the-store)
     show: set-equations(..the-equation-settings, store: the-store)
-
-    set text(
-      lang: locale.language,
-      region: locale.region,
-    )
 
     body
   }

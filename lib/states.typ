@@ -43,3 +43,4 @@
 
 #let header-title=state("header-title", auto)
 
+// #let locales=state("locales",(m: "en-GB"))
