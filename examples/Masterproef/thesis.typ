@@ -144,8 +144,6 @@
 #bibliography("references.yaml") 
 
 
-#import "../../lib/main.typ": locales
 
-#context{
-repr(locales.get())
-}
+
+
