@@ -2,7 +2,7 @@
 
 = Abstract 
 
-#show: abstract-keywords // By default, no "Abstract---" label is shown. 
+#show: abstract-keywords // By default, no "Abstract---" label is shown.
 In this thesis ... #lorem(20)
 
   In @part:intro ... #lorem(10)

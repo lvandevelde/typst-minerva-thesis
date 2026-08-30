@@ -37,7 +37,7 @@
   date-font-size: auto
 ) = context{
 
-  hide-page-number()
+  hide-page-number
   
   
   let locale=split-locale(language, region: region)
@@ -147,12 +147,11 @@
   
   pagebreak()
 
-  hide-page-number()
+  hide-page-number
   
-  v(1fr)
-
   if ids!=none {
+    v(1fr)
     if type(ids)==array { for id in ids [#id \ ] } else [#ids]
   }
-  pagebreak(to: "odd", weak: true)
+//   pagebreak(to: "odd", weak: true)
 }

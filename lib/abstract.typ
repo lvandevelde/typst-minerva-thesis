@@ -1,7 +1,7 @@
 #import "@preview/subpar:0.2.2"
 #import "states.typ": *
 #import "utils.typ": *
-#import "main.typ":  change-locale, hide-page-number, set-equations, set-figures, set-terminology, set-locale, start-at-odd-page, split-locale, localise, convert-text-arg
+#import "main.typ":  change-locale, hide-page-number, set-header-title, set-equations, set-figures, set-terminology, set-locale, start-at-odd-page, split-locale, localise, convert-text-arg
 
 #let extended-abstract(
   authors: auto,
@@ -152,11 +152,14 @@
   let the-flyleaf = if flyleaf == auto { show-heading.get() } else { flyleaf }
 
   if the-flyleaf {
+    set heading(outlined: false, bookmarked: false) // ToC & bookmarks refer to the first page of the abstract directly
     [= #the-terminology.extended-abstract]
-    hide-page-number()
+    hide-page-number
+//     set-header-title(the-terminology.extended-abstract)
   }
-
+  set-header-title(the-terminology.extended-abstract)
   start-at-odd-page()
+  header-on-page.update(true)
   set page(columns: 2)
 
   store.update(the-store)
@@ -195,10 +198,10 @@
     set figure(outlined: false)
 
     place(top + center, float: true, scope: "parent", {
-      if not the-flyleaf {
+//       if not the-flyleaf {
         show heading: it => {} // just create an entry for the toc
         [= #the-terminology.extended-abstract]
-      }
+//       }
       par({
         set text(size: 2.4 * base-font-size, hyphenate: false) // default title text size
 //         set text(..title-text) if type(title-text) == dictionary
@@ -256,6 +259,11 @@
       style: "italic",
     )
 
+    show heading: it => {
+      it
+      set-header-title(the-terminology.extended-abstract) // in show rule of heading header-title is set to auto, thus overrule this again
+    }
+
     show heading.where(level: 1): it => {
       set text(style: "normal")
       align(center, smallcaps(
@@ -270,9 +278,9 @@
   }
 
   store.update(store.get()) // previous store
-
+  start-at-odd-page()
   set page(columns: 1)
-
+  set-header-title(auto)
   // reset counters  (only needed if content without per-chapter-numbering follows)
   counter(math.equation).update(0)
   counter(figure.where(kind: image)).update(0)

@@ -35,7 +35,7 @@
 
 #show: front-matter.with(show-headings:false)
 = Examination Board // heading shown in the Table of Contents but not on the page itself
-#hide-page-number()
+#hide-page-number
 #include "FrontMatter/jury.typ"
 
 

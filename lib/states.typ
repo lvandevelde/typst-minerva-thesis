@@ -31,15 +31,19 @@
 #let figure-settings = state("figure-settings", (:))
 #let equation-settings = state("equation-settings", (:))
 
-#let content-switch = state("content.switch", false)
-#let show-page-number = state("show-page-number", true)
-#let page-number-shown = state("page-number-shown", false)
+#let content-switch = state("content.switch", true)
+
 #let page-number-on-page = state("page-number-on-page", true)
+#let show-header = state("show-header", false)
+#let show-page-number = state("show-page-number", true)
+#let header-on-page = state("header-on-page", true)
+
 #let page-number-width = state("page-number-width", 2em)
 
 #let terminologies=state("terminologies", (:))
 
 #let terminology-defaults=state("terminology-defaults", default-terminology)
+
 
 #let header-title=state("header-title", auto)
 

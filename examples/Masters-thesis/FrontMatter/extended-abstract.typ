@@ -5,6 +5,7 @@
 #show: extended-abstract.with(
   flyleaf: false,
   font-size: 10pt,
+//   language: "en",
   caption-align: center,
 //   caption-text: (theorem: smallcaps),
 //   caption-text-align: center,
@@ -106,6 +107,7 @@ According to  @ea-the1, ...
 
 #show bibliography: set par(spacing: 0.65em, leading: 0.65em) // decrease spacing between entries
 #show bibliography: set block(above: 1.2em) // some extra space between heading and first entry (entries are in a block)
-// from Typst v0.15.0 onwards:
+
 #bibliography("../references.yaml",group: none)
+
 

@@ -44,7 +44,7 @@
 //   chapter-show: false, // do not show "Chapter", just the number
   figure-fill: auto, //  auto = light gray, none = no background
   subfigure-numbering: "(a)", // default: "a"
-  subfigure-caption-sep: sym.space, // default: sym.colon+sym.space (": ")
+//   subfigure-caption-sep: sym.space, // default: sym.colon+sym.space (": ")
 //   figure-ref-text: (weight: "semibold"), // References to figures (of all kinds) put in bold characters.
   caption-position: (theorem: top, table: top),
   header-text: (smallcaps, (size: 0.9em) ),
@@ -72,10 +72,10 @@
 
 // optional:
 #include "FrontMatter/confidentiality.typ"
-#hide-page-number()
+#hide-page-number
   
 #include "FrontMatter/explanation-exam.typ"
-#hide-page-number()
+#hide-page-number
 
 
 #show: front-matter
@@ -145,3 +145,6 @@
 
 // #bibliography("references.bib")  
 #bibliography("references.yaml") 
+
+
+

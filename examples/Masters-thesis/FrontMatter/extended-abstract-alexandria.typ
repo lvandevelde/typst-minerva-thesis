@@ -1,22 +1,23 @@
 #import "@local/minerva-thesis:0.3.0": *
+#import "@preview/alexandria:0.2.2": *
 
 #import "../defs.typ": *
 
 #show: extended-abstract.with(
   flyleaf: false,
   font-size: 10pt,
-  language: "en",
   caption-align: center,
 //   caption-text: (theorem: smallcaps),
 //   caption-text-align: center,
-  caption-prefix-text: (weight: "regular"),
   subfigure-numbering: default-subfigure-numbering, //restore the default value (instead of the value set by "thesis.with(...)" in thesis.typ
   subfigure-caption-sep: default-caption-separator, //restore the default value  
-  subfigure-caption-prefix-text: (weight: "regular"), // set the number of subfigures in semibold
-  label: <extended-abstract>
+  subfigure-caption-prefix-text: (weight: "semibold"), // set the number of subfigures in semibold
+//   bibliography: "../references.yaml",
+//   bib-prefix: "eab-",
+//   read: path => read(path)
   )
 
-#set figure(outlined: false)
+#show: alexandria(prefix: "eab-", read: path=>read(path))
 
 //in an extended abstract (in English) the abstract should follow directly "#abstract-keywords["  (without spaces or a newline) in order to continue the text directly after "Abstract-"
 #abstract-keywords[In this thesis ...
@@ -41,7 +42,7 @@ The Maxwell stress tensor $tTM$ is given by:
 $ tTM =  vB vH - 1/2 mu_0 H^2 tI $ <ea-eq:TM>
 where $vB$, $vH$ are the magnetic flux density and field strength respectively and $tI$ is the unity tensor.
 
-The expression @ea-eq:TM has been derived by #cite(<EeFff2025>, form: "prose") and is widely used  @GgHhh2025, @IiJjj2025.
+The expression @ea-eq:TM has been derived by #cite(<eab-EeFff2025>, form: "prose") and is widely used  @eab-GgHhh2025, @eab-IiJjj2025.
  //In the extended abstract commas have to be added manually between the citations.
 
 === Example
@@ -53,10 +54,9 @@ table(
 columns:2,
 [x], [y], 
 [1], [2]),
-caption: [A Simple Table],
+caption: [A Simple Table], 
 label: <ea-table1>
 ) 
-
 
 
 #m-subpar-grid(
@@ -95,7 +95,7 @@ In @ea-table2 we see two subtables:
 
 #lorem(100)
 
-See @AaBbb2025 and @CcDdd2025 for more explanation.
+See @eab-AaBbb2025 and @eab-CcDdd2025 for more explanation.
 
 #m-figure([$x=y<=>y=x$], kind:"theorem", caption: [A very short theorem],label: <ea-the1>)
 
@@ -106,9 +106,7 @@ According to  @ea-the1, ...
 
 #lorem(120)
 
-#show bibliography: set par(spacing: 0.65em, leading: 0.65em) // decrease spacing between entries
-#show bibliography: set block(above: 1.2em) // some extra space between heading and first entry (entries are in a block)
 
-#bibliography("../references.yaml",group: none)
-
-
+#set heading(numbering: none)
+#set par(leading: 0.65em, spacing: 0.65em)
+#bibliographyx("../references.yaml", prefix: "eab-", title: "References")

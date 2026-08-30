@@ -898,19 +898,39 @@
   page-number-width.update(pg-width)
 }
 
-#let hide-page-number() = {
+#let hide-page-number = { // page number on the current page (does not affect page number in the ToC)
   page-number-on-page.update(false)
 }
 
+#let hide-page-header ={
+  header-on-page.update(false)
+}
+
+#let show-headers(switch)={
+  show-header.update(switch)
+}
+
+#let show-page-numbers(switch)={  // both on the page itself and in the ToC
+  show-page-number.update(switch)
+}
+
 #let start-at-odd-page(weak: true) = {
-  content-switch.update(false)
+  content-switch.update(false) // used to omit page number and header on inserted blank page and omit header on the next (odd) page
   pagebreak(weak: weak, to: "odd")
+  content-switch.update(true)
+  page-number-on-page.update(true)
+}
+
+#let double-blank-page={
+  start-at-odd-page(weak:false)
+  hide-page-number
+  start-at-odd-page(weak:false)
 }
 
 #let part-number = counter("part")
 
 #let part(title, page-number: false, label: none) = context {
-  if not page-number { show-page-number.update(false) }
+  if not page-number {show-page-numbers(false)}
   // supplement is needed to detect a part in the ref show-rule. The number is stored in part-number.
   show heading.where(level: 1): set heading(
     numbering: none,
@@ -934,8 +954,9 @@
   [ #heading(title, outlined: false, bookmarked: false) #if label != none {
       label
     } ]
+  start-at-odd-page()
+  if not page-number {show-page-numbers(true)}
   part-heading.update(false)
-  if not page-number { show-page-number.update(true) }
 }
 
 
@@ -1106,6 +1127,13 @@
     } else { (even: header-heading-levels, odd: header-heading-levels) }
   }
 
+// Controle van het tonen van paginanummers en headers bij een pagebreak via boolean state ("switch") content-switch
+// paginanummer en headers worden geregeld via  page-number-on-page en header-on-page
+// content-switch  wordt ingesteld in start-at-odd-page()
+// Bij een pagebreak() met daarop volgend een state-update, wordt de state-update maar uitgevoerd op de nieuwe pagina, dus nadat de header op die pagina al is gezet. In de header van die pagina zijn de vroegere state nog actief.
+// start-at-odd-page()  zet content-switch false van de huidige pagina tot en met de header van de eerstvolgende oneven pagina
+// In de footer van huidige en evt. de ingevoegde even pagina wordt  page-number-on-page en header-on-page op false gezet zodat op de volgende pagina geen paginanummer en header worden gezet. Op de eerstvolgende oneven pagina wordt page-number-on-page wel terug aangezet.
+// Om header en paginanummer beide terug aan te zetten op eerstvolgende oneven pagina, de content-switch weer aanzetten in de footer (nu als comment hieronder)
 
   set page(
     margin: if page-margin == auto {
@@ -1116,22 +1144,8 @@
         outside: 15mm,
       )
     } else { page-margin },
-    // set page-number-shown to (content-switch or level-1 heading on page) and (page-numbering!=none and show-page-number)
-    //                        = or-condition and and-condition
-    // show-page-number has to be set before the page is made, false means no page number at all (not on the page, nor in the outline)
     header: context {
-      let or-condition-1 = content-switch.get()
-      let and-condition = page.numbering != none and show-page-number.get()
-      // perform the query for level-1 heading on page (= the second factor of the or-condittion) only if needed.
-      if (not or-condition-1) and and-condition {
-        // only the second factor of the or-condition has to be checked as the first one is false and the and-condition is true
-        page-number-shown.update(
-          query(heading.where(level: 1))
-            .map(it => it.location().page())
-            .contains(here().page()),
-        )
-      } else { page-number-shown.update(and-condition) }
-      if /*store.get()=="m" and*/ has-header and content-switch.get() {
+      if has-header and show-header.get() and header-on-page.get() {
         let the-align
         let the-level
         let highest(level) = {
@@ -1140,22 +1154,21 @@
             book:true,
             skip-starting: false,
             display: (ctx,cand) => {
-              if cand.at("numbering", default:none) != none {
-//                 if cand.at("supplement", default:none) != none  {
-                show: convert-text-arg(header-prefix-text)
-                if level==1 and the-chapter-show() {
-                  cand.at("supplement")
-                  [ ]
+                if cand.at("numbering", default:none) != none {
+                  show: convert-text-arg(header-prefix-text)
+                  if level==1 and the-chapter-show() and cand.at("supplement", default:none) != none  {
+                    cand.at("supplement")
+                    [ ]
+                  }
+                  numbering(cand.numbering, ..counter(heading).at(cand.location()))
+                  header-separator
                 }
-                numbering(cand.numbering, ..counter(heading).at(cand.location()))
-                header-separator
-              }
-              let the-custom-title=header-title.at(cand.location())
-              if the-custom-title!=auto {
-                the-custom-title
-              } else {
-                cand.body
-              }
+                let the-custom-title=header-title.at(cand.location())
+                if the-custom-title!=auto {
+                  the-custom-title
+                } else {
+                  cand.body
+                }
             },
             level
           )
@@ -1174,22 +1187,32 @@
           width: 100%,
           stroke: (bottom: 0.5pt),
           inset: (bottom: 0.5em),
-          convert-text-arg(header-text)(highest(the-level)),
+//           convert-text-arg(header-text)(highest(the-level))
+          convert-text-arg(header-text)(
+            if store.get().match(regex("^ea-")) != none {
+              if type(header-title.get()) in (content,str) {header-title.get()}
+            } else {
+              highest(the-level)
+            })
         ))
       }
+//       else { repr(content-switch.get())+[ ]+repr(header-on-page.get()) } // debug
+      header-on-page.update(true) // The default (for the next page) is true.
     },
-    // page-number-on-page can be set on the page itself (default=true). If false no page number is set on the page itself.
-    // Whether the page number is shown in the outline or not depends on page-number-shown (which is set in header)
     footer: context {
-      if page-number-shown.get() {
-        if page-number-on-page.get() {
+      if page.numbering !=none and show-page-number.get() and page-number-on-page.get() {
           align(
             if calc.odd(counter(page).get().first()) { right } else { left },
             counter(page).display(),
           )
-        }
       }
-      page-number-on-page.update(true) // The default (for the next page) is true.
+      if not content-switch.get() { // content-switch can be set false by start-at-odd-page()
+        page-number-on-page.update(false) // no page number on the next page (if inserted)
+        header-on-page.update(false) // no page number on the next page (if inserted)
+      } else {
+        page-number-on-page.update(true) // The default (for the next page) is true.
+      }
+//       content-switch.update(true) // If page numbers and headers should be switched on again on first page after start-at-odd-page()
     },
   )
 
@@ -1544,7 +1567,7 @@
         let the-term
         let non-empty-term
         if part-heading.get() {
-          v(8mm)
+          v(2*base-font-size)
           {
             the-term = get-heading-term(
               terminologies.get().at(store.get()),
@@ -1582,7 +1605,7 @@
           )
         } else {
           let the-chapter-type = chapter-type.get()
-          v(8mm)
+          v(2*base-font-size)
           if it.numbering != none {
             the-term = get-heading-term(
               terminologies.get().at(store.get()),
@@ -1620,10 +1643,9 @@
               hyphenate: false,
             ))(it.body),
           )
-          v(12mm)
+          v(4.8 * base-font-size)
         }
       }
-      content-switch.update(true)
       set-header-title(auto)
     }
 
@@ -1645,7 +1667,7 @@
       set text(weight: "semibold") if firstlevelheading
       let thefill = if firstlevelheading { none } else { it.fill }
       let firstlevelheading = firstlevelheading and the-chapter-show()
-      let is-page-number-shown = page-number-shown.at(loc)
+      let is-page-number-shown = it.page() not in ("",[],none) and show-page-number.at(loc)
       link(loc, block(
         width: 100%,
         block(
@@ -1941,21 +1963,28 @@
   )
 }
 
-#let front-matter(show-headings: true, body) = {
+#let front-matter(show-headings: true, show-headers: false, body) = {
+
+  start-at-odd-page()
   set page(numbering: "i")
+
   set heading(numbering: none)
   show-heading.update(show-headings)
   filled-outline.update(true)
   chapter-type.update(none)
 
+  show-header.update(show-headers)
+
   body
 }
 
-#let chapter(body) = context {
+#let chapter(show-headers: true, body ) = context {
   let the-chapter-type = "chapter"
-  chapter-type.update(the-chapter-type)
-  set page(numbering: "1")
+
   start-at-odd-page()
+  set page(numbering: "1")
+
+  chapter-type.update(the-chapter-type)
   counter(page).update(1)
   show-heading.update(true)
   set heading(numbering: compose-pattern(
@@ -1968,13 +1997,13 @@
   ))
   counter(heading).update(0) // not really necessary as front-matter headings are not numbered
   filled-outline.update(false)
+  show-header.update(show-headers)
 
   body
 }
 
-#let appendix(flyleaf: auto, body) = context {
+#let appendix(flyleaf: auto, show-headers: true, body) = context {
   let the-chapter-type = "appendix"
-  chapter-type.update(the-chapter-type)
   let the-terminology = terminologies.get().at(store.get())
   let appendix-label = get-heading-term(
     the-terminology,
@@ -1994,19 +2023,23 @@
     )).after(here()),
   ).len()
 
-  if flyleaf != none and n-app > 0 {
-    show-page-number.update(false)
-    start-at-odd-page()
+  start-at-odd-page()
+  set page(numbering: "1")
+
+  chapter-type.update(the-chapter-type)
+
+  if flyleaf not in (none,false) and n-app > 0 {
+    show-page-numbers(false)
     set heading(numbering: none)
     [= #{
       if flyleaf == auto {
         if n-app == 1 { appendix-label } else { appendices-label }
       } else { flyleaf }
     }]
-    show-page-number.update(true)
+    start-at-odd-page()
+    show-page-numbers(true)
   }
 
-  set page(numbering: "1")
   show-heading.update(true)
   counter(heading).update(0)
   set heading(numbering: compose-pattern(
@@ -2014,17 +2047,21 @@
   ))
   show heading.where(level: 1): set heading(supplement: appendix-label)
   filled-outline.update(false)
-
+  show-header.update(show-headers)
   body
 }
 
-#let back-matter(show-headings: true, body) = {
+#let back-matter(show-headings: true, show-headers: true, body) = {
+
+  start-at-odd-page()
   set page(numbering: "1")
   show-heading.update(show-headings)
   set heading(numbering: none)
   show heading.where(level: 1): set heading(supplement: none)
   filled-outline.update(true)
   chapter-type.update(none)
+
+  show-header.update(show-headers)
 
   body
 }

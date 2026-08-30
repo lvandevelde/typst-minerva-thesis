@@ -55,10 +55,10 @@
 
 // optional:
 #include "FrontMatter/confidentiality.typ"
-#hide-page-number()
+#hide-page-number
   
 #include "FrontMatter/explanation-exam.typ"
-#hide-page-number()
+#hide-page-number
 
 
 #show: front-matter

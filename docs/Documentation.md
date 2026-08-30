@@ -69,10 +69,9 @@ The functions described in this section are typically used in the main file cont
         figure-inset: 0.5em, 
         figure-text: auto, 
         caption-text: none,
-        caption-indent: true,
+        caption-text-align: "indent",
         caption-align: center,
         caption-separator: sym.colon+sym.space,
-        caption-textargs: (:),
         caption-num-text: (weight: "semibold"),
         subfigure-numbering: "a",
         subfigure-ref-numbering: auto,
@@ -301,12 +300,14 @@ The functions described in this section are typically used in the main file cont
 
         front-matter(
           show-headings: true,
+          show-headers: false,
           body
         )
 
   - `chapter`
 
         chapter(
+          show-headers: true,
           body
         )
 
@@ -314,22 +315,25 @@ The functions described in this section are typically used in the main file cont
 
         appendix(
           flyleaf: auto,
+          show-headers: true,
           body
         )
 
     - `flyleaf`:  
         sets the title on the flyleaf before the appendices  
-        `auto` means the localised term for appendix/appendices (settable via the `terminology` argument of `thesis`)  
-        `none` means no flyleaf
+        `auto` means the localised term for appendix/appendices (settable via the `terminology` argument of `thesis`).  
+        `none` or `false` means no flyleaf.
 
   - `back-matter`
 
         back-matter(
           show-headings: true,
+          show-headers: true,
           body
         )
 
-  Setting the argument `show-headings` to `false` in `front-matter` or `back-matter` can be used to add pages with a first-level heading to the Table of Contents without showing this heading on the page itself.
+  Setting the argument `show-headings` to `false` in `front-matter` or `back-matter` can be used to add pages with a first-level heading to the Table of Contents without showing this heading on the page itself.  
+  The argument `show-headers` determines whether page headers are shown.
   
 The functions `thesis`, `front-matter`, `chapter`, `appendix` and `back-matter` are typically used in show rules, such as
     
@@ -583,7 +587,7 @@ The locale (language and region) can be changed via the `change-locale` function
       
       Een dankwoord in het Nederlands...
 
-## Miscellaneous functions      
+## Miscellaneous functions  
       
 - Headers
 
@@ -635,16 +639,22 @@ The locale (language and region) can be changed via the `change-locale` function
 
 - `hide-page-number`
 
-      hide-page-number()
+      hide-page-number
   
-  This function hides the page number on the current page. 
+  This variable hides the page number on the current page. 
   
 - `start-at-odd-page`
   
       start-at-odd-page(weak: true)
   
-  This function goes to the next odd page. If a blank (even) page is inserted, its page number is hidden.  
+  This function inserts a page break to the next odd page and suppresses page numbering and headers on possibly inserted empty pages.  
   If `weak` is `true` (= the default), no page will be inserted if the current page is blank.
+  
+- `double-blank-page` 
+  
+      double-blank-page
+      
+  This variable inserts a double blank page (using `start-at-odd-page` and `hide-page-number`).
 
 ## Pre-defined variables
 

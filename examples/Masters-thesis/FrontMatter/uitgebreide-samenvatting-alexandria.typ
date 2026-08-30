@@ -1,4 +1,5 @@
 #import "@local/minerva-thesis:0.3.0": *
+#import "@preview/alexandria:0.2.2": *
 #import "../defs.typ": *
 
 #show: extended-abstract.with(
@@ -9,8 +10,12 @@
   subfigure-numbering: default-subfigure-numbering, //restore the default value 
   subfigure-caption-sep: default-caption-separator, //restore the default value 
   subfigure-caption-prefix-text: (weight: "semibold"), 
+//   bibliography: "../references.yaml",
+//   bib-prefix: "usb-",
+//   read: path => read(path)
   )
 
+ #show: alexandria(prefix: "usb-", read: path=>read(path))
 
 // No blank line after "#abstract-keywords[" such that the text directly follows "Samenvatting - "
 #abstract-keywords[
@@ -18,6 +23,7 @@
 
 #lorem(40)
 ]
+
 
 
 = Inleiding
@@ -33,7 +39,7 @@ De Maxwellspanningstensor $tTM$ is gegeven door:
 $ tTM =  vB vH - 1/2 mu_0 H^2 tI $ <us-eq:TM>
 met $vB$, $vH$ en $tI$ respectievelijk de magnetische inductie, de magnetische veldsterkte en de eenheidstensor.
 
-De uitdrukking  @us-eq:TM is afgeleid door #cite(<EeFff2025>, form: "prose") en wordt veel gebruikt  @GgHhh2025, @IiJjj2025.
+De uitdrukking  @us-eq:TM is afgeleid door #cite(<usb-EeFff2025>, form: "prose") en wordt veel gebruikt  @usb-GgHhh2025, @usb-IiJjj2025.
  //In the extended abstract commas have to be added manually between the citations.
 
 === Voorbeeld
@@ -80,7 +86,7 @@ In @us-examplefigure1 zijn er vier deelfiguren :
 
 #colbreak() // column break to keep the following list together
  
-In @us-table2 staan 2 twee deeltabellen:
+In @us-table2 zien 2 twee deeltabellen:
  + @us-table2a
  + @us-table2b 
  
@@ -88,7 +94,7 @@ In @us-table2 staan 2 twee deeltabellen:
 
 #lorem(100)
 
-Zie @AaBbb2025 en @CcDdd2025 voor meer uitleg.
+Zie @usb-AaBbb2025 en @usb-CcDdd2025 voor meer uitleg.
 
 #m-figure([$x=y<=>y=x$], kind:"theorem", caption: [Een zeer korte stelling],label: <us-the1>)
 
@@ -98,10 +104,6 @@ Volgens  @us-the1, ...
 
 #lorem(120)
 
-
-
-#show bibliography: set par(spacing: 0.65em, leading: 0.65em) // decrease spacing between entries
-#show bibliography: set block(above: 1.2em) // some extra space between heading and first entry (entries are in a block)
-
-#bibliography("../references.yaml",group: none)
-
+#set heading(numbering: none)
+#set par(leading: 0.65em, spacing: 0.65em)
+#bibliographyx("../references.yaml", prefix: "usb-", title: "Referenties")
