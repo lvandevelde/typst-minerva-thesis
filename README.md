@@ -6,18 +6,18 @@
 The `minerva-thesis` package provides a template for writing doctoral and master's theses with [Typst](https://typst.app/) using both generic and [Ghent University](https://www.ugent.be/en) specific functions and features:
 
 - A Ghent University specific title page (optional);
+- Multi-language support: The terminology (including terms for "chapter", "part", "section", etc. and various supplements) is pre-defined (and settable) for English and Dutch dissertations, but can be defined for other languages by the user.
 - Improved layout of outlines (in particular for outline entries spanning multiple lines);
 - Support of Parts, Chapters and Appendices;
-- Multi-language support: The terminology (including terms for "chapter", "part", "section", etc. and various supplements) is pre-defined (and settable) for English and Dutch dissertations, but can be defined for other languages by the user.
-- Figure and equation numbers including the chapter/appendix number;
-- Support of user-defined kinds of figures, next to the standard kinds (`image`, `table` and `raw`), with respect to captions, references and outlines;
-- Automised references to a list or a range of elements, e.g. references to multiple figures: "Figures 1.1, 1.4, and 1.5" or "Figures 1.1-1.3"; 
-- Omission of page numbers on blank pages before the beginning of a chapter;
-- Support of subfigures via package [`subpar`](https://typst.app/universe/package/subpar);
-- Optional (short) versions of figure captions for outlines (List of Figures, List of Tables);
 - Optional page headers via package [`hydra`](https://typst.app/universe/package/hydra);
 - Possibility of left-aligned equations (with a settable left margin);
+- Figure and equation numbers including the chapter/appendix number;
+- Support of user-defined kinds of figures, next to the standard kinds (`image`, `table` and `raw`), with respect to captions, references and outlines;
+- Support of subfigures via package [`subpar`](https://typst.app/universe/package/subpar);
+- Optional (short) versions of figure captions for outlines (List of Figures, List of Tables);
 - Support of background colour (`fill`) for figures and a `breakable` feature for figures (possible span over multiple pages, *experimental*);
+- Automised references to a list or a range of elements, e.g. references to multiple figures: "Figures 1.1, 1.4, and 1.5" or "Figures 1.1-1.3"; 
+- Automatic omission of page numbers and headers on blank pages;
 - Possibility to include an extended abstract, i.e. an abstract in two-column format;
 - Handling of abbreviations via package [`abbr`](https://typst.app/universe/package/abbr);
 - Highly-configurable layout (text parameters (font, size, weight, etc.) and functions (smallcaps, etc.), alignment, ...) of chapter titles, headers, captions, etc.
@@ -59,7 +59,7 @@ The documentation on the functions of this package can be found in [`docs/Docume
  
 ## Examples
 
-In the folder [examples](examples) basic examples of a PhD and a master's thesis are given. 
+In the folder [examples](examples) basic examples of PhD and master's theses are given. 
 
 These example files illustrate most of the functions of the package, in particular:
 
