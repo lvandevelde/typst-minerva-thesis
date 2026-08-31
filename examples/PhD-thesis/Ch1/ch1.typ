@@ -1,4 +1,4 @@
-#import "@local/minerva-thesis:0.3.0": *
+#import "@preview/minerva-thesis:0.3.0": *
 // #import "@preview/cetz:0.4.2"
 // #import cetz.draw: line, content
 #import "../defs.typ": * // import your own definitions

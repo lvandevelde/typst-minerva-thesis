@@ -1,4 +1,4 @@
-#import "@local/minerva-thesis:0.3.0": *
+#import "@preview/minerva-thesis:0.3.0": *
 
 #show: thesis.with(
 //   font: "Libertinus Serif", 
